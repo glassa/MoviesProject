@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MoviesProject</string>
+
+    <string name="tab1_string">Home</string>
+    <string name="tab2_string">Rate Movies</string>
+    <string name="tab3_string">Find Movies</string>
+    <string name="tab4_string">Find Users</string>
+    <string name="tab5_string">Settings</string>
 </resources>
