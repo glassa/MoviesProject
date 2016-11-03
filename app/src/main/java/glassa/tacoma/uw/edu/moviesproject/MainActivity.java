@@ -21,7 +21,7 @@ package glassa.tacoma.uw.edu.moviesproject;
         import java.io.FileOutputStream;
 
 public class MainActivity extends Activity  {
-    Button b1,b2;
+    Button b1,b2, b3;
     EditText ed1,ed2;
 
     TextView tx1;
@@ -39,6 +39,7 @@ public class MainActivity extends Activity  {
         b2=(Button)findViewById(R.id.button2);
         tx1=(TextView)findViewById(R.id.textView3);
         tx1.setVisibility(View.GONE);
+        b3 = (Button)findViewById(R.id.button3) ;
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +71,13 @@ public class MainActivity extends Activity  {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Registerintent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(Registerintent);
             }
         });
     }
