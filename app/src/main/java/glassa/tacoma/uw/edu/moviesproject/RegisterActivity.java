@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URLEncoder;
@@ -46,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                     String url = buildCourseURL(v);
                     mListener.addUser(url);
                    Toast.makeText(getApplicationContext(), "Registering...", Toast.LENGTH_SHORT).show();
-                    Intent Tonyintent = new Intent(RegisterActivity.this, TonyActivity.class);
+                    Intent Tonyintent = new Intent(RegisterActivity.this, TabHostActivity.class);
                     startActivity(Tonyintent);
 
                 } else {

@@ -5,9 +5,14 @@
     tools:context="glassa.tacoma.uw.edu.moviesproject.Tab1Home">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="@string/tab1_string" />-->
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/tab1_string" />
+        />
 
 </FrameLayout>
