@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (ed2.getText().toString().equals(ed3.getText().toString())) {
-                    String url = buildCourseURL(v);
+                    String url = buildUserURL(v);
                     mListener.addUser(url);
                    Toast.makeText(getApplicationContext(), "Registering...", Toast.LENGTH_SHORT).show();
                     Intent Tonyintent = new Intent(RegisterActivity.this, TabHostActivity.class);
@@ -64,13 +64,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private String buildCourseURL(View v) {
+    private String buildUserURL(View v) {
 
         StringBuilder sb = new StringBuilder(USER_ADD_URL);
 
         try {
 
-            String userId = ed1.getText().toString();
+            int userId = 1111111111;
             sb.append("id=");
             sb.append(userId);
 
