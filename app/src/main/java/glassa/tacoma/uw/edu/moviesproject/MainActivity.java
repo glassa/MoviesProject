@@ -5,12 +5,20 @@ package glassa.tacoma.uw.edu.moviesproject;
         import android.graphics.Color;
         import android.os.Bundle;
 
+        import android.view.Menu;
+        import android.view.MenuItem;
         import android.view.View;
+
+        import android.webkit.WebView;
+        import android.webkit.WebViewClient;
 
         import android.widget.Button;
         import android.widget.EditText;
         import android.widget.TextView;
         import android.widget.Toast;
+
+        import java.io.FileInputStream;
+        import java.io.FileOutputStream;
 
 public class MainActivity extends Activity  {
     Button b1,b2, b3;
@@ -40,7 +48,7 @@ public class MainActivity extends Activity  {
 
                         ed2.getText().toString().equals("admin")) {
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
-                    Intent Tonyintent = new Intent(MainActivity.this, TabHostActivity.class);
+                    Intent Tonyintent = new Intent(MainActivity.this, TonyActivity.class);
                     startActivity(Tonyintent);
 
                 }

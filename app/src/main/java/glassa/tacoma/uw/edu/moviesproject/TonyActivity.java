@@ -4,7 +4,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class TabHostActivity extends AppCompatActivity {
+public class TonyActivity extends AppCompatActivity {
 
     private FragmentTabHost TabHost;
 
