@@ -63,7 +63,7 @@ public class Movie implements Serializable {
      * @param movieJSON
      * @return reason or null if successful.
      */
-    public static String parseCourseJSON(String movieJSON, List<Movie> movieList) {
+    public static String parseMovieJSON(String movieJSON, List<Movie> movieList) {
         String reason = null;
         if (movieJSON != null) {
             try {
