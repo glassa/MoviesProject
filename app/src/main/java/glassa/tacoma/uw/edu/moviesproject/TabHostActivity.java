@@ -4,10 +4,18 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+/**
+ * This is the activity that holds the TabHost. This allows for tab navigation.
+ */
 public class TabHostActivity extends AppCompatActivity {
 
     private FragmentTabHost TabHost;
 
+    /**
+     * The oncreate method.
+     * 
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
