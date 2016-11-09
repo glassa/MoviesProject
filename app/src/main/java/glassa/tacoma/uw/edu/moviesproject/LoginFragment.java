@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.net.URLEncoder;
 
 
 /**
@@ -24,13 +27,13 @@ public class LoginFragment extends Fragment {
     public interface LoginAddListener{
 
     }
+    private final static String USER_LOGIN_URL = "http://cssgate.insttech.washington.edu/~_450team2/login.php?";
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     //private  mListener;
 
-    Button b1, b2, b3;
+    Button b1, b2;
     EditText ed1, ed2;
-    String TAG_FRAGMENT ="Test";
     TextView tx1;
     int counter = 3;
 
@@ -95,5 +98,30 @@ public class LoginFragment extends Fragment {
 
         return v;
     }
+    private String buildUserURL(View v) {
 
+        StringBuilder sb = new StringBuilder(USER_LOGIN_URL);
+
+        try {
+
+            String userName = ed1.getText().toString();
+            sb.append("&Username=");
+            sb.append(URLEncoder.encode(userName, "UTF-8"));
+
+
+            String userPW = ed2.getText().toString();
+            sb.append("&Passcode=");
+            sb.append(URLEncoder.encode(userPW, "UTF-8"));
+
+
+
+            Log.i("UserAdd", sb.toString());
+
+        }
+        catch(Exception e) {
+            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
+        }
+        return sb.toString();
+    }
 }
