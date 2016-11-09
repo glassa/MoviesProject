@@ -23,7 +23,7 @@ package glassa.tacoma.uw.edu.moviesproject;
         import java.net.HttpURLConnection;
         import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener {
+public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener{
 
 
     @Override
@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
                 Toast.makeText(getApplicationContext(), "Welcome"
                         , Toast.LENGTH_LONG)
                         .show();
-
+                Intent Tonyintent = new Intent(getApplicationContext(), TabHostActivity.class);
+                startActivity(Tonyintent);
             } else {
                 Toast.makeText(getApplicationContext(), "Username or password is incorrect"
                         , Toast.LENGTH_LONG)
@@ -173,6 +174,8 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
                     Toast.makeText(getApplicationContext(), "User successfully added!"
                             , Toast.LENGTH_LONG)
                             .show();
+
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Failed to add: "
                                     + jsonObject.get("error")

@@ -71,9 +71,7 @@ public class LoginFragment extends Fragment {
                 }
 
 
-                    Toast.makeText(c, "Redirecting...", Toast.LENGTH_SHORT).show();
-                    Intent Tonyintent = new Intent(c, TabHostActivity.class);
-                    startActivity(Tonyintent);
+
 
                     /*
                     Toast.makeText(c, "Wrong Credentials", Toast.LENGTH_SHORT).show();
@@ -104,6 +102,16 @@ public class LoginFragment extends Fragment {
         });
 
         return v;
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof LoginFragment.LoginAddListener) {
+            mListener = (LoginFragment.LoginAddListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement LoginAddListener");
+        }
     }
     private String buildUserURL(View v) {
 
