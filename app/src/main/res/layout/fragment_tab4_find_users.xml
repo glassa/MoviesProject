@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="glassa.tacoma.uw.edu.moviesproject.Tab4FindUsers">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

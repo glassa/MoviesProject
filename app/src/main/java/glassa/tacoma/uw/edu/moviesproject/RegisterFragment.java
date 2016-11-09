@@ -24,7 +24,7 @@ public class RegisterFragment extends Fragment {
         public void addUser(String url);
     }
 
-    private final static String USER_ADD_URL = "http://cssgate.insttech.washington.edu/~glassa/Android/registerUser.php?";
+    private final static String USER_ADD_URL = "http://cssgate.insttech.washington.edu/~_450team2/addUser.php?";
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -86,18 +86,13 @@ public class RegisterFragment extends Fragment {
 
         try {
 
-            int userId = 1111111111;
-            sb.append("id=");
-            sb.append(userId);
-
-
             String userName = ed1.getText().toString();
-            sb.append("&name=");
+            sb.append("&Username=");
             sb.append(URLEncoder.encode(userName, "UTF-8"));
 
 
             String userPW = ed2.getText().toString();
-            sb.append("&pw=");
+            sb.append("&Passcode=");
             sb.append(URLEncoder.encode(userPW, "UTF-8"));
 
 
