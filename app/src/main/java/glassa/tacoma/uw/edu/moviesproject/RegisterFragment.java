@@ -86,7 +86,7 @@ public class RegisterFragment extends Fragment {
 
         try {
 
-            int userId = 1111111111;
+            String userId = "1111111111";
             sb.append("id=");
             sb.append(userId);
 

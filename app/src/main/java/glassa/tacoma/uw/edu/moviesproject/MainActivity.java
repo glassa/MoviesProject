@@ -38,40 +38,18 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-
-
-
-
-
-        b3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                RegisterFragment registerFragment = new RegisterFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.fragment_container, registerFragment)
-                        .addToBackStack(null)
-                        .commit();
-
-            }
-        });
-    }
 
     @Override
     public void addUser(String url) {
-
+//
         AddUserTask task = new AddUserTask();
         task.execute(new String[]{url.toString()});
         getSupportFragmentManager().popBackStack();
     }
 
     public void addLogin(String url) {
-        LoginUserTask task = new LoginUserTask;
+        LoginUserTask task = new LoginUserTask();
         task.execute(new String[]{url.toString()});
         getSupportFragmentManager().popBackStack();
     }
