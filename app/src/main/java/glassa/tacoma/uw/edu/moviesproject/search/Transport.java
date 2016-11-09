@@ -16,7 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Send input from search bar to mySQL and Receive response from PHP
+ * A AsyncTask Send input from search bar to mySQL and Receive response from PHP
  * Created by Yunhang on 2016/11/5.
  */
 public class Transport extends AsyncTask<Void,Void,String> {
