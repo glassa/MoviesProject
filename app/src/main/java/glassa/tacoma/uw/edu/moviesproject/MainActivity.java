@@ -103,12 +103,12 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
             JSONObject jsonObject = new JSONObject(result);
             String status = (String) jsonObject.get("result");
             if (status.equals("success")) {
-                Toast.makeText(getApplicationContext(), "User successfully added!"
+                Toast.makeText(getApplicationContext(), "Welcome"
                         , Toast.LENGTH_LONG)
                         .show();
+
             } else {
-                Toast.makeText(getApplicationContext(), "Failed to add: "
-                                + jsonObject.get("error")
+                Toast.makeText(getApplicationContext(), "Username or password is incorrect"
                         , Toast.LENGTH_LONG)
                         .show();
             }

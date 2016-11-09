@@ -25,12 +25,13 @@ import java.net.URLEncoder;
  */
 public class LoginFragment extends Fragment {
     public interface LoginAddListener{
+        public void addLogin(String url);
 
     }
     private final static String USER_LOGIN_URL = "http://cssgate.insttech.washington.edu/~_450team2/login.php?";
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
-    //private  mListener;
+    private LoginFragment.LoginAddListener mListener;
 
     Button b1, b2;
     EditText ed1, ed2;
@@ -62,14 +63,19 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Context c = getActivity();
-                if (ed1.getText().toString().equals("admin") &&
+                String url = buildUserURL(v);
+                if(url != null) {
+                    mListener.addLogin(url);
+                } else {
+                    Toast.makeText(c, "Error building url", Toast.LENGTH_LONG).show();
+                }
 
-                        ed2.getText().toString().equals("admin")) {
+
                     Toast.makeText(c, "Redirecting...", Toast.LENGTH_SHORT).show();
                     Intent Tonyintent = new Intent(c, TabHostActivity.class);
                     startActivity(Tonyintent);
 
-                } else {
+                    /*
                     Toast.makeText(c, "Wrong Credentials", Toast.LENGTH_SHORT).show();
 
                     tx1.setVisibility(View.VISIBLE);
@@ -79,10 +85,11 @@ public class LoginFragment extends Fragment {
 
                     if (counter == 0) {
                         b1.setEnabled(false);
-                    }
+                        */
+
                 }
-            }
-        });
+
+            });
 
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
