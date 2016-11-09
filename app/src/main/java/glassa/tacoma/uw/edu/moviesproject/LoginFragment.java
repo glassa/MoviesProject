@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,7 @@ public class LoginFragment extends Fragment {
 
     Button b1, b2, b3;
     EditText ed1, ed2;
-
+    String TAG_FRAGMENT ="Test";
     TextView tx1;
     int counter = 3;
 
@@ -53,7 +55,6 @@ public class LoginFragment extends Fragment {
         b2 = (Button) v.findViewById(R.id.button2);
         tx1 = (TextView) v.findViewById(R.id.textView3);
         tx1.setVisibility(View.GONE);
-        b3 = (Button) v.findViewById(R.id.button3);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,14 +80,20 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context c = getActivity();
-                c.finish();
+                Fragment fragment = new RegisterFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 
+        return v;
     }
 
 }
