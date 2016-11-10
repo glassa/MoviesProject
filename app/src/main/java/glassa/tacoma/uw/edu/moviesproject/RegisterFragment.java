@@ -17,22 +17,40 @@ import java.net.URLEncoder;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A fragment class to hold the registration UI.
+ * Contains 3 EditText views, one for the user name,
+ * and two for the password. If the two password views
+ * match, interface is called to launch the Asynctask
+ * in mainActivity to add the data.
+ *
+ * Contains one button. On click, calls a stringbuilder
+ * to build the appended url, and call the AsyncTask
+ *
+ * Conatains a stringbuilder that builds the url by taking
+ * the data out of the EditViews and appending it onto the url.
+ *
  */
 public class RegisterFragment extends Fragment {
     public interface UserAddListener {
         public void addUser(String url);
     }
 
+    /**
+     * The url to connect to the database, without the appended command options.
+     */
     private final static String USER_ADD_URL = "http://cssgate.insttech.washington.edu/~_450team2/addUser.php?";
+
+    /**
+     * The empty public constructer
+     */
     public RegisterFragment() {
         // Required empty public constructor
     }
 
-    Button b1, b2;
+    Button b1;
     EditText ed1, ed2, ed3;
     private RegisterFragment.UserAddListener mListener;
-    //TextView tx1;
+
 
 
 
@@ -43,7 +61,6 @@ public class RegisterFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_register, container, false);
 
         b1 = (Button) v.findViewById(R.id.buttonReg);
-        //b2 = (Button) v.findViewById(R.id.buttonRegCancel);
         ed1 = (EditText) v.findViewById(R.id.editRegisterText);
         ed2 = (EditText) v.findViewById(R.id.editRegisterText2);
         ed3 = (EditText) v.findViewById(R.id.editRegisterText3) ;
