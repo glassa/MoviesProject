@@ -13,7 +13,7 @@ public class TabHostActivity extends AppCompatActivity {
 
     /**
      * The oncreate method.
-     * 
+     *
      * @param savedInstanceState
      */
     @Override
