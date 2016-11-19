@@ -7,14 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import glassa.tacoma.uw.edu.moviesproject.movie.Movie;
 
 
 
@@ -33,11 +29,12 @@ public class Tab1Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_tab1_home, container, false);
 //        listFeed = (ListView) getView().findViewById(R.id.homeFeed);
 //        feedList = new ArrayList<String>();
 
 
-        return inflater.inflate(R.layout.fragment_tab1_home, container, false);
+        return v;
     }
 
     private class DownloadCoursesTask extends AsyncTask<String, Void, String> {
@@ -58,5 +55,9 @@ public class Tab1Home extends Fragment {
             return null;
         }
     }
+
+
+
+
 
 }
