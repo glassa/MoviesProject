@@ -14,11 +14,20 @@ import java.util.List;
 public class User implements Serializable{
     String mUserID, mUserName, mUserPass;
     public static final String ID = "id", USER_NAME = "name", USER_PASS = "pass";
+    boolean isLoggedIn;
 
     public User(String mUserID, String mUserName, String mUserPass) {
         this.mUserID = mUserID;
         this.mUserName = mUserName;
         this.mUserPass = mUserPass;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
     }
 
     public String getmUserID() {
