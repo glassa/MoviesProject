@@ -22,13 +22,31 @@ import java.net.URLEncoder;
 import glassa.tacoma.uw.edu.moviesproject.R;
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
 
+/**
+ * This is the activity that holds the profile of any user.  This is where users
+ * can go to view another user's followers, view who they are following, view
+ * what movies they have rated, or follow them themselves.
+ */
 public class ProfileActivity extends AppCompatActivity {
-    private static final String FOLLOW_ITEM_URL
-            = "http://cssgate.insttech.washington.edu/~_450team2/followUser?";
-
+    /**
+     * The base of the URL command to follow a user.
+     */
+    private static final String FOLLOW_ITEM_URL = "http://cssgate.insttech.washington.edu/~_450team2/followUser?";
+    /**
+     * The current user's username.
+     */
     String mCurrentUser;
+    /**
+     * The target user's username.
+     */
     String mTargetUser; //this should be set upon creation of this class
 
+    /**
+     * This is called at the start of the activity. It sets the current and target
+     * users to what they were in the previous activity and sets the textview on the
+     * layout xml.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,15 +56,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         Log.i("ProfileActivity", "target user: " + mTargetUser);
 
-
-//        tv.append(mTargetUser);
         setContentView(R.layout.activity_profile);
         TextView tv = (TextView) findViewById(R.id.target_user_id);
         tv.setText("You are viewing " + mTargetUser + "'s profile!");
-
-
     }
 
+    /**
+     * The AsyncTask to follow a user.  This method connects to the database and inserts
+     * into the database that the Current user follows the Target user.
+     */
     private class FollowUserTask extends AsyncTask<String, Void, String> {
 
         /**
@@ -126,21 +144,23 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts the AsyncTask to follow the user. Its triggored by the button "Follow"
+     * @param view
+     */
     public void followUser(View view) {
         FollowUserTask task = new FollowUserTask();
         task.execute(buildUserURL(view));
     }
 
+    /**
+     * Opens the list of those following the target user.
+     * @param view
+     */
     public void viewFollowingUsers(View view) {
         Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "following users clicked");
-//        if (findViewById(R.id.realtabcontent)!= null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.hometabhost, new FollowingFragment())
-//                    .commit();
-//        }
-
         Log.i("TabHostActivity", "Current User: " + mTargetUser);
 
         Intent i = new Intent(this, FollowItemActivity.class);
@@ -149,6 +169,10 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    /**
+     * Opens the list of those that the target user follows.
+     * @param view
+     */
     public void viewUsersImFollowing(View view) {
         Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
                 .show();
@@ -161,21 +185,23 @@ public class ProfileActivity extends AppCompatActivity {
         i.putExtra("FOLLOWING", true);
         i.putExtra("USERNAME", mTargetUser);
         startActivity(i);
-
-
     }
+
+    /**
+     * Opens the list of movies that the target user has rated.
+     * @param view
+     */
     public void viewRatedMovies(View view) {
         Toast.makeText(view.getContext(), "viewing movies you've rated", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "rate movies clicked");
-//        if (findViewById(R.id.realtabcontent)!= null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.hometabhost, new FollowingFragment())
-//                    .commit();
-//        }
     }
 
-
+    /**
+     * Builds the URL for the FollowUser AsyncTask.  It creates the command for
+     * @param v
+     * @return
+     */
     private String buildUserURL(View v) {
 
         StringBuilder sb = new StringBuilder(FOLLOW_ITEM_URL);
@@ -187,7 +213,6 @@ public class ProfileActivity extends AppCompatActivity {
             sb.append("&UserB=");
             sb.append(URLEncoder.encode(mTargetUser, "UTF-8"));
             Log.i("ProfileActivity", "URL=" + sb.toString());
-
         }
         catch(Exception e) {
             Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)

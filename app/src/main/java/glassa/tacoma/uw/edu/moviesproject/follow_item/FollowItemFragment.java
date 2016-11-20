@@ -161,6 +161,11 @@ public class FollowItemFragment extends Fragment {
         }
 
     }
+
+    /**
+     * This runs on create.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,7 +175,7 @@ public class FollowItemFragment extends Fragment {
     /**
      * This method gets the info of current user and which button was clicked from the
      * "putExtra" from the FollowItemActivity and assigns the information to the fields within
-     * this class. It also passes them on to 
+     * this class.
      * @param inflater
      * @param container
      * @param savedInstanceState

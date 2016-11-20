@@ -1,7 +1,6 @@
 package glassa.tacoma.uw.edu.moviesproject.follow_item;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,9 @@ import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemFragment.OnListF
  */
 public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFollowItemRecyclerViewAdapter.ViewHolder> {
 
+    /**
+     * List of FollowItems that are entered into the list.
+     */
     private final List<FollowItem> mValues;
     /**
      * Was the Following button clicked?
@@ -28,8 +30,18 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
      * Was the Followers button clicked?
      */
     private Boolean mFollowersButton;
+    /**
+     * The listener for which item is clicked on the list.
+     */
     private final OnListFragmentInteractionListener mListener;
 
+    /**
+     * The constructor for the View Adapter. It sets the values of all the fields in the class.
+     * @param items
+     * @param listener
+     * @param followersButton
+     * @param followingButton
+     */
     public MyFollowItemRecyclerViewAdapter(List<FollowItem> items, OnListFragmentInteractionListener listener, Boolean followersButton, Boolean followingButton) {
         mValues = items;
         mListener = listener;
@@ -37,6 +49,12 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
         mFollowingButton = followingButton;
     }
 
+    /**
+     * Starts up the view and calls the layout.
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -44,6 +62,11 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
         return new ViewHolder(view);
     }
 
+    /**
+     * Determines what is displayed on the list.
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
@@ -71,11 +94,18 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
         });
     }
 
+    /**
+     * Gets the number of items in the list.
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mValues.size();
     }
 
+    /**
+     * This holds the view for each item.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
@@ -87,8 +117,6 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
-            Log.i("RecyclerView", mIdView.getText()+"");
-            Log.i("RecyclerView", mContentView.getText() + "");
         }
 
         @Override
