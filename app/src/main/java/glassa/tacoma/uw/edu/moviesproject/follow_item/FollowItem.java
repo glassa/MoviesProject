@@ -39,18 +39,19 @@ public class FollowItem implements Serializable{
     /**
      * Parses the json string, returns an error message if unsuccessful.
      * Returns course list if success.
-     * @param courseJSON
+     * @param followListJSON
      * @return reason or null if successful.
      */
-    public static String parseCourseJSON(String courseJSON, List<FollowItem> fItemList) {
+    public static String parseCourseJSON(String followListJSON, List<FollowItem> fItemList) {
         String reason = null;
-        if (courseJSON != null) {
+        if (followListJSON != null) {
             try {
-                JSONArray arr = new JSONArray(courseJSON);
+                JSONArray arr = new JSONArray(followListJSON);
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
                     FollowItem fItem = new FollowItem(obj.getString(FollowItem.USER_A), obj.getString(FollowItem.USER_B));
+
                     fItemList.add(fItem);
                 }
             } catch (JSONException e) {
