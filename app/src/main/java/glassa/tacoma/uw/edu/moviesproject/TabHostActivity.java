@@ -17,6 +17,7 @@ public class TabHostActivity extends AppCompatActivity {
 
     private FragmentTabHost TabHost;
 
+
     /**
      * The oncreate method.
      *
@@ -44,13 +45,37 @@ public class TabHostActivity extends AppCompatActivity {
                 Tab5Settings.class, null);
     }
 
+    public void viewFollowingUsers(View view) {
+        Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
+                .show();
+        Log.i("home", "following users clicked");
+//        if (findViewById(R.id.realtabcontent)!= null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.hometabhost, new FollowingFragment())
+//                    .commit();
+//        }
+
+        String username = getIntent().getStringExtra("USERNAME");
+        Log.i("TabHostActivity", "Current User: " + username);
+
+        Intent i = new Intent(this, FollowItemActivity.class);
+        i.putExtra("FOLLOWERS", true);
+        i.putExtra("USERNAME", username);
+        startActivity(i);
+    }
+
     public void viewUsersImFollowing(View view) {
         Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "view users i'm following");
-//        NextFragment nextFrag = new NextFragment();
+
+        String username = getIntent().getStringExtra("USERNAME");
+
+        Log.i("TabHostActivity", "Current User: " + username);
 
         Intent i = new Intent(this, FollowItemActivity.class);
+        i.putExtra("FOLLOWING", true);
+        i.putExtra("USERNAME", username);
         startActivity(i);
 
 
@@ -65,15 +90,6 @@ public class TabHostActivity extends AppCompatActivity {
 //                    .commit();
 //        }
     }
-    public void viewFollowingUsers(View view) {
-        Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
-                .show();
-        Log.i("home", "following users clicked");
-//        if (findViewById(R.id.realtabcontent)!= null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.hometabhost, new FollowingFragment())
-//                    .commit();
-//        }
-    }
+
 
 }
