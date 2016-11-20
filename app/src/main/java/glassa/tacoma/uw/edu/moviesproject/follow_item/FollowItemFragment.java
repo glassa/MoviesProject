@@ -83,6 +83,7 @@ public class FollowItemFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
+            Log.i("FIF OnPostExecute", result);
             if (result.startsWith("Unable to")) {
                 Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();

@@ -1,6 +1,7 @@
 package glassa.tacoma.uw.edu.moviesproject.follow_item;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,9 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getmUserA());
-        holder.mContentView.setText(mValues.get(position).getmUserB());
+        //This is what builds the string that is displayed as the list item
+        holder.mIdView.setText(mValues.get(position).getmUserA() + " is following " + mValues.get(position).getmUserB());
+//        holder.mContentView.setText(mValues.get(position).getmUserB());       //commented out the second item in list
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +69,8 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
+            Log.i("RecyclerView", mIdView.getText()+"");
+            Log.i("RecyclerView", mContentView.getText() + "");
         }
 
         @Override
