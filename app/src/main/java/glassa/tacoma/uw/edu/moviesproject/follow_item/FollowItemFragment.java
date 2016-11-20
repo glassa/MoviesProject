@@ -31,16 +31,34 @@ import glassa.tacoma.uw.edu.moviesproject.R;
  * interface.
  */
 public class FollowItemFragment extends Fragment {
-    private static final String FOLLOW_ITEM_URL
-            = "http://cssgate.insttech.washington.edu/~_450team2/list.php?cmd=followlist";
+    /**
+     * The base url of our command to interact with our database via php
+     */
+    private static final String FOLLOW_ITEM_URL = "http://cssgate.insttech.washington.edu/~_450team2/list.php?cmd=followlist";
 
-    // TODO: Customize parameters
+    /**
+     * Number of Columns.
+     */
     private int mColumnCount = 1;
+    /**
+     * Current user.
+     */
     private String mCurrentUser;
+    /**
+     * Was the Following button clicked?
+     */
     private Boolean mFollowingButton;
+    /**
+     * Was the Followers button clicked?
+     */
     private Boolean mFollowersButton;
+    /**
+     * Recycler view to view the list of followers or following.
+     */
     private RecyclerView mRecyclerView;
-
+    /**
+     * The listener for if a list object is clicked.
+     */
     private OnListFragmentInteractionListener mListener;
 
     /**
@@ -50,6 +68,43 @@ public class FollowItemFragment extends Fragment {
     public FollowItemFragment() {
     }
 
+    /**
+     * This method builds the URL from the base URL constant.  Also, based on the mFollowing
+     * and mFollowers fields, it will decide which one to filter the list for. If we are looking
+     * at Followers, the list would come out as [User A is following User B] where current user is
+     * [User B], but since this is a list of followers, we only want to see the list of those
+     * following us, so we make it a list of only [User A].  And if we are looking at who we are
+     * following, we only want to see a list of [User B].
+     * @param v
+     * @return
+     */
+    private String buildUserURL(View v) {
+
+        StringBuilder sb = new StringBuilder(FOLLOW_ITEM_URL);
+
+        try {
+            if(mFollowingButton) {
+                sb.append("A&UserA=");
+                sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
+
+                Log.i("FollowItemFragment", "URL=" + sb.toString());
+            } else if (mFollowersButton) {
+                sb.append("B&UserB=");
+                sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
+
+                Log.i("FollowItemFragment", "URL=" + sb.toString());
+            }
+        }
+        catch(Exception e) {
+            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
+        }
+        return sb.toString();
+    }
+
+    /**
+     * AsyncTask to get the filtered list of followers or followed users.
+     */
     private class GetFollowListTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
@@ -112,6 +167,15 @@ public class FollowItemFragment extends Fragment {
 
     }
 
+    /**
+     * This method gets the info of current user and which button was clicked from the
+     * "putExtra" from the FollowItemActivity and assigns the information to the fields within
+     * this class. It also passes them on to 
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -176,27 +240,5 @@ public class FollowItemFragment extends Fragment {
         void onListFragmentInteraction(FollowItem item);
     }
 
-    private String buildUserURL(View v) {
 
-        StringBuilder sb = new StringBuilder(FOLLOW_ITEM_URL);
-
-        try {
-            if(mFollowingButton) {
-                sb.append("A&UserA=");
-                sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
-
-                Log.i("FollowItemFragment", "URL=" + sb.toString());
-            } else if (mFollowersButton) {
-                sb.append("B&UserB=");
-                sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
-
-                Log.i("FollowItemFragment", "URL=" + sb.toString());
-            }
-        }
-        catch(Exception e) {
-            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
-                    .show();
-        }
-        return sb.toString();
-    }
 }

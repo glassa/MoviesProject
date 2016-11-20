@@ -20,7 +20,13 @@ import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemFragment.OnListF
 public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFollowItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<FollowItem> mValues;
+    /**
+     * Was the Following button clicked?
+     */
     private Boolean mFollowingButton;
+    /**
+     * Was the Followers button clicked?
+     */
     private Boolean mFollowersButton;
     private final OnListFragmentInteractionListener mListener;
 
