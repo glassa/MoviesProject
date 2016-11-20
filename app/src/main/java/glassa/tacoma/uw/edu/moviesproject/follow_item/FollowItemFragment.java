@@ -37,6 +37,8 @@ public class FollowItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private String mCurrentUser;
+    private Boolean mFollowingButton;
+    private Boolean mFollowersButton;
     private RecyclerView mRecyclerView;
 
     private OnListFragmentInteractionListener mListener;
@@ -120,6 +122,9 @@ public class FollowItemFragment extends Fragment {
             FollowItemActivity fiActivity = (FollowItemActivity)getActivity();
 
             mCurrentUser = fiActivity.getmUsername();
+            mFollowingButton = fiActivity.getmFollowingButton();
+            mFollowersButton = fiActivity.getmFollowersButton();
+
 
             Log.i("FollowItemFragment", "current user: " + mCurrentUser);
 
@@ -176,14 +181,17 @@ public class FollowItemFragment extends Fragment {
         StringBuilder sb = new StringBuilder(FOLLOW_ITEM_URL);
 
         try {
+            if(mFollowingButton) {
+                sb.append("A&UserA=");
+                sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
 
-            sb.append("&UserA=");
-            sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
+                Log.i("FollowItemFragment", "URL=" + sb.toString());
+            } else if (mFollowersButton) {
+                sb.append("B&UserB=");
+                sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
 
-
-
-            Log.i("UserAdd", sb.toString());
-
+                Log.i("FollowItemFragment", "URL=" + sb.toString());
+            }
         }
         catch(Exception e) {
             Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
