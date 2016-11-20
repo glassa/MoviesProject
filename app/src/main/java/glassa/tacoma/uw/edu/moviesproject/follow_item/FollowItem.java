@@ -51,6 +51,7 @@ public class FollowItem implements Serializable{
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
                     FollowItem fItem = new FollowItem(obj.getString(FollowItem.USER_A), obj.getString(FollowItem.USER_B));
+
                     fItemList.add(fItem);
                 }
             } catch (JSONException e) {

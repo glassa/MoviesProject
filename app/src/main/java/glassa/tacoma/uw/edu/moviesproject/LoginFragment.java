@@ -2,8 +2,6 @@ package glassa.tacoma.uw.edu.moviesproject;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,6 +31,7 @@ public class LoginFragment extends Fragment {
     private int mColumnCount = 1;
     private LoginFragment.LoginAddListener mListener;
 
+    String mUsername;
     Button b1, b2;
     EditText ed1, ed2;
     TextView tx1;
@@ -40,6 +39,10 @@ public class LoginFragment extends Fragment {
 
     public LoginFragment() {
         // Required empty public constructor
+    }
+
+    public String getmUsername() {
+        return mUsername;
     }
 
     @Override
@@ -123,6 +126,8 @@ public class LoginFragment extends Fragment {
             sb.append("&Username=");
             sb.append(URLEncoder.encode(userName, "UTF-8"));
 
+            MainActivity m = (MainActivity) getActivity();
+            m.setmUsername(userName);
 
             String userPW = ed2.getText().toString();
             sb.append("&Passcode=");

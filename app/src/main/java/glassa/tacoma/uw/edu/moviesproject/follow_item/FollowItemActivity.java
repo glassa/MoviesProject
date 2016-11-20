@@ -7,10 +7,14 @@ import glassa.tacoma.uw.edu.moviesproject.R;
 
 public class FollowItemActivity extends AppCompatActivity implements FollowItemFragment.OnListFragmentInteractionListener{
 
+    public String mUsername;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_item);
+
+        mUsername = getIntent().getStringExtra("USERNAME");
 
         if (savedInstanceState == null || getSupportFragmentManager().findFragmentById(R.id.list) == null) {
             FollowItemFragment FollowItemFragment = new FollowItemFragment();
@@ -24,5 +28,9 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
     @Override
     public void onListFragmentInteraction(FollowItem item) {
 
+    }
+
+    public String getmUsername() {
+        return mUsername;
     }
 }

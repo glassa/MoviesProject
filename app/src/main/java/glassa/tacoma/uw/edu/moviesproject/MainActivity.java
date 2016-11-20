@@ -1,17 +1,10 @@
 package glassa.tacoma.uw.edu.moviesproject;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -25,6 +18,9 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener{
 
+    LoginFragment mLoginFrag;
+    String mUsername;
+
     /**
      * OnCreate method to instanciate the fragment container,
      * and then take the user to the login fragment
@@ -34,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        mLoginFrag = new LoginFragment();
         if (findViewById(R.id.fragment_container) != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new LoginFragment())
@@ -41,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         }
     }
 
+    public void setmUsername(String mUsername) {
+        this.mUsername = mUsername;
+    }
 
     /**
      * Fragment interface that launches the registration Asynctask.
@@ -127,8 +127,10 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
                     Toast.makeText(getApplicationContext(), "Welcome"
                             , Toast.LENGTH_LONG)
                             .show();
-                    Intent Tonyintent = new Intent(getApplicationContext(), TabHostActivity.class);
-                    startActivity(Tonyintent);
+                    Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
+                    Log.i("MainActivity", "username: " + mUsername);
+                    intent.putExtra("USERNAME", mUsername);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Username or password is incorrect"
                             , Toast.LENGTH_LONG)
