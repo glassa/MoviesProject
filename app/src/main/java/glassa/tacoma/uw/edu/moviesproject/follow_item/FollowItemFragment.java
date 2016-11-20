@@ -50,7 +50,7 @@ public class FollowItemFragment extends Fragment {
     public FollowItemFragment() {
     }
 
-    private class DownloadCoursesTask extends AsyncTask<String, Void, String> {
+    private class GetFollowListTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
             String response = "";
@@ -101,7 +101,7 @@ public class FollowItemFragment extends Fragment {
 
             // Everything is good, show the list of courses.
             if (!followItemList.isEmpty()) {
-                mRecyclerView.setAdapter(new MyFollowItemRecyclerViewAdapter(followItemList, mListener));
+                mRecyclerView.setAdapter(new MyFollowItemRecyclerViewAdapter(followItemList, mListener, mFollowersButton, mFollowingButton));
             }
         }
 
@@ -122,7 +122,7 @@ public class FollowItemFragment extends Fragment {
             Context context = view.getContext();
             FollowItemActivity fiActivity = (FollowItemActivity)getActivity();
 
-            mCurrentUser = fiActivity.getmUsername();
+            mCurrentUser = fiActivity.getmCurrentUser();
             mFollowingButton = fiActivity.getmFollowingButton();
             mFollowersButton = fiActivity.getmFollowersButton();
 
@@ -136,7 +136,7 @@ public class FollowItemFragment extends Fragment {
             } else {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            DownloadCoursesTask task = new DownloadCoursesTask();
+            GetFollowListTask task = new GetFollowListTask();
 
             task.execute(new String[]{buildUserURL(getView())});
         }
@@ -173,7 +173,6 @@ public class FollowItemFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(FollowItem item);
     }
 

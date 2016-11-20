@@ -28,7 +28,8 @@
         <activity
             android:name=".follow_item.FollowItemActivity"
             android:label="@string/title_activity_follow_item"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".profile.ProfileActivity"></activity>
     </application>
 
 </manifest>

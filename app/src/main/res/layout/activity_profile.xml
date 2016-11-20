@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="glassa.tacoma.uw.edu.moviesproject.profile.ProfileActivity">
+
+    <TextView
+        android:id="@+id/target_user_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hello"
+        android:textSize="30sp" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/followers_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Followers"
+            android:gravity="bottom"
+            android:onClick="viewFollowingUsers"/>
+        <Button
+            android:id="@+id/following_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Following"
+            android:gravity="bottom"
+            android:onClick="viewUsersImFollowing"/>
+
+        <Button
+            android:id="@+id/ratings_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ratings"
+            android:gravity="bottom"
+            android:onClick="viewRatedMovies"/>
+
+        <Button
+            android:id="@+id/follow_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Follow"
+            android:gravity="bottom"
+            android:onClick="followUser"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

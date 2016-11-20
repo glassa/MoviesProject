@@ -15,6 +15,7 @@ public class FollowItem implements Serializable{
     String mUserA, mUserB, mMatches, mDifferences, mTimeStamp;
     public static final String USER_A = "UserA", USER_B = "UserB";
 
+
     public FollowItem(String mUserA, String mUserB) {
         this.mUserA = mUserA;
         this.mUserB = mUserB;

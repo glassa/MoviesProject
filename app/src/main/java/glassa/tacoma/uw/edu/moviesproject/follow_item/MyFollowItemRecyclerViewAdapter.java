@@ -20,11 +20,15 @@ import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemFragment.OnListF
 public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFollowItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<FollowItem> mValues;
+    private Boolean mFollowingButton;
+    private Boolean mFollowersButton;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyFollowItemRecyclerViewAdapter(List<FollowItem> items, OnListFragmentInteractionListener listener) {
+    public MyFollowItemRecyclerViewAdapter(List<FollowItem> items, OnListFragmentInteractionListener listener, Boolean followersButton, Boolean followingButton) {
         mValues = items;
         mListener = listener;
+        mFollowersButton = followersButton;
+        mFollowingButton = followingButton;
     }
 
     @Override
@@ -38,7 +42,15 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         //This is what builds the string that is displayed as the list item
-        holder.mIdView.setText(mValues.get(position).getmUserA() + " is following " + mValues.get(position).getmUserB());
+
+        if (mFollowingButton) {
+            holder.mIdView.setText(mValues.get(position).getmUserB());
+
+        } else if (mFollowersButton) {
+            holder.mIdView.setText(mValues.get(position).getmUserA());
+        }
+
+//        holder.mIdView.setText(mValues.get(position).getmUserA() + " is following " + mValues.get(position).getmUserB());
 //        holder.mContentView.setText(mValues.get(position).getmUserB());       //commented out the second item in list
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

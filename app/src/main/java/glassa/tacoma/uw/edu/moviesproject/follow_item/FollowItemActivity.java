@@ -1,14 +1,16 @@
 package glassa.tacoma.uw.edu.moviesproject.follow_item;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import glassa.tacoma.uw.edu.moviesproject.R;
+import glassa.tacoma.uw.edu.moviesproject.profile.ProfileActivity;
 
 public class FollowItemActivity extends AppCompatActivity implements FollowItemFragment.OnListFragmentInteractionListener{
 
-    private String mUsername;
+    private String mCurrentUser;
     private Boolean mFollowingButton;
     private Boolean mFollowersButton;
 
@@ -19,9 +21,11 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_item);
 
-        mUsername = getIntent().getStringExtra("USERNAME");
+
+        mCurrentUser = getIntent().getStringExtra("USERNAME");
         mFollowingButton = getIntent().getBooleanExtra("FOLLOWING", false);
         mFollowersButton = getIntent().getBooleanExtra("FOLLOWERS", false);
+
 
         Log.i("FollowItemActivity", "Following = " + mFollowingButton.toString());
         Log.i("FollowItemActivity", "Followers = " + mFollowersButton.toString());
@@ -37,11 +41,22 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
 
     @Override
     public void onListFragmentInteraction(FollowItem item) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("CURRENT_USER", mCurrentUser);
+        if (mFollowingButton) {
+            intent.putExtra("TARGET_USER", item.getmUserB());
+        } else if (mFollowersButton) {
+
+            intent.putExtra("TARGET_USER", item.getmUserA());
+        }
+
+
+        startActivity(intent);
 
     }
 
-    public String getmUsername() {
-        return mUsername;
+    public String getmCurrentUser() {
+        return mCurrentUser;
     }
 
     public Boolean getmFollowingButton() {
@@ -50,5 +65,9 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
 
     public Boolean getmFollowersButton() {
         return mFollowersButton;
+    }
+
+    public void setActionBarTitle(String title) {
+        getActionBar().setTitle(title);
     }
 }
