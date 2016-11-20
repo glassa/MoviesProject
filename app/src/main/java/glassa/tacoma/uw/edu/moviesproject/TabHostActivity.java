@@ -17,6 +17,7 @@ public class TabHostActivity extends AppCompatActivity {
 
     private FragmentTabHost TabHost;
 
+
     /**
      * The oncreate method.
      *
@@ -48,9 +49,11 @@ public class TabHostActivity extends AppCompatActivity {
         Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "view users i'm following");
-//        NextFragment nextFrag = new NextFragment();
+        String username = getIntent().getStringExtra("USERNAME");
+        Log.i("TabHostActivity", "Current User: " + username);
 
         Intent i = new Intent(this, FollowItemActivity.class);
+        i.putExtra("USERNAME", username);
         startActivity(i);
 
 

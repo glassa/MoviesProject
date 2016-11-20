@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class FollowItemFragment extends Fragment {
 
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private String mCurrentUser;
     private RecyclerView mRecyclerView;
 
     private OnListFragmentInteractionListener mListener;
@@ -114,14 +117,22 @@ public class FollowItemFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
+            FollowItemActivity fiActivity = (FollowItemActivity)getActivity();
+
+            mCurrentUser = fiActivity.getmUsername();
+
+            Log.i("FollowItemFragment", "current user: " + mCurrentUser);
+
             mRecyclerView = (RecyclerView) view;
+
             if (mColumnCount <= 1) {
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             DownloadCoursesTask task = new DownloadCoursesTask();
-            task.execute(new String[]{FOLLOW_ITEM_URL});
+
+            task.execute(new String[]{buildUserURL(getView())});
         }
         return view;
     }
@@ -158,5 +169,26 @@ public class FollowItemFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(FollowItem item);
+    }
+
+    private String buildUserURL(View v) {
+
+        StringBuilder sb = new StringBuilder(FOLLOW_ITEM_URL);
+
+        try {
+
+            sb.append("&UserA=");
+            sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
+
+
+
+            Log.i("UserAdd", sb.toString());
+
+        }
+        catch(Exception e) {
+            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
+        }
+        return sb.toString();
     }
 }
