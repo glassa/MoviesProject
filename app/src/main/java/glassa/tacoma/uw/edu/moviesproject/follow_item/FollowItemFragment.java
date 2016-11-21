@@ -191,10 +191,18 @@ public class FollowItemFragment extends Fragment {
             Context context = view.getContext();
             FollowItemActivity fiActivity = (FollowItemActivity)getActivity();
 
+
             mCurrentUser = fiActivity.getmCurrentUser();
             mFollowingButton = fiActivity.getmFollowingButton();
             mFollowersButton = fiActivity.getmFollowersButton();
 
+            if (mFollowingButton) {
+                getActivity().setTitle("Following");
+
+            } else {
+                getActivity().setTitle("Followers");
+
+            }
 
             Log.i("FollowItemFragment", "current user: " + mCurrentUser);
 

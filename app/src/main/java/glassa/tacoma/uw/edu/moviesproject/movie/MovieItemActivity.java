@@ -38,6 +38,12 @@ public class MovieItemActivity extends AppCompatActivity implements MovieItemFra
                     .add(R.id.movie_item_frag_container, movieItemFragment)
                     .commit();
         }
+//        if (savedInstanceState == null || getSupportFragmentManager().findFragmentById(R.id.list) == null) {
+//            MovieItemFragment movieItemFragment = new MovieItemFragment();
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.movie_item_frag_container, movieItemFragment)
+//                    .commit();
+//        }
 
     }
 
