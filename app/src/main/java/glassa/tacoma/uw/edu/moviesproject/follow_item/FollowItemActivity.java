@@ -62,17 +62,20 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
      */
     @Override
     public void onListFragmentInteraction(FollowItem item) {
-        Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("CURRENT_USER", mCurrentUser);
+        Intent intent = null;
         if (mFollowingButton) {
+            intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("CURRENT_USER", mCurrentUser);
             intent.putExtra("TARGET_USER", item.getmUserB());
         } else if (mFollowersButton) {
-
+            intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("CURRENT_USER", mCurrentUser);
             intent.putExtra("TARGET_USER", item.getmUserA());
         }
 
-        startActivity(intent);
-
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 
     /**
@@ -98,6 +101,7 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
     public Boolean getmFollowersButton() {
         return mFollowersButton;
     }
+
 
     /**
      * Method to set the title of the list fragment. Not used atm.

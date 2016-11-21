@@ -1,6 +1,5 @@
-package glassa.tacoma.uw.edu.moviesproject.profile;
+package glassa.tacoma.uw.edu.moviesproject.movie;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,53 +19,41 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import glassa.tacoma.uw.edu.moviesproject.R;
-import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
-import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 
-/**
- * This is the activity that holds the profile of any user.  This is where users
- * can go to view another user's followers, view who they are following, view
- * what movies they have rated, or follow them themselves.
- */
-public class ProfileActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity {
+
     /**
      * The base of the URL command to follow a user.
      */
-    private static final String FOLLOW_ITEM_URL = "http://cssgate.insttech.washington.edu/~_450team2/followUser?";
-    /**
-     * The current user's username.
-     */
-    String mCurrentUser;
-    /**
-     * The target user's username.
-     */
-    String mTargetUser; //this should be set upon creation of this class
+    private static final String RATE_MOVIE_URL = "http://cssgate.insttech.washington.edu/~_450team2/rateMovie?";
 
-    /**
-     * This is called at the start of the activity. It sets the current and target
-     * users to what they were in the previous activity and sets the textview on the
-     * layout xml.
-     * @param savedInstanceState
-     */
+    String mCurrentUser;
+    String mCurrentMovie;
+    int mCurrentMovieID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //get current user.
         mCurrentUser = getIntent().getStringExtra("CURRENT_USER");
-        mTargetUser = getIntent().getStringExtra("TARGET_USER");
 
-        Log.i("ProfileActivity", "target user: " + mTargetUser);
+        mCurrentMovie = getIntent().getStringExtra("MOVIE_TITLE");
 
-        setContentView(R.layout.activity_profile);
-        TextView tv = (TextView) findViewById(R.id.target_user_id);
-        tv.setText("You are viewing " + mTargetUser + "'s profile!");
+        mCurrentMovieID = getIntent().getIntExtra("MOVIE_ID", 0);
+
+        setContentView(R.layout.activity_movie);
+
+
+        TextView tv = (TextView) findViewById(R.id.movie_page_title);
+        tv.setText(mCurrentMovie);
     }
 
     /**
      * The AsyncTask to follow a user.  This method connects to the database and inserts
      * into the database that the Current user follows the Target user.
      */
-    private class FollowUserTask extends AsyncTask<String, Void, String> {
+    private class RateMovieTask extends AsyncTask<String, Void, String> {
 
         /**
          * Connects the the database and opens an input stream to listen for the server's response.
@@ -124,15 +111,12 @@ public class ProfileActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 String status = (String) jsonObject.get("result");
                 if (status.equals("success")) {
-                    Toast.makeText(getApplicationContext(), "You are now following " + mTargetUser
+                    Toast.makeText(getApplicationContext(), "You just rated " + mCurrentMovie
                             , Toast.LENGTH_SHORT)
                             .show();
-//                    Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
-//                    Log.i("MainActivity", "username: " + mUsername);
-//                    intent.putExtra("USERNAME", mUsername);
-//                    startActivity(intent);
+
                 } else {
-                    Toast.makeText(getApplicationContext(), "You are already following " + mTargetUser
+                    Toast.makeText(getApplicationContext(), "Failed: You've already rated " + mCurrentMovie
                             , Toast.LENGTH_SHORT)
                             .show();
                 }
@@ -145,60 +129,19 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Starts the AsyncTask to follow the user. Its triggored by the button "Follow"
-     * @param view
-     */
-    public void followUser(View view) {
-        FollowUserTask task = new FollowUserTask();
-        task.execute(buildUserURL(view));
+    public void rateLike(View view) {
+        RateMovieTask task = new RateMovieTask();
+        task.execute(buildUserURL(view, 1));
     }
 
-    /**
-     * Opens the list of those following the target user.
-     * @param view
-     */
-    public void viewFollowingUsers(View view) {
-        Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
-                .show();
-        Log.i("home", "following users clicked");
-        Log.i("TabHostActivity", "Current User: " + mTargetUser);
-
-        Intent i = new Intent(this, FollowItemActivity.class);
-        i.putExtra("FOLLOWERS", true);
-        i.putExtra("USERNAME", mTargetUser);
-        startActivity(i);
+    public void rateNoSee(View view) {
+        RateMovieTask task = new RateMovieTask();
+        task.execute(buildUserURL(view, 2));
     }
 
-    /**
-     * Opens the list of those that the target user follows.
-     * @param view
-     */
-    public void viewUsersImFollowing(View view) {
-        Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
-                .show();
-        Log.i("home", "view users i'm following");
-
-
-        Log.i("TabHostActivity", "Current User: " + mTargetUser);
-
-        Intent i = new Intent(this, FollowItemActivity.class);
-        i.putExtra("FOLLOWING", true);
-        i.putExtra("USERNAME", mTargetUser);
-        startActivity(i);
-    }
-
-    /**
-     * Opens the list of movies that the target user has rated.
-     * @param view
-     */
-    public void viewRatedMovies(View view) {
-        Toast.makeText(view.getContext(), "viewing movies you've rated", Toast.LENGTH_SHORT)
-                .show();
-        Log.i("home", "rate movies clicked");
-        Intent i = new Intent(this, MovieItemActivity.class);
-        i.putExtra("USERNAME", mTargetUser);
-        startActivity(i);
+    public void rateDislike(View view) {
+        RateMovieTask task = new RateMovieTask();
+        task.execute(buildUserURL(view, 3));
     }
 
     /**
@@ -206,17 +149,19 @@ public class ProfileActivity extends AppCompatActivity {
      * @param v
      * @return
      */
-    private String buildUserURL(View v) {
+    private String buildUserURL(View v, int ratingNum) {
 
-        StringBuilder sb = new StringBuilder(FOLLOW_ITEM_URL);
+        StringBuilder sb = new StringBuilder(RATE_MOVIE_URL);
 
         try {
-            sb.append("UserA=");
+            sb.append("Username=");
             sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
 
-            sb.append("&UserB=");
-            sb.append(URLEncoder.encode(mTargetUser, "UTF-8"));
-            Log.i("ProfileActivity", "URL=" + sb.toString());
+            sb.append("&MovieID=" + mCurrentMovieID);
+
+            sb.append("&Rating=" + ratingNum);
+
+            Log.i("MovieActivity", "URL=" + sb.toString());
         }
         catch(Exception e) {
             Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
@@ -224,4 +169,5 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return sb.toString();
     }
+
 }

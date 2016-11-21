@@ -29,7 +29,12 @@
             android:name=".follow_item.FollowItemActivity"
             android:label="@string/title_activity_follow_item"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".profile.ProfileActivity"></activity>
+        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".movie.MovieActivity" />
+        <activity
+            android:name=".movie.MovieItemActivity"
+            android:label="@string/title_activity_movie_item"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

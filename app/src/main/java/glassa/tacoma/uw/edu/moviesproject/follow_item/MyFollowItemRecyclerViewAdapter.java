@@ -79,8 +79,8 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
             holder.mIdView.setText(mValues.get(position).getmUserA());
         }
 
-//        holder.mIdView.setText(mValues.get(position).getmUserA() + " is following " + mValues.get(position).getmUserB());
-//        holder.mContentView.setText(mValues.get(position).getmUserB());       //commented out the second item in list
+//        holder.mMovieTitleView.setText(mValues.get(position).getmUserA() + " is following " + mValues.get(position).getmUserB());
+//        holder.mRatingStringView.setText(mValues.get(position).getmUserB());       //commented out the second item in list
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +115,8 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = (TextView) view.findViewById(R.id.movie_title);
+            mContentView = (TextView) view.findViewById(R.id.rating_string);
         }
 
         @Override
