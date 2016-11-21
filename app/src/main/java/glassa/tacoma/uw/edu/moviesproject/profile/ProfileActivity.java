@@ -197,7 +197,8 @@ public class ProfileActivity extends AppCompatActivity {
                 .show();
         Log.i("home", "rate movies clicked");
         Intent i = new Intent(this, MovieItemActivity.class);
-        i.putExtra("USERNAME", mTargetUser);
+        i.putExtra("TARGET_USER", mTargetUser);
+        i.putExtra("CURRENT_USER", mCurrentUser);
         startActivity(i);
     }
 

@@ -77,7 +77,13 @@ public class MovieItemFragment extends Fragment {
             Context context = view.getContext();
             MovieItemActivity miActivity = (MovieItemActivity)getActivity();
 
-            mTargetUser = miActivity.getmTargetUser();
+            if (!miActivity.getmTargetUser().equals("")) {
+                mTargetUser = miActivity.getmTargetUser();
+            } else {
+                mTargetUser = miActivity.getmCurrentUser();
+            }
+
+
 
             Log.i("MovieItemFragment", "current user: " + mTargetUser);
 

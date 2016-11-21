@@ -20,7 +20,7 @@ public class TabHostActivity extends AppCompatActivity {
     /**
      * The current User's username.
      */
-    String mUsername;
+    String mCurrentUser;
 
     /**
      * The oncreate method.
@@ -33,7 +33,7 @@ public class TabHostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_host);
 
 
-        mUsername = getIntent().getStringExtra("USERNAME");
+        mCurrentUser = getIntent().getStringExtra("USERNAME");
 
         TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         TabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
@@ -60,11 +60,11 @@ public class TabHostActivity extends AppCompatActivity {
                 .show();
         Log.i("home", "following users clicked");
 
-        Log.i("TabHostActivity", "Current User: " + mUsername);
+        Log.i("TabHostActivity", "Current User: " + mCurrentUser);
 
         Intent i = new Intent(this, FollowItemActivity.class);
         i.putExtra("FOLLOWERS", true);
-        i.putExtra("USERNAME", mUsername);
+        i.putExtra("USERNAME", mCurrentUser);
         startActivity(i);
     }
 
@@ -79,11 +79,11 @@ public class TabHostActivity extends AppCompatActivity {
         Log.i("home", "view users i'm following");
 
 
-        Log.i("TabHostActivity", "Current User: " + mUsername);
+        Log.i("TabHostActivity", "Current User: " + mCurrentUser);
 
         Intent i = new Intent(this, FollowItemActivity.class);
         i.putExtra("FOLLOWING", true);
-        i.putExtra("USERNAME", mUsername);
+        i.putExtra("USERNAME", mCurrentUser);
         startActivity(i);
 
 
@@ -100,7 +100,8 @@ public class TabHostActivity extends AppCompatActivity {
         Log.i("home", "rate movies clicked");
 
         Intent i = new Intent(this, MovieItemActivity.class);
-        i.putExtra("USERNAME", mUsername);
+        i.putExtra("CURRENT_USER", mCurrentUser);
+        i.putExtra("TARGET_USER", mCurrentUser);
         startActivity(i);
 
     }
