@@ -31,7 +31,6 @@ public class LoginFragment extends Fragment {
     private int mColumnCount = 1;
     private LoginFragment.LoginAddListener mListener;
 
-    String mUsername;
     Button b1, b2;
     EditText ed1, ed2;
     TextView tx1;
@@ -39,10 +38,6 @@ public class LoginFragment extends Fragment {
 
     public LoginFragment() {
         // Required empty public constructor
-    }
-
-    public String getmUsername() {
-        return mUsername;
     }
 
     @Override
