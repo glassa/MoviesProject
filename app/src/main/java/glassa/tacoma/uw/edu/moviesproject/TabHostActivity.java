@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
+import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 
 /**
  * This is the activity that holds the TabHost. This allows for tab navigation.
@@ -16,7 +17,7 @@ import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
 public class TabHostActivity extends AppCompatActivity {
 
     private FragmentTabHost TabHost;
-
+    String mUsername;
 
     /**
      * The oncreate method.
@@ -29,6 +30,7 @@ public class TabHostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_host);
 
 
+        mUsername = getIntent().getStringExtra("USERNAME");
 
         TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         TabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
@@ -55,12 +57,11 @@ public class TabHostActivity extends AppCompatActivity {
 //                    .commit();
 //        }
 
-        String username = getIntent().getStringExtra("USERNAME");
-        Log.i("TabHostActivity", "Current User: " + username);
+        Log.i("TabHostActivity", "Current User: " + mUsername);
 
         Intent i = new Intent(this, FollowItemActivity.class);
         i.putExtra("FOLLOWERS", true);
-        i.putExtra("USERNAME", username);
+        i.putExtra("USERNAME", mUsername);
         startActivity(i);
     }
 
@@ -69,13 +70,12 @@ public class TabHostActivity extends AppCompatActivity {
                 .show();
         Log.i("home", "view users i'm following");
 
-        String username = getIntent().getStringExtra("USERNAME");
 
-        Log.i("TabHostActivity", "Current User: " + username);
+        Log.i("TabHostActivity", "Current User: " + mUsername);
 
         Intent i = new Intent(this, FollowItemActivity.class);
         i.putExtra("FOLLOWING", true);
-        i.putExtra("USERNAME", username);
+        i.putExtra("USERNAME", mUsername);
         startActivity(i);
 
 
@@ -84,11 +84,11 @@ public class TabHostActivity extends AppCompatActivity {
         Toast.makeText(view.getContext(), "viewing movies you've rated", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "rate movies clicked");
-//        if (findViewById(R.id.realtabcontent)!= null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.hometabhost, new FollowingFragment())
-//                    .commit();
-//        }
+
+        Intent i = new Intent(this, MovieItemActivity.class);
+        i.putExtra("USERNAME", mUsername);
+        startActivity(i);
+
     }
 
 
