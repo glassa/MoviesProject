@@ -31,6 +31,7 @@ import java.net.URLEncoder;
  *
  */
 public class RegisterFragment extends Fragment {
+
     public interface UserAddListener {
         public void addUser(String url);
     }
@@ -97,6 +98,7 @@ public class RegisterFragment extends Fragment {
                     + " must implement CourseAddListener");
         }
     }
+
     private String buildUserURL(View v) {
 
         StringBuilder sb = new StringBuilder(USER_ADD_URL);
@@ -107,6 +109,8 @@ public class RegisterFragment extends Fragment {
             sb.append("&Username=");
             sb.append(URLEncoder.encode(userName, "UTF-8"));
 
+            MainActivity m = (MainActivity) getActivity();
+            m.setmUsername(userName);
 
             String userPW = ed2.getText().toString();
             sb.append("&Passcode=");
