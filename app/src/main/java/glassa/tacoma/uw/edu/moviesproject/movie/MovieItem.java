@@ -17,6 +17,9 @@ public class MovieItem implements Serializable {
 
     public static final String USER_NAME = "Username", MOVIE_RATING_NUM = "Rating", MOVIE_NAME = "Name", MOVIE_ID = "MovieID";
 
+    /**
+     * The list of rated movies belongs to the user with this username string.
+     */
     String mTargetUser;
     String mMovieName;
     int mMovieRatingNum;

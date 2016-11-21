@@ -17,6 +17,9 @@ import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 public class TabHostActivity extends AppCompatActivity {
 
     private FragmentTabHost TabHost;
+    /**
+     * The current User's username.
+     */
     String mUsername;
 
     /**
@@ -51,11 +54,6 @@ public class TabHostActivity extends AppCompatActivity {
         Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "following users clicked");
-//        if (findViewById(R.id.realtabcontent)!= null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.hometabhost, new FollowingFragment())
-//                    .commit();
-//        }
 
         Log.i("TabHostActivity", "Current User: " + mUsername);
 

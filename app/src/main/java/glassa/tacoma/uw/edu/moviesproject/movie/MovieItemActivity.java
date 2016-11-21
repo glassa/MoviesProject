@@ -12,7 +12,7 @@ import glassa.tacoma.uw.edu.moviesproject.R;
  */
 public class MovieItemActivity extends AppCompatActivity implements MovieItemFragment.OnListFragmentInteractionListener {
     /**
-     * Current user.
+     * The list of rated movies belongs to the user with this username string.
      */
     private String mTargetUser;
 

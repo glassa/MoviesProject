@@ -34,7 +34,7 @@ public class MovieItemFragment extends Fragment {
 
     public static final String RATING_LIST_URL = "http://cssgate.insttech.washington.edu/~_450team2/list.php?cmd=ratingList&Username=";
     /**
-     * Current user.
+     * The list of rated movies belongs to the user with this username string.
      */
     private String mTargetUser;
 
