@@ -17,13 +17,13 @@ public class MovieItem implements Serializable {
 
     public static final String USER_NAME = "Username", MOVIE_RATING_NUM = "Rating", MOVIE_NAME = "Name", MOVIE_ID = "MovieID";
 
-    String mCurrentUser;
+    String mTargetUser;
     String mMovieName;
     int mMovieRatingNum;
     int mMovieID;
 
-    public MovieItem(String mCurrentUser, int mMovieID, String mMovieName, int mMovieRatingNum) {
-        this.mCurrentUser = mCurrentUser;
+    public MovieItem(String mTargetUser, int mMovieID, String mMovieName, int mMovieRatingNum) {
+        this.mTargetUser = mTargetUser;
         this.mMovieName = mMovieName;
         this.mMovieRatingNum = mMovieRatingNum;
         this.mMovieID = mMovieID;
@@ -37,12 +37,12 @@ public class MovieItem implements Serializable {
         this.mMovieID = mMovieID;
     }
 
-    public String getmCurrentUser() {
-        return mCurrentUser;
+    public String getmTargetUser() {
+        return mTargetUser;
     }
 
-    public void setmCurrentUser(String mCurrentUser) {
-        this.mCurrentUser = mCurrentUser;
+    public void setmTargetUser(String mTargetUser) {
+        this.mTargetUser = mTargetUser;
     }
 
     public String getmMovieName() {

@@ -6,18 +6,22 @@ import android.support.v7.app.AppCompatActivity;
 
 import glassa.tacoma.uw.edu.moviesproject.R;
 
+/**
+ * This activity holds the whole movie rating list fragment set.  Its invoked from
+ * TabHostActivity.
+ */
 public class MovieItemActivity extends AppCompatActivity implements MovieItemFragment.OnListFragmentInteractionListener {
     /**
      * Current user.
      */
-    private String mCurrentUser;
+    private String mTargetUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_item);
 
-        mCurrentUser = getIntent().getStringExtra("USERNAME");
+        mTargetUser = getIntent().getStringExtra("USERNAME");
 
         if (savedInstanceState == null || getSupportFragmentManager().findFragmentById(R.id.list) == null) {
             MovieItemFragment movieItemFragment = new MovieItemFragment();
@@ -31,7 +35,7 @@ public class MovieItemActivity extends AppCompatActivity implements MovieItemFra
     @Override
     public void onListFragmentInteraction(MovieItem item) {
         Intent intent = new Intent(this, MovieActivity.class);
-        intent.putExtra("CURRENT_USER", mCurrentUser);
+        intent.putExtra("CURRENT_USER", mTargetUser);
         intent.putExtra("MOVIE_TITLE", item.getmMovieName());
         intent.putExtra("MOVIE_ID", item.getmMovieID());
 
@@ -42,8 +46,8 @@ public class MovieItemActivity extends AppCompatActivity implements MovieItemFra
      * Getter for Current User.
      * @return
      */
-    public String getmCurrentUser() {
-        return mCurrentUser;
+    public String getmTargetUser() {
+        return mTargetUser;
     }
 
 }

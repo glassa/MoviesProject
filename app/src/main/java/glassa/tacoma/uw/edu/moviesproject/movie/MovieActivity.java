@@ -20,6 +20,12 @@ import java.net.URLEncoder;
 
 import glassa.tacoma.uw.edu.moviesproject.R;
 
+/**
+ * This activity is the Movie Page where users can rate Like, Haven't seen, or Dislike.
+ * They can also click the button to view the imdb page for this movie.
+ * It is invoked by MovieItemActitivy from the "OnListFragmentInteraction" function.
+ * Also by the Search function.
+ */
 public class MovieActivity extends AppCompatActivity {
 
     /**
@@ -27,7 +33,7 @@ public class MovieActivity extends AppCompatActivity {
      */
     private static final String RATE_MOVIE_URL = "http://cssgate.insttech.washington.edu/~_450team2/rateMovie?";
 
-    String mCurrentUser;
+    String mTargetUser;
     String mCurrentMovie;
     int mCurrentMovieID;
 
@@ -36,7 +42,7 @@ public class MovieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //get current user.
-        mCurrentUser = getIntent().getStringExtra("CURRENT_USER");
+        mTargetUser = getIntent().getStringExtra("CURRENT_USER");
 
         mCurrentMovie = getIntent().getStringExtra("MOVIE_TITLE");
 
@@ -155,7 +161,7 @@ public class MovieActivity extends AppCompatActivity {
 
         try {
             sb.append("Username=");
-            sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
+            sb.append(URLEncoder.encode(mTargetUser, "UTF-8"));
 
             sb.append("&MovieID=" + mCurrentMovieID);
 

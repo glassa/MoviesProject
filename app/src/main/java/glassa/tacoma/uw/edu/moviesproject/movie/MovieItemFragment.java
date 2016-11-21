@@ -36,7 +36,7 @@ public class MovieItemFragment extends Fragment {
     /**
      * Current user.
      */
-    private String mCurrentUser;
+    private String mTargetUser;
 
     private int mColumnCount = 1;
     private RecyclerView mRecyclerView;
@@ -74,9 +74,9 @@ public class MovieItemFragment extends Fragment {
             Context context = view.getContext();
             MovieItemActivity miActivity = (MovieItemActivity)getActivity();
 
-            mCurrentUser = miActivity.getmCurrentUser();
+            mTargetUser = miActivity.getmTargetUser();
 
-            Log.i("MovieItemFragment", "current user: " + mCurrentUser);
+            Log.i("MovieItemFragment", "current user: " + mTargetUser);
 
             mRecyclerView = (RecyclerView) view;
 
@@ -108,7 +108,7 @@ public class MovieItemFragment extends Fragment {
 
         try {
 
-            sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
+            sb.append(URLEncoder.encode(mTargetUser, "UTF-8"));
             Log.i("MovieItemFragment", "URL: " + sb.toString());
 
         }

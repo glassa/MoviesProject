@@ -127,10 +127,6 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "You are now following " + mTargetUser
                             , Toast.LENGTH_SHORT)
                             .show();
-//                    Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
-//                    Log.i("MainActivity", "username: " + mUsername);
-//                    intent.putExtra("USERNAME", mUsername);
-//                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "You are already following " + mTargetUser
                             , Toast.LENGTH_SHORT)
