@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 public class Tab5Settings extends Fragment {
 
 
+    /**
+     * Instantiates a new Tab 5 settings.
+     */
     public Tab5Settings() {
         // Required empty public constructor
     }

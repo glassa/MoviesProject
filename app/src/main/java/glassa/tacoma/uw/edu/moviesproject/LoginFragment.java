@@ -22,7 +22,15 @@ import java.net.URLEncoder;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
+    /**
+     * The interface Login add listener.
+     */
     public interface LoginAddListener{
+        /**
+         * Add login.
+         *
+         * @param url the url
+         */
         public void addLogin(String url);
 
     }
@@ -31,11 +39,32 @@ public class LoginFragment extends Fragment {
     private int mColumnCount = 1;
     private LoginFragment.LoginAddListener mListener;
 
-    Button b1, b2;
-    EditText ed1, ed2;
+    /**
+     * The B 1.
+     */
+    Button b1, /**
+     * The B 2.
+     */
+    b2;
+    /**
+     * The Ed 1.
+     */
+    EditText ed1, /**
+     * The Ed 2.
+     */
+    ed2;
+    /**
+     * The Tx 1.
+     */
     TextView tx1;
+    /**
+     * The Counter.
+     */
     int counter = 3;
 
+    /**
+     * Instantiates a new Login fragment.
+     */
     public LoginFragment() {
         // Required empty public constructor
     }

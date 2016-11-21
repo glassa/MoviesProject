@@ -36,7 +36,13 @@ public class MovieActivity extends AppCompatActivity {
      * The list of rated movies belongs to the user with this username string.
      */
     String mTargetUser;
+    /**
+     * The M current movie.
+     */
     String mCurrentMovie;
+    /**
+     * The M current movie id.
+     */
     int mCurrentMovieID;
 
     /**
@@ -146,7 +152,8 @@ public class MovieActivity extends AppCompatActivity {
     /**
      * This is called when the LIKE button is clicked on the movie page.  It starts the
      * AsyncTask to write to the database.
-     * @param view
+     *
+     * @param view the view
      */
     public void rateLike(View view) {
         RateMovieTask task = new RateMovieTask();
@@ -156,7 +163,8 @@ public class MovieActivity extends AppCompatActivity {
     /**
      * This is called when the HAVEN"T SEEN button is clicked on the movie page.  It starts the
      * AsyncTask to write to the database.
-     * @param view
+     *
+     * @param view the view
      */
     public void rateNoSee(View view) {
         RateMovieTask task = new RateMovieTask();
@@ -166,7 +174,8 @@ public class MovieActivity extends AppCompatActivity {
     /**
      * This is called when the DISLIKE button is clicked on the movie page.  It starts the
      * AsyncTask to write to the database.
-     * @param view
+     *
+     * @param view the view
      */
     public void rateDislike(View view) {
         RateMovieTask task = new RateMovieTask();

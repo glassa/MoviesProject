@@ -44,7 +44,8 @@ public class MovieItemActivity extends AppCompatActivity implements MovieItemFra
 
     /**
      * Getter for Current User.
-     * @return
+     *
+     * @return target user
      */
     public String getmTargetUser() {
         return mTargetUser;

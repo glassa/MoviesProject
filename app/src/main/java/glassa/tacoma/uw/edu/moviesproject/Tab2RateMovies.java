@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 public class Tab2RateMovies extends Fragment {
 
 
+    /**
+     * Instantiates a new Tab 2 rate movies.
+     */
     public Tab2RateMovies() {
         // Required empty public constructor
     }

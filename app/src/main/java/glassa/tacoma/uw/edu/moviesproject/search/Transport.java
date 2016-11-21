@@ -29,11 +29,12 @@ public class Transport extends AsyncTask<Void,Void,String> {
 
     /**
      * constructor for this class
-     * @param theCon passed in Context
-     * @param theURL passed in URL
-     * @param theQuery passed in Query
+     *
+     * @param theCon      passed in Context
+     * @param theURL      passed in URL
+     * @param theQuery    passed in Query
      * @param theListView passed in ListView
-     * @param theClass passed in String
+     * @param theClass    passed in String
      */
     public Transport(Context theCon, String theURL, String theQuery, ListView theListView, String theClass) {
         myCon = theCon;
@@ -94,6 +95,7 @@ public class Transport extends AsyncTask<Void,Void,String> {
     /**
      * A URLConnection with support for HTTP-specific features.
      * almost copy from http://developer.android.com
+     *
      * @param theURL is the String of URL passed in
      * @return the connection
      */

@@ -242,6 +242,11 @@ public class FollowItemFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
+        /**
+         * On list fragment interaction.
+         *
+         * @param item the item
+         */
         void onListFragmentInteraction(FollowItem item);
     }
 

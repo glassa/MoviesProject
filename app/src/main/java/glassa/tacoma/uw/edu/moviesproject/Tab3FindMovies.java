@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 public class Tab3FindMovies extends Fragment {
 
 
+    /**
+     * Instantiates a new Tab 3 find movies.
+     */
     public Tab3FindMovies() {
         // Required empty public constructor
     }

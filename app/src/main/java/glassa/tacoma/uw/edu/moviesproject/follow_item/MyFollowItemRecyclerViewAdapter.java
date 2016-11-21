@@ -37,10 +37,11 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
 
     /**
      * The constructor for the View Adapter. It sets the values of all the fields in the class.
-     * @param items
-     * @param listener
-     * @param followersButton
-     * @param followingButton
+     *
+     * @param items           the items
+     * @param listener        the listener
+     * @param followersButton the followers button
+     * @param followingButton the following button
      */
     public MyFollowItemRecyclerViewAdapter(List<FollowItem> items, OnListFragmentInteractionListener listener, Boolean followersButton, Boolean followingButton) {
         mValues = items;
@@ -107,11 +108,28 @@ public class MyFollowItemRecyclerViewAdapter extends RecyclerView.Adapter<MyFoll
      * This holds the view for each item.
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * The M view.
+         */
         public final View mView;
+        /**
+         * The M id view.
+         */
         public final TextView mIdView;
+        /**
+         * The M content view.
+         */
         public final TextView mContentView;
+        /**
+         * The M item.
+         */
         public FollowItem mItem;
 
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param view the view
+         */
         public ViewHolder(View view) {
             super(view);
             mView = view;

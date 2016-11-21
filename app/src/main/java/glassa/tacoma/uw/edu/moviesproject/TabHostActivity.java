@@ -50,6 +50,11 @@ public class TabHostActivity extends AppCompatActivity {
                 Tab5Settings.class, null);
     }
 
+    /**
+     * View following users.
+     *
+     * @param view the view
+     */
     public void viewFollowingUsers(View view) {
         Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
                 .show();
@@ -63,6 +68,11 @@ public class TabHostActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    /**
+     * View users im following.
+     *
+     * @param view the view
+     */
     public void viewUsersImFollowing(View view) {
         Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
                 .show();
@@ -78,6 +88,12 @@ public class TabHostActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * View rated movies.
+     *
+     * @param view the view
+     */
     public void viewRatedMovies(View view) {
         Toast.makeText(view.getContext(), "viewing movies you've rated", Toast.LENGTH_SHORT)
                 .show();

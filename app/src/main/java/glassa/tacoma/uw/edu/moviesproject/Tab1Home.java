@@ -13,8 +13,6 @@ import android.widget.Toast;
 import java.util.List;
 
 
-
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -22,6 +20,9 @@ public class Tab1Home extends Fragment {
     private ListView listFeed;
     private List<String> feedList;
 
+    /**
+     * Instantiates a new Tab 1 home.
+     */
     public Tab1Home() {
         // Required empty public constructor
     }

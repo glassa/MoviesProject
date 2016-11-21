@@ -32,6 +32,9 @@ import glassa.tacoma.uw.edu.moviesproject.R;
  */
 public class MovieItemFragment extends Fragment {
 
+    /**
+     * The constant RATING_LIST_URL.
+     */
     public static final String RATING_LIST_URL = "http://cssgate.insttech.washington.edu/~_450team2/list.php?cmd=ratingList&Username=";
     /**
      * The list of rated movies belongs to the user with this username string.
@@ -147,6 +150,11 @@ public class MovieItemFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
+        /**
+         * On list fragment interaction.
+         *
+         * @param item the item
+         */
         void onListFragmentInteraction(MovieItem item);
     }
 

@@ -80,7 +80,8 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
 
     /**
      * Getter for Current User.
-     * @return
+     *
+     * @return current user
      */
     public String getmCurrentUser() {
         return mCurrentUser;
@@ -88,7 +89,8 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
 
     /**
      * Getter for if the following button was clicked.
-     * @return
+     *
+     * @return following button
      */
     public Boolean getmFollowingButton() {
         return mFollowingButton;
@@ -96,7 +98,8 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
 
     /**
      * Getter for if the followers button was clicked.
-     * @return
+     *
+     * @return followers button
      */
     public Boolean getmFollowersButton() {
         return mFollowersButton;
@@ -105,7 +108,8 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
 
     /**
      * Method to set the title of the list fragment. Not used atm.
-     * @param title
+     *
+     * @param title the title
      */
     public void setActionBarTitle(String title) {
         getActionBar().setTitle(title);

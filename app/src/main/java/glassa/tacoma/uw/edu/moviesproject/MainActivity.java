@@ -16,9 +16,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener{
 
+    /**
+     * The M login frag.
+     */
     LoginFragment mLoginFrag;
+    /**
+     * The M username.
+     */
     String mUsername;
 
     /**
@@ -38,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         }
     }
 
+    /**
+     * Sets username.
+     *
+     * @param mUsername the m username
+     */
     public void setmUsername(String mUsername) {
         this.mUsername = mUsername;
     }

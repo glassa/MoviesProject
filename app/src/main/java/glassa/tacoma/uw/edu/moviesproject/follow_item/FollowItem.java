@@ -13,12 +13,21 @@ import java.util.List;
  */
 public class FollowItem implements Serializable{
 
-    public static final String USER_A = "UserA", USER_B = "UserB";
+    /**
+     * The constant USER_A.
+     */
+    public static final String USER_A = "UserA", /**
+     * The User b.
+     */
+    USER_B = "UserB";
 
     /**
      * The string usernames of both of the target users.
      */
-    String mUserA, mUserB;
+    String mUserA, /**
+     * The M user b.
+     */
+    mUserB;
 
     /**
      * The constructor of the FollowItem.  Takes in both the current user's username string
@@ -34,7 +43,8 @@ public class FollowItem implements Serializable{
 
     /**
      * Getter for current username.
-     * @return
+     *
+     * @return user a
      */
     public String getmUserA() {
         return mUserA;
@@ -42,7 +52,8 @@ public class FollowItem implements Serializable{
 
     /**
      * Setter for current username.
-     * @param mUserA
+     *
+     * @param mUserA the m user a
      */
     public void setmUserA(String mUserA) {
         this.mUserA = mUserA;
@@ -50,7 +61,8 @@ public class FollowItem implements Serializable{
 
     /**
      * Getter for target username.
-     * @return
+     *
+     * @return user b
      */
     public String getmUserB() {
         return mUserB;
@@ -58,7 +70,8 @@ public class FollowItem implements Serializable{
 
     /**
      * Setter for target username.
-     * @param mUserB
+     *
+     * @param mUserB the m user b
      */
     public void setmUserB(String mUserB) {
         this.mUserB = mUserB;
@@ -67,7 +80,9 @@ public class FollowItem implements Serializable{
     /**
      * Parses the json string, returns an error message if unsuccessful.
      * Returns userA and userB as two FollowItems in an array if success.
-     * @param followListJSON
+     *
+     * @param followListJSON the follow list json
+     * @param fItemList      the f item list
      * @return reason or null if successful.
      */
     public static String parseCourseJSON(String followListJSON, List<FollowItem> fItemList) {
