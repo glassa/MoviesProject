@@ -46,7 +46,6 @@ public class ProfileActivity extends AppCompatActivity {
      * This is called at the start of the activity. It sets the current and target
      * users to what they were in the previous activity and sets the textview on the
      * layout xml.
-     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
                     InputStream content = urlConnection.getInputStream();
 
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
+                    String s;
                     while ((s = buffer.readLine()) != null) {
                         response += s;
                     }
@@ -204,8 +203,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     /**
      * Builds the URL for the FollowUser AsyncTask.  It creates the command for
-     * @param v
-     * @return
+     * @param v the current View
+     * @return the URL String
      */
     private String buildUserURL(View v) {
 
