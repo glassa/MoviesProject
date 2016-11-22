@@ -72,14 +72,11 @@ public class LoginFragment extends Fragment {
      * The Tx 1.
      */
     TextView tx1;
-<<<<<<< HEAD
 
-=======
     /**
      * The Counter.
      */
     int counter = 3;
->>>>>>> refs/remotes/origin/Tony
 
     /**
      * Instantiates a new Login fragment.
