@@ -14,11 +14,11 @@ import java.util.List;
  * It holds the movie name, movie ID (as it is in the database), its corresponding user's username,
  * and the corresponding rating that the user entered for this particular movie.
  */
-public class MovieItem implements Serializable {
+class MovieItem implements Serializable {
     /**
      * The constant names of the columns as they are in the SQL database.
      */
-    public static final String USER_NAME = "Username", /**
+    private static final String USER_NAME = "Username", /**
      * The Movie rating num.
      */
     MOVIE_RATING_NUM = "Rating", /**
@@ -32,23 +32,23 @@ public class MovieItem implements Serializable {
     /**
      * The list of rated movies belongs to the user with this username string.
      */
-    String mTargetUser;
+    private String mTargetUser;
 
     /**
      * The string for the movie title.
      */
-    String mMovieName;
+    private String mMovieName;
     /**
      * The int value of the rating given.
      * 1 = dislike
      * 2 = haven't seen
      * 3 = like
      */
-    int mMovieRatingNum;
+    private int mMovieRatingNum;
     /**
      * The movie ID of the movie as is in database.
      */
-    int mMovieID;
+    private int mMovieID;
 
     /**
      * The constructor of the movie item.  Initializes the required fields of the movie item.
@@ -58,7 +58,7 @@ public class MovieItem implements Serializable {
      * @param mMovieName      the m movie name
      * @param mMovieRatingNum the m movie rating num
      */
-    public MovieItem(String mTargetUser, int mMovieID, String mMovieName, int mMovieRatingNum) {
+    private MovieItem(String mTargetUser, int mMovieID, String mMovieName, int mMovieRatingNum) {
         this.mTargetUser = mTargetUser;
         this.mMovieName = mMovieName;
         this.mMovieRatingNum = mMovieRatingNum;
@@ -70,18 +70,10 @@ public class MovieItem implements Serializable {
      *
      * @return the movie id
      */
-    public int getmMovieID() {
+    int getmMovieID() {
         return mMovieID;
     }
 
-    /**
-     * Sets movie id.
-     *
-     * @param mMovieID the m movie id
-     */
-    public void setmMovieID(int mMovieID) {
-        this.mMovieID = mMovieID;
-    }
 
     /**
      * Gets target user.
@@ -142,7 +134,7 @@ public class MovieItem implements Serializable {
      *
      * @return the movie rating string
      */
-    public String getMovieRatingString() {
+    String getMovieRatingString() {
         if (mMovieRatingNum == 1) {
             return "Disliked";
         } else if (mMovieRatingNum == 2) {
@@ -162,7 +154,7 @@ public class MovieItem implements Serializable {
      * @param mItemList     the m item list
      * @return reason or null if successful.
      */
-    public static String parseCourseJSON(String movieListJSON, List<MovieItem> mItemList) {
+    static String parseCourseJSON(String movieListJSON, List<MovieItem> mItemList) {
         String reason = null;
         if (movieListJSON != null) {
             try {
