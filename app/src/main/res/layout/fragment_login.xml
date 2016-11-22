@@ -9,7 +9,7 @@
 
     <TextView android:text="Login" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textview"
+        android:id="@+id/login_title_text_view"
         android:textSize="35dp"
         android:paddingBottom="100px" />
 
@@ -43,14 +43,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Attempts Left:"
-            android:id="@+id/textView2"
+            android:id="@+id/attempts_text_view_1"
             android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5"
-            android:id="@+id/textView3"
+            android:id="@+id/attempts_text_view_2"
             android:textSize="25dp" />
 
     </LinearLayout>
@@ -62,17 +62,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="login"
-            android:id="@+id/button"/>
+            android:id="@+id/login_button"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register"
-            android:id="@+id/button2"
+            android:id="@+id/register_button_initial"
  />
 
 

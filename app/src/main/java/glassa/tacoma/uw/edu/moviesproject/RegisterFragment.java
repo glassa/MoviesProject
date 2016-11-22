@@ -97,10 +97,10 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_register, container, false);
 
-        b1 = (Button) v.findViewById(R.id.buttonReg);
-        ed1 = (EditText) v.findViewById(R.id.editRegisterText);
-        ed2 = (EditText) v.findViewById(R.id.editRegisterText2);
-        ed3 = (EditText) v.findViewById(R.id.editRegisterText3) ;
+        b1 = (Button) v.findViewById(R.id.register_button_final);
+        ed1 = (EditText) v.findViewById(R.id.register_user_edit_text);
+        ed2 = (EditText) v.findViewById(R.id.register_password1_edit_text);
+        ed3 = (EditText) v.findViewById(R.id.register_password2_edit_text) ;
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
