@@ -5,9 +5,10 @@
     tools:context="glassa.tacoma.uw.edu.moviesproject.Tab3FindMovies">
 
 
-    <TextView
+    <SearchView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/tab3_string" />
+        android:layout_height="wrap_content"
+        android:queryHint="Enter Movie Title"
+        android:gravity="top"/>
 
 </FrameLayout>
