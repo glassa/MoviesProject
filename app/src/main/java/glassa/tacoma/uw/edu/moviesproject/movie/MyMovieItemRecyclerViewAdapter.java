@@ -16,7 +16,7 @@ import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemFragment.OnListFragment
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyMovieItemRecyclerViewAdapter extends RecyclerView.Adapter<MyMovieItemRecyclerViewAdapter.ViewHolder> {
+class MyMovieItemRecyclerViewAdapter extends RecyclerView.Adapter<MyMovieItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<MovieItem> mValues;
     private final OnListFragmentInteractionListener mListener;
@@ -27,7 +27,7 @@ public class MyMovieItemRecyclerViewAdapter extends RecyclerView.Adapter<MyMovie
      * @param items    the items
      * @param listener the listener
      */
-    public MyMovieItemRecyclerViewAdapter(List<MovieItem> items, OnListFragmentInteractionListener listener) {
+    MyMovieItemRecyclerViewAdapter(List<MovieItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -66,30 +66,30 @@ public class MyMovieItemRecyclerViewAdapter extends RecyclerView.Adapter<MyMovie
     /**
      * The type View holder.
      */
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         /**
          * The M view.
          */
-        public final View mView;
+        final View mView;
         /**
          * The M movie title view.
          */
-        public final TextView mMovieTitleView;
+        final TextView mMovieTitleView;
         /**
          * The M rating string view.
          */
-        public final TextView mRatingStringView;
+        final TextView mRatingStringView;
         /**
          * The M item.
          */
-        public MovieItem mItem;
+        MovieItem mItem;
 
         /**
          * Instantiates a new View holder.
          *
          * @param view the view
          */
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
             mMovieTitleView = (TextView) view.findViewById(R.id.movie_title);

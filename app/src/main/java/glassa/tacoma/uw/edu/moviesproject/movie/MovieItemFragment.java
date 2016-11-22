@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,7 +40,6 @@ public class MovieItemFragment extends Fragment {
      */
     private String mTargetUser;
 
-    private int mColumnCount = 1;
     private RecyclerView mRecyclerView;
     private OnListFragmentInteractionListener mListener;
 
@@ -58,15 +56,6 @@ public class MovieItemFragment extends Fragment {
 
     }
 
-    /**
-     * This method gets the info of current user and which button was clicked from the
-     * "putExtra" from the FollowItemActivity and assigns the information to the fields within
-     * this class.
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -91,14 +80,11 @@ public class MovieItemFragment extends Fragment {
 
             mRecyclerView = (RecyclerView) view;
 
-            if (mColumnCount <= 1) {
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+
             GetMovieRatingList task = new GetMovieRatingList();
 
-            task.execute(new String[]{buildUserURL(getView())});
+            task.execute(buildUserURL(getView()));
         }
         return view;
     }
@@ -110,8 +96,8 @@ public class MovieItemFragment extends Fragment {
      * [User B], but since this is a list of followers, we only want to see the list of those
      * following us, so we make it a list of only [User A].  And if we are looking at who we are
      * following, we only want to see a list of [User B].
-     * @param v
-     * @return
+     * @param v View
+     * @return returns the URL String.
      */
     private String buildUserURL(View v) {
 
@@ -182,7 +168,7 @@ public class MovieItemFragment extends Fragment {
                     InputStream content = urlConnection.getInputStream();
 
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
+                    String s;
                     while ((s = buffer.readLine()) != null) {
                         response += s;
                     }
@@ -211,7 +197,7 @@ public class MovieItemFragment extends Fragment {
                 return;
             }
 
-            List<MovieItem> movieItemList = new ArrayList<MovieItem>();
+            List<MovieItem> movieItemList = new ArrayList<>();
             result = MovieItem.parseCourseJSON(result, movieItemList);
 
             // Something wrong with the JSON returned.

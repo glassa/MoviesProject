@@ -53,7 +53,6 @@ public class MovieActivity extends AppCompatActivity {
      * This is run on create of the activity.  It gets and initializes the fields of the class:
      * The target user's username, the current movie's title and the current movie's movie ID
      * as it is in the database.
-     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +100,7 @@ public class MovieActivity extends AppCompatActivity {
                     InputStream content = urlConnection.getInputStream();
 
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
+                    String s;
                     while ((s = buffer.readLine()) != null) {
                         response += s;
                     }
@@ -191,8 +190,8 @@ public class MovieActivity extends AppCompatActivity {
     /**
      * Builds the URL for the RateMovie AsyncTask.  It creates the command for rating the
      * target movie for the target user.
-     * @param v
-     * @return
+     * @param v the View
+     * @return The URL String
      */
     private String buildUserURL(View v, int ratingNum) {
 
@@ -203,9 +202,9 @@ public class MovieActivity extends AppCompatActivity {
 
             sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
 
-            sb.append("&MovieID=" + mCurrentMovieID);
+            sb.append("&MovieID=").append(mCurrentMovieID);
 
-            sb.append("&Rating=" + ratingNum);
+            sb.append("&Rating=").append(ratingNum);
 
             Log.i("MovieActivity", "URL=" + sb.toString());
         }
