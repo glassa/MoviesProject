@@ -197,10 +197,10 @@ public class FollowItemFragment extends Fragment {
             mFollowersButton = fiActivity.getmFollowersButton();
 
             if (mFollowingButton) {
-                getActivity().setTitle("Following");
+                getActivity().setTitle("Following " + mCurrentUser);
 
             } else {
-                getActivity().setTitle("Followers");
+                getActivity().setTitle(mCurrentUser + "'s Followers");
 
             }
 
