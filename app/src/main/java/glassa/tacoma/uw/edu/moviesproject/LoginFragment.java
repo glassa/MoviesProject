@@ -19,7 +19,24 @@ import java.net.URLEncoder;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * -------------------------------------------------------------------------
+ * A fragment class to hold the login UI.                                   |
+ * -------------------------------------------------------------------------
+ * Contains 2 EditText views, one for the user name,                        |
+ * and one for the password. If the database returns that the user          |
+ * verified, the TabHostActivity is launched via the AsyncTask OnPostExecute|
+ * method.                                                                  |
+ * -------------------------------------------------------------------------
+ * Contains two buttons.                                                    |
+ *                                                                          |
+ * Login Button:On click, calls a stringbuilder                             |
+ * to build the appended url, and call the AsyncTask                        |
+ *                                                                          |
+ * Register Button:On click, launches the Register Fragment.                |
+ * -------------------------------------------------------------------------
+ * Conatains a stringbuilder that builds the url by taking                  |
+ * the data out of the EditViews and appending it onto the url.             |
+ * -------------------------------------------------------------------------
  */
 public class LoginFragment extends Fragment {
     /**
@@ -35,8 +52,6 @@ public class LoginFragment extends Fragment {
 
     }
     private final static String USER_LOGIN_URL = "http://cssgate.insttech.washington.edu/~_450team2/login.php?";
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 1;
     private LoginFragment.LoginAddListener mListener;
 
     /**
@@ -57,6 +72,7 @@ public class LoginFragment extends Fragment {
      * The Tx 1.
      */
     TextView tx1;
+
     /**
      * The Counter.
      */
@@ -130,6 +146,7 @@ public class LoginFragment extends Fragment {
 
         return v;
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -140,6 +157,7 @@ public class LoginFragment extends Fragment {
                     + " must implement LoginAddListener");
         }
     }
+
     private String buildUserURL(View v) {
 
         StringBuilder sb = new StringBuilder(USER_LOGIN_URL);

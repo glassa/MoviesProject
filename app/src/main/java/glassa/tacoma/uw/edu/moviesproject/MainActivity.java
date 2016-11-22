@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
-
+import com.facebook.FacebookSdk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,7 +17,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
+<<<<<<< HEAD
+ * Main activity class of the app.
+ * When the app launches, this is where the intent filter points
+ * This activity is the contains the AsyncTasks required by
+ * LoginFragment and RegisterFragment used to access the database
+=======
  * The type Main activity.
+>>>>>>> refs/remotes/origin/Tony
  */
 public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener{
 
@@ -31,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     String mUsername;
 
     /**
-     * OnCreate method to instanciate the fragment container,
+     * OnCreate method to instantiate the fragment container,
      * and then take the user to the login fragment
      * @param savedInstanceState
      */

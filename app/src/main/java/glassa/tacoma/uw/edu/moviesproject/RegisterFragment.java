@@ -17,6 +17,22 @@ import java.net.URLEncoder;
 
 
 /**
+<<<<<<< HEAD
+ * -----------------------------------------------------------------------
+ * A fragment class to hold the registration UI.                          |
+ * -----------------------------------------------------------------------
+ * Contains 3 EditText views, one for the user name,                      |
+ * and two for the password. If the two password views                    |
+ * match, interface is called to launch the Asynctask                     |
+ * in mainActivity to add the data.                                       |
+ * ------------------------------------------------------------------------
+ * Contains one button. On click, calls a stringbuilder                   |
+ * to build the appended url, and call the AsyncTask                      |
+ * ------------------------------------------------------------------------
+ * Conatains a stringbuilder that builds the url by taking                |
+ * the data out of the EditViews and appending it onto the url.           |
+ * ------------------------------------------------------------------------
+=======
  * A fragment class to hold the registration UI.
  * Contains 3 EditText views, one for the user name,
  * and two for the password. If the two password views
@@ -28,6 +44,7 @@ import java.net.URLEncoder;
  * <p>
  * Conatains a stringbuilder that builds the url by taking
  * the data out of the EditViews and appending it onto the url.
+>>>>>>> refs/remotes/origin/Tony
  */
 public class RegisterFragment extends Fragment {
 
