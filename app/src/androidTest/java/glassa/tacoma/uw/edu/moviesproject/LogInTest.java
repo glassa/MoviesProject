@@ -71,7 +71,14 @@ public class LogInTest {
     }
 
     @Test
-    public void testBTabs() {
+    public void testBTab1() {
+
+//        onView(withId(R.id.followers_button)).perform(click());
+//        pressBack();
+//        onView(withId(R.id.following_button)).perform(click());
+//        pressBack();
+//        onView(withId(R.id.ratings_button)).perform(click());
+//        pressBack();
 
 //        onView(withId(R.id.login_edit_text)).perform(typeText(email));
 //        onView(withId(R.id.pass_edit_text)).perform(typeText("test123"));
