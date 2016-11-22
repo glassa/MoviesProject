@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 public class Tab4FindUsers extends Fragment {
 
 
+    /**
+     * Instantiates a new Tab 4 find users.
+     */
     public Tab4FindUsers() {
         // Required empty public constructor
     }

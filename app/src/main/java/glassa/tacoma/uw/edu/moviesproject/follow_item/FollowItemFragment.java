@@ -191,10 +191,18 @@ public class FollowItemFragment extends Fragment {
             Context context = view.getContext();
             FollowItemActivity fiActivity = (FollowItemActivity)getActivity();
 
+
             mCurrentUser = fiActivity.getmCurrentUser();
             mFollowingButton = fiActivity.getmFollowingButton();
             mFollowersButton = fiActivity.getmFollowersButton();
 
+            if (mFollowingButton) {
+                getActivity().setTitle("Following");
+
+            } else {
+                getActivity().setTitle("Followers");
+
+            }
 
             Log.i("FollowItemFragment", "current user: " + mCurrentUser);
 
@@ -242,6 +250,11 @@ public class FollowItemFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
+        /**
+         * On list fragment interaction.
+         *
+         * @param item the item
+         */
         void onListFragmentInteraction(FollowItem item);
     }
 

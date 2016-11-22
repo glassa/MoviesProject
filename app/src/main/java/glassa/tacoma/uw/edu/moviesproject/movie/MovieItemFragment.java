@@ -32,11 +32,14 @@ import glassa.tacoma.uw.edu.moviesproject.R;
  */
 public class MovieItemFragment extends Fragment {
 
+    /**
+     * The constant RATING_LIST_URL.
+     */
     public static final String RATING_LIST_URL = "http://cssgate.insttech.washington.edu/~_450team2/list.php?cmd=ratingList&Username=";
     /**
-     * Current user.
+     * The list of rated movies belongs to the user with this username string.
      */
-    private String mCurrentUser;
+    private String mTargetUser;
 
     private int mColumnCount = 1;
     private RecyclerView mRecyclerView;
@@ -74,9 +77,15 @@ public class MovieItemFragment extends Fragment {
             Context context = view.getContext();
             MovieItemActivity miActivity = (MovieItemActivity)getActivity();
 
-            mCurrentUser = miActivity.getmCurrentUser();
+            if (!miActivity.getmTargetUser().equals("")) {
+                mTargetUser = miActivity.getmTargetUser();
+            } else {
+                mTargetUser = miActivity.getmCurrentUser();
+            }
 
-            Log.i("MovieItemFragment", "current user: " + mCurrentUser);
+
+
+            Log.i("MovieItemFragment", "current user: " + mTargetUser);
 
             mRecyclerView = (RecyclerView) view;
 
@@ -108,7 +117,7 @@ public class MovieItemFragment extends Fragment {
 
         try {
 
-            sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
+            sb.append(URLEncoder.encode(mTargetUser, "UTF-8"));
             Log.i("MovieItemFragment", "URL: " + sb.toString());
 
         }
@@ -147,6 +156,11 @@ public class MovieItemFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
+        /**
+         * On list fragment interaction.
+         *
+         * @param item the item
+         */
         void onListFragmentInteraction(MovieItem item);
     }
 

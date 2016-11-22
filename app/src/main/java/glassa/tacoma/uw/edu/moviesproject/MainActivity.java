@@ -17,14 +17,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
+<<<<<<< HEAD
  * Main activity class of the app.
  * When the app launches, this is where the intent filter points
  * This activity is the contains the AsyncTasks required by
  * LoginFragment and RegisterFragment used to access the database
+=======
+ * The type Main activity.
+>>>>>>> refs/remotes/origin/Tony
  */
 public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener{
 
+    /**
+     * The M login frag.
+     */
     LoginFragment mLoginFrag;
+    /**
+     * The M username.
+     */
     String mUsername;
 
     /**
@@ -44,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         }
     }
 
+    /**
+     * Sets username.
+     *
+     * @param mUsername the m username
+     */
     public void setmUsername(String mUsername) {
         this.mUsername = mUsername;
     }

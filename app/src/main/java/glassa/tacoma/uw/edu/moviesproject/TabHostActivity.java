@@ -17,7 +17,10 @@ import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 public class TabHostActivity extends AppCompatActivity {
 
     private FragmentTabHost TabHost;
-    String mUsername;
+    /**
+     * The current User's username.
+     */
+    String mCurrentUser;
 
     /**
      * The oncreate method.
@@ -30,7 +33,7 @@ public class TabHostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_host);
 
 
-        mUsername = getIntent().getStringExtra("USERNAME");
+        mCurrentUser = getIntent().getStringExtra("USERNAME");
 
         TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         TabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
@@ -47,46 +50,58 @@ public class TabHostActivity extends AppCompatActivity {
                 Tab5Settings.class, null);
     }
 
+    /**
+     * View following users.
+     *
+     * @param view the view
+     */
     public void viewFollowingUsers(View view) {
         Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "following users clicked");
-//        if (findViewById(R.id.realtabcontent)!= null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.hometabhost, new FollowingFragment())
-//                    .commit();
-//        }
 
-        Log.i("TabHostActivity", "Current User: " + mUsername);
+        Log.i("TabHostActivity", "Current User: " + mCurrentUser);
 
         Intent i = new Intent(this, FollowItemActivity.class);
         i.putExtra("FOLLOWERS", true);
-        i.putExtra("USERNAME", mUsername);
+        i.putExtra("USERNAME", mCurrentUser);
         startActivity(i);
     }
 
+    /**
+     * View users im following.
+     *
+     * @param view the view
+     */
     public void viewUsersImFollowing(View view) {
         Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "view users i'm following");
 
 
-        Log.i("TabHostActivity", "Current User: " + mUsername);
+        Log.i("TabHostActivity", "Current User: " + mCurrentUser);
 
         Intent i = new Intent(this, FollowItemActivity.class);
         i.putExtra("FOLLOWING", true);
-        i.putExtra("USERNAME", mUsername);
+        i.putExtra("USERNAME", mCurrentUser);
         startActivity(i);
 
 
     }
+
+    /**
+     * View rated movies.
+     *
+     * @param view the view
+     */
     public void viewRatedMovies(View view) {
         Toast.makeText(view.getContext(), "viewing movies you've rated", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "rate movies clicked");
 
         Intent i = new Intent(this, MovieItemActivity.class);
-        i.putExtra("USERNAME", mUsername);
+        i.putExtra("CURRENT_USER", mCurrentUser);
+        i.putExtra("TARGET_USER", mCurrentUser);
         startActivity(i);
 
     }

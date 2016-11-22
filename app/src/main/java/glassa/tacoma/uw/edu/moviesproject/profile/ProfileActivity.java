@@ -127,10 +127,6 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "You are now following " + mTargetUser
                             , Toast.LENGTH_SHORT)
                             .show();
-//                    Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
-//                    Log.i("MainActivity", "username: " + mUsername);
-//                    intent.putExtra("USERNAME", mUsername);
-//                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "You are already following " + mTargetUser
                             , Toast.LENGTH_SHORT)
@@ -147,7 +143,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     /**
      * Starts the AsyncTask to follow the user. Its triggored by the button "Follow"
-     * @param view
+     *
+     * @param view the view
      */
     public void followUser(View view) {
         FollowUserTask task = new FollowUserTask();
@@ -156,7 +153,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     /**
      * Opens the list of those following the target user.
-     * @param view
+     *
+     * @param view the view
      */
     public void viewFollowingUsers(View view) {
         Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
@@ -172,7 +170,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     /**
      * Opens the list of those that the target user follows.
-     * @param view
+     *
+     * @param view the view
      */
     public void viewUsersImFollowing(View view) {
         Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
@@ -190,14 +189,16 @@ public class ProfileActivity extends AppCompatActivity {
 
     /**
      * Opens the list of movies that the target user has rated.
-     * @param view
+     *
+     * @param view the view
      */
     public void viewRatedMovies(View view) {
         Toast.makeText(view.getContext(), "viewing movies you've rated", Toast.LENGTH_SHORT)
                 .show();
         Log.i("home", "rate movies clicked");
         Intent i = new Intent(this, MovieItemActivity.class);
-        i.putExtra("USERNAME", mTargetUser);
+        i.putExtra("TARGET_USER", mTargetUser);
+        i.putExtra("CURRENT_USER", mCurrentUser);
         startActivity(i);
     }
 

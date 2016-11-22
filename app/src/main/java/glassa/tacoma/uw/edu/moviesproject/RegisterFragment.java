@@ -17,6 +17,7 @@ import java.net.URLEncoder;
 
 
 /**
+<<<<<<< HEAD
  * -----------------------------------------------------------------------
  * A fragment class to hold the registration UI.                          |
  * -----------------------------------------------------------------------
@@ -31,10 +32,31 @@ import java.net.URLEncoder;
  * Conatains a stringbuilder that builds the url by taking                |
  * the data out of the EditViews and appending it onto the url.           |
  * ------------------------------------------------------------------------
+=======
+ * A fragment class to hold the registration UI.
+ * Contains 3 EditText views, one for the user name,
+ * and two for the password. If the two password views
+ * match, interface is called to launch the Asynctask
+ * in mainActivity to add the data.
+ * <p>
+ * Contains one button. On click, calls a stringbuilder
+ * to build the appended url, and call the AsyncTask
+ * <p>
+ * Conatains a stringbuilder that builds the url by taking
+ * the data out of the EditViews and appending it onto the url.
+>>>>>>> refs/remotes/origin/Tony
  */
 public class RegisterFragment extends Fragment {
 
+    /**
+     * The interface User add listener.
+     */
     public interface UserAddListener {
+        /**
+         * Add user.
+         *
+         * @param url the url
+         */
         public void addUser(String url);
     }
 
@@ -50,8 +72,20 @@ public class RegisterFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * The B 1.
+     */
     Button b1;
-    EditText ed1, ed2, ed3;
+    /**
+     * The Ed 1.
+     */
+    EditText ed1, /**
+     * The Ed 2.
+     */
+    ed2, /**
+     * The Ed 3.
+     */
+    ed3;
     private RegisterFragment.UserAddListener mListener;
 
 

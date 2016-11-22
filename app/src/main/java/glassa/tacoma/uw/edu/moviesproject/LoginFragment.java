@@ -39,18 +39,51 @@ import java.net.URLEncoder;
  * -------------------------------------------------------------------------
  */
 public class LoginFragment extends Fragment {
+    /**
+     * The interface Login add listener.
+     */
     public interface LoginAddListener{
+        /**
+         * Add login.
+         *
+         * @param url the url
+         */
         public void addLogin(String url);
 
     }
     private final static String USER_LOGIN_URL = "http://cssgate.insttech.washington.edu/~_450team2/login.php?";
     private LoginFragment.LoginAddListener mListener;
 
-    Button b1, b2;
-    EditText ed1, ed2;
+    /**
+     * The B 1.
+     */
+    Button b1, /**
+     * The B 2.
+     */
+    b2;
+    /**
+     * The Ed 1.
+     */
+    EditText ed1, /**
+     * The Ed 2.
+     */
+    ed2;
+    /**
+     * The Tx 1.
+     */
     TextView tx1;
+<<<<<<< HEAD
 
+=======
+    /**
+     * The Counter.
+     */
+    int counter = 3;
+>>>>>>> refs/remotes/origin/Tony
 
+    /**
+     * Instantiates a new Login fragment.
+     */
     public LoginFragment() {
         // Required empty public constructor
     }
