@@ -83,6 +83,8 @@ public class MovieItemFragment extends Fragment {
                 mTargetUser = miActivity.getmCurrentUser();
             }
 
+            getActivity().setTitle(mTargetUser + "'s Film Ratings");
+
 
 
             Log.i("MovieItemFragment", "current user: " + mTargetUser);
