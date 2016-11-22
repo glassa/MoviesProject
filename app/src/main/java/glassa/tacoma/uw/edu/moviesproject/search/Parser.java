@@ -27,10 +27,11 @@ public class Parser extends AsyncTask<Void, Void,Integer> {
 
     /**
      * constrouct for this class
-     * @param theCon passed in Context
-     * @param theString pased in String
+     *
+     * @param theCon      passed in Context
+     * @param theString   pased in String
      * @param theListView passed in ListView
-     * @param theClass passed in String
+     * @param theClass    passed in String
      */
     public Parser(Context theCon, String theString, ListView theListView, String theClass) {
         myCon = theCon;

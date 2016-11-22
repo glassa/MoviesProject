@@ -12,12 +12,25 @@ import java.util.Iterator;
  * Created by Yunhang on 2016/11/5.
  */
 public class DataPack {
+    /**
+     * The My query.
+     */
     String myQuery;
 
+    /**
+     * Instantiates a new Data pack.
+     *
+     * @param query the query
+     */
     public DataPack(String query) {
         myQuery = query;
     }
 
+    /**
+     * Package data string.
+     *
+     * @return the string
+     */
     public String packageData() {
         JSONObject Obj = new JSONObject();
         StringBuffer sb = new StringBuffer();

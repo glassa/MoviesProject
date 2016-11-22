@@ -21,6 +21,12 @@ public class MyMovieItemRecyclerViewAdapter extends RecyclerView.Adapter<MyMovie
     private final List<MovieItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
+    /**
+     * Instantiates a new My movie item recycler view adapter.
+     *
+     * @param items    the items
+     * @param listener the listener
+     */
     public MyMovieItemRecyclerViewAdapter(List<MovieItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
@@ -57,12 +63,32 @@ public class MyMovieItemRecyclerViewAdapter extends RecyclerView.Adapter<MyMovie
         return mValues.size();
     }
 
+    /**
+     * The type View holder.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * The M view.
+         */
         public final View mView;
+        /**
+         * The M movie title view.
+         */
         public final TextView mMovieTitleView;
+        /**
+         * The M rating string view.
+         */
         public final TextView mRatingStringView;
+        /**
+         * The M item.
+         */
         public MovieItem mItem;
 
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param view the view
+         */
         public ViewHolder(View view) {
             super(view);
             mView = view;

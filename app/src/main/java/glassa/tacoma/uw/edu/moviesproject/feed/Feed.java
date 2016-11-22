@@ -11,17 +11,35 @@ import java.util.List;
  * This class will hold each feed item.
  */
 public class Feed implements Serializable {
-    public static final String HOST_ID = "HostID", FOLLOWING_ID = "FollowingID",
-            MOVIE_ID= "MovieID";
+    /**
+     * The constant HOST_ID.
+     */
+    public static final String HOST_ID = "HostID", /**
+     * The Following id.
+     */
+    FOLLOWING_ID = "FollowingID",
+    /**
+     * The Movie id.
+     */
+    MOVIE_ID= "MovieID";
 
-    String mHostID, mFollowingID, mMovieID;
+    /**
+     * The M host id.
+     */
+    String mHostID, /**
+     * The M following id.
+     */
+    mFollowingID, /**
+     * The M movie id.
+     */
+    mMovieID;
 
     /**
      * This is the feed constructor.
      *
-     * @param mHostID the host id in the database.
+     * @param mHostID      the host id in the database.
      * @param mFollowingID the id of the user being followed.
-     * @param mMovieID the movie id.
+     * @param mMovieID     the movie id.
      */
     public Feed(String mHostID, String mFollowingID, String mMovieID) {
         this.mHostID = mHostID;
