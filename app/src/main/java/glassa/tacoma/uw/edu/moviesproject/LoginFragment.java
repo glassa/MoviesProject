@@ -95,12 +95,12 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-        b1 = (Button) v.findViewById(R.id.button);
-        ed1 = (EditText) v.findViewById(R.id.editText);
-        ed2 = (EditText) v.findViewById(R.id.editText2);
+        b1 = (Button) v.findViewById(R.id.login_button);
+        ed1 = (EditText) v.findViewById(R.id.login_edit_text);
+        ed2 = (EditText) v.findViewById(R.id.pass_edit_text);
 
-        b2 = (Button) v.findViewById(R.id.button2);
-        tx1 = (TextView) v.findViewById(R.id.textView3);
+        b2 = (Button) v.findViewById(R.id.register_button_initial);
+        tx1 = (TextView) v.findViewById(R.id.attempts_text_view_2);
         tx1.setVisibility(View.GONE);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
