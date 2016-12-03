@@ -22,6 +22,7 @@ public class TabHostActivity extends AppCompatActivity {
      */
     String mCurrentUser;
 
+
     /**
      * The oncreate method.
      *

@@ -1,12 +1,18 @@
 package glassa.tacoma.uw.edu.moviesproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,17 +22,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
+import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
+
 /**
-<<<<<<< HEAD
  * Main activity class of the app.
  * When the app launches, this is where the intent filter points
  * This activity is the contains the AsyncTasks required by
  * LoginFragment and RegisterFragment used to access the database
-=======
  * The type Main activity.
->>>>>>> refs/remotes/origin/Tony
  */
-public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener{
+public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener, LoginFragment.FacebookLoginListener{
 
     /**
      * The M login frag.
@@ -35,8 +41,10 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     /**
      * The M username.
      */
-    String mUsername;
-
+    protected static String mUsername;
+    CallbackManager callbackManager;
+    SharedPreferencesHelper mSharedPreferencesHelper;
+    private final String TAG = "MainActivity";
     /**
      * OnCreate method to instantiate the fragment container,
      * and then take the user to the login fragment
@@ -45,6 +53,14 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        AppEventsLogger.activateApp(this);
+
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        mSharedPreferencesHelper = new SharedPreferencesHelper(
+                sharedPreferences);
         setContentView(R.layout.activity_main);
 //        mLoginFrag = new LoginFragment();
         if (findViewById(R.id.fragment_container) != null) {
@@ -79,10 +95,24 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
      * Fragment interface that launches the login Asynctask.
      * @param url the url to connect to the database, already pre-appended with the php? commands.
      */
-    public void addLogin(String url) {
+    public void addLogin(String url, String mUsername) {
+        setmUsername(mUsername);
         LoginUserTask task = new LoginUserTask();
         task.execute(new String[]{url.toString()});
         getSupportFragmentManager().popBackStack();
+    }
+    public void sharedPrefLogin(String mUsername){
+        Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
+        Log.i("MainActivity", "username: " + mUsername);
+        intent.putExtra("USERNAME", mUsername);
+        startActivity(intent);
+    }
+
+    public void facebookLogin() {
+        Log.i(TAG, "facebookLogin");
+
+        Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -145,17 +175,33 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
                 JSONObject jsonObject = new JSONObject(result);
                 String status = (String) jsonObject.get("result");
                 if (status.equals("success")) {
-                    Toast.makeText(getApplicationContext(), "Welcome"
+                    Toast.makeText(getApplicationContext()
+                            , "Welcome"
                             , Toast.LENGTH_LONG)
                             .show();
+
                     Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
                     Log.i("MainActivity", "username: " + mUsername);
                     intent.putExtra("USERNAME", mUsername);
-                    startActivity(intent);
+                    SharedPreferenceEntry entry1 = new SharedPreferenceEntry(true, mUsername);
+                    Log.i(TAG, entry1.getUsername());
+                    if(entry1.isLoggedIn() == true){
+                        Log.i(TAG, "True");
+                    } else if(entry1.isLoggedIn() == false){
+                        Log.i(TAG, "False");
+                    }
+                    if(entry1 != null) {
+                        if(entry1.getUsername() != null) {
+                            mSharedPreferencesHelper.savePersonalInfo(entry1);
+                            startActivity(intent);
+                        }
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "Username or password is incorrect"
                             , Toast.LENGTH_LONG)
                             .show();
+                    SharedPreferenceEntry entry1 = new SharedPreferenceEntry(false,"");
+                    mSharedPreferencesHelper.savePersonalInfo(entry1);
                 }
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +
@@ -221,13 +267,19 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
                     Toast.makeText(getApplicationContext(), "User successfully added!"
                             , Toast.LENGTH_LONG)
                             .show();
+                    SharedPreferenceEntry entry2 = new SharedPreferenceEntry(
+                            true, mUsername);
 
+
+                    mSharedPreferencesHelper.savePersonalInfo(entry2);
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Failed to add: "
                                     + jsonObject.get("error")
                             , Toast.LENGTH_LONG)
                             .show();
+                    SharedPreferenceEntry entry3 = new SharedPreferenceEntry(false,"");
+                    mSharedPreferencesHelper.savePersonalInfo(entry3);
                 }
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +
