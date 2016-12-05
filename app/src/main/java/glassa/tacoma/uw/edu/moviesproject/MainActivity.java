@@ -2,6 +2,8 @@ package glassa.tacoma.uw.edu.moviesproject;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     CallbackManager callbackManager;
     SharedPreferencesHelper mSharedPreferencesHelper;
     private final String TAG = "MainActivity";
+    SQLiteDatabase mydatabase;
+    Cursor resultSet;
     /**
      * OnCreate method to instantiate the fragment container,
      * and then take the user to the login fragment
@@ -56,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         AppEventsLogger.activateApp(this);
-
+        mydatabase = openOrCreateDatabase("username", MODE_PRIVATE,null);
+        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS Username(Username VARCHAR);");
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(this);
         mSharedPreferencesHelper = new SharedPreferencesHelper(
@@ -186,6 +191,19 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
                     Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
                     Log.i("MainActivity", "username: " + mUsername);
                     intent.putExtra("USERNAME", mUsername);
+                    resultSet = mydatabase.rawQuery("Select * from Username",null);
+                    resultSet.moveToFirst();
+                    boolean flag = false;
+                    for (int i = 0; i < resultSet.getCount(); i++){
+                        String liteUsername = resultSet.getString(1);
+                        if (liteUsername.equalsIgnoreCase(mUsername)) {
+                            flag = true;
+                        }
+                    }
+                    if (flag = false){
+                        String formatedString = String.format("INSERT INTO Username VALUES('%s');", mUsername);
+                        mydatabase.execSQL(formatedString);
+                    }
                     SharedPreferenceEntry entry1 = new SharedPreferenceEntry(true, mUsername);
                     Log.i(TAG, entry1.getUsername());
                     if(entry1.isLoggedIn() == true){
@@ -270,10 +288,21 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
                     Toast.makeText(getApplicationContext(), "User successfully added!"
                             , Toast.LENGTH_LONG)
                             .show();
+                    resultSet = mydatabase.rawQuery("Select * from Username",null);
+                    resultSet.moveToFirst();
+                    boolean flag = false;
+                    for (int i = 0; i < resultSet.getCount(); i++){
+                        String liteUsername = resultSet.getString(1);
+                        if (liteUsername.equalsIgnoreCase(mUsername)) {
+                            flag = true;
+                        }
+                    }
+                    if (flag = false){
+                        String formatedString = String.format("INSERT INTO Username VALUES('%s');", mUsername);
+                        mydatabase.execSQL(formatedString);
+                    }
                     SharedPreferenceEntry entry2 = new SharedPreferenceEntry(
                             true, mUsername);
-
-
                     mSharedPreferencesHelper.savePersonalInfo(entry2);
 
                 } else {
