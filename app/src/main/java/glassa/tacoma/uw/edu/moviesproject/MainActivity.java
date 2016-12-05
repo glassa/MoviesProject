@@ -34,17 +34,21 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
  * LoginFragment and RegisterFragment used to access the database
  * The type Main activity.
  */
-public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener, LoginFragment.FacebookLoginListener, MessageFragment.messageListener{
+public class MainActivity extends AppCompatActivity implements
+        RegisterFragment.UserAddListener, LoginFragment.LoginAddListener,
+        /* LoginFragment.FacebookLoginListener,*/ MessageFragment.messageListener{
 
     /**
-     * The M login frag.
-     */
-    LoginFragment mLoginFrag;
-    /**
-     * The M username.
+     * The member variable for Username.
+     * It's used when calling intents to other activity's as a PutExtra call
+     * in order to remember which user's info to display.
      */
     protected static String mUsername;
-    CallbackManager callbackManager;
+    /**
+     * A callback manager used in conjuction with the facebook log on.
+     * Not currently used
+     */
+    //CallbackManager callbackManager;
     SharedPreferencesHelper mSharedPreferencesHelper;
     private final String TAG = "MainActivity";
     SQLiteDatabase mydatabase;
@@ -58,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        AppEventsLogger.activateApp(this);
+        //callbackManager = CallbackManager.Factory.create();
+        //AppEventsLogger.activateApp(this);
         mydatabase = openOrCreateDatabase("username", MODE_PRIVATE,null);
         mydatabase.execSQL("CREATE TABLE IF NOT EXISTS Username(Username VARCHAR);");
         SharedPreferences sharedPreferences = PreferenceManager
@@ -67,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         mSharedPreferencesHelper = new SharedPreferencesHelper(
                 sharedPreferences);
         setContentView(R.layout.activity_main);
-//        mLoginFrag = new LoginFragment();
         if (findViewById(R.id.fragment_container) != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new LoginFragment())
@@ -78,8 +81,9 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     /**
      * Sets username.
      *
-     * @param mUsername the m username
+     * @param mUsername the member variable "Username"
      */
+
     public void setmUsername(String mUsername) {
         this.mUsername = mUsername;
     }
@@ -96,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         getSupportFragmentManager().popBackStack();
     }
 
+    /**
+     * Fragment interface required by the messaging fragment.
+     * Does nothing. Unsure if it can be removed without breaking things.
+     */
     public void message(){
 
     }
@@ -109,20 +117,30 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         task.execute(new String[]{url.toString()});
         getSupportFragmentManager().popBackStack();
     }
+
+    /**
+     * Fragment interface for when the user is already logged in.
+     * It logs that the user whas already logged in, and starts an intent
+     * to launch the TabHostActivity.
+     * @param mUsername
+     */
     public void sharedPrefLogin(String mUsername){
         Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
         Log.i("MainActivity", "username: " + mUsername);
         intent.putExtra("USERNAME", mUsername);
         startActivity(intent);
     }
-
+    /**
+     * The interface for the facebook login. Currently not in use.
+     */
+    /*
     public void facebookLogin() {
         Log.i(TAG, "facebookLogin");
 
         Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
         startActivity(intent);
     }
-
+    */
     /**
      * AsyncTask to log the user in. On successful authentication, take the user to TabHostActivity.
      */
@@ -171,8 +189,12 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         /**
          * It checks to see if there was a problem with the URL(Network) which is when an
          * exception is caught. It tries to call the parse Method and checks to see if it was successful.
-         * If it was, it takes the user to the TabHostActivity via an intent.
-         * If not, it displays the exception.
+         * If it was, it takes the user to the TabHostActivity via an intent, stores the username
+         * in a SQlite database if it does not already exist, and saves the user as logged in with
+         * sharedpreferences.
+         * If the user provided incorrect login info, they are marked as not logged in
+         * via sharedpreferences, and a toast is displayed letting them know.
+         * If something else causes an exception, they are informed, and a log is left.
          *
          * @param result Passed by doInBackground. Used to determine if the user login was successful.
          */
@@ -227,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +
                         e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.wtf(TAG, e.getMessage());
             }
         }
     }
@@ -274,7 +297,9 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         /**
          * It checks to see if there was a problem with the URL(Network) which is when an
          * exception is caught. It tries to call the parse Method and checks to see if it was successful.
-         * If not, it displays the exception.
+         * If it was, they are saved as logged in via Sharedpreferences, the username is stored in
+         * a SQlite database, and the user is taken to the TabHostActivity.
+         * If not, it displays and logs the exception.
          *
          * @param result
          */
@@ -316,6 +341,7 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +
                         e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.wtf(TAG, e.getMessage());
             }
         }
     }

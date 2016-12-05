@@ -9,10 +9,14 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.net.URLEncoder;
 
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
@@ -24,6 +28,8 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 public class Tab5Settings extends Fragment {
 
     Button b1;
+    Button b2;
+    Button b3;
     SharedPreferencesHelper mSharedPreferencesHelper;
 
     /**
@@ -40,6 +46,8 @@ public class Tab5Settings extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tab5_settings, container, false);
         b1 = (Button) v.findViewById(R.id.logout_button);
+        b2 = (Button) v.findViewById(R.id.change_user_button);
+        b3 = (Button) v.findViewById(R.id.change_pass_button);
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         mSharedPreferencesHelper = new SharedPreferencesHelper(
@@ -54,6 +62,17 @@ public class Tab5Settings extends Fragment {
                 startActivity(intent);
             }
         });
+        b2.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Fragment fragment = new ChangeUserInfoDialog();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
     return v;
     }
+
 }
