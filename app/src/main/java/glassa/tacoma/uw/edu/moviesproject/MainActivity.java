@@ -32,7 +32,7 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
  * LoginFragment and RegisterFragment used to access the database
  * The type Main activity.
  */
-public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener, LoginFragment.FacebookLoginListener{
+public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener, LoginFragment.FacebookLoginListener, MessageFragment.messageListener{
 
     /**
      * The M login frag.
@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         getSupportFragmentManager().popBackStack();
     }
 
+    public void message(){
+
+    }
     /**
      * Fragment interface that launches the login Asynctask.
      * @param url the url to connect to the database, already pre-appended with the php? commands.

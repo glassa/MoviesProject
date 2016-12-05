@@ -4,6 +4,7 @@ package glassa.tacoma.uw.edu.moviesproject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -81,7 +82,7 @@ public class LoginFragment extends Fragment {
     Button b1, /**
      * The B 2.
      */
-    b2;
+    b2, b3;
     /**
      * The Ed 1.
      */
@@ -92,14 +93,9 @@ public class LoginFragment extends Fragment {
     /**
      * The Tx 1.
      */
-    TextView tx1, info;
+    TextView tx1;
 
-    /**
-     * The Counter.
-     */
-    int counter = 3;
-
-    LoginButton loginButton;
+    //LoginButton loginButton;
 
     CallbackManager callbackManager;
 
@@ -130,12 +126,13 @@ public class LoginFragment extends Fragment {
         };
 
     }
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -151,13 +148,13 @@ public class LoginFragment extends Fragment {
             mUsername = entry.getUsername();
             mListener.sharedPrefLogin(mUsername);
         }
-        loginButton = (LoginButton) v.findViewById(R.id.facebook_login_button);
+        /*loginButton = (LoginButton) v.findViewById(R.id.facebook_login_button);
         loginButton.setReadPermissions("email");
         loginButton.setFragment(this);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                /*Context c = getActivity();
+                Context c = getActivity();
                 StringBuilder sb = new StringBuilder(USER_ADD_URL);
                 StringBuilder sb2 = new StringBuilder("");
                 try {
@@ -188,7 +185,7 @@ public class LoginFragment extends Fragment {
                 }
                 String url = sb.toString();
                 mListener.addUser(url);
-*/
+
 
                 Log.i(TAG, "registerCallback");
 
@@ -207,14 +204,16 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(c, exception.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+        */
         b1 = (Button) v.findViewById(R.id.login_button);
         ed1 = (EditText) v.findViewById(R.id.login_edit_text);
         ed2 = (EditText) v.findViewById(R.id.pass_edit_text);
 
         b2 = (Button) v.findViewById(R.id.register_button_initial);
-        tx1 = (TextView) v.findViewById(R.id.attempts_text_view_2);
-        tx1.setVisibility(View.GONE);
-        info = (TextView) v.findViewById(R.id.info);
+        //tx1 = (TextView) v.findViewById(R.id.attempts_text_view_2);
+        //tx1.setVisibility(View.GONE);
+        //info = (TextView) v.findViewById(R.id.info);
+        b3 = (Button) v.findViewById(R.id.share_button);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,7 +251,35 @@ public class LoginFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+        b3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new MessageFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                /*
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setData(Uri.parse("mailto:"));
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, "TO");
+                emailIntent.putExtra(Intent.EXTRA_CC, "CC");
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
 
+                try {
+                    startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+                    Log.i("Finished sending email", "");
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getContext(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                }
+            }*/
+
+
+        }});
         return v;
     }
 

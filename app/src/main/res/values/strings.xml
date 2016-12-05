@@ -20,4 +20,7 @@
     <string name="title_activity_follow_item">FollowItemActivity</string>
     <string name="title_activity_movie_item">MovieItemActivity</string>
     <string name="facebook_app_id">171593419971974</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
