@@ -13,8 +13,10 @@ import android.widget.Toast;
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
 import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 
+
 import static android.R.attr.fragment;
 import static android.R.attr.tag;
+
 
 /**
  * This is the activity that holds the TabHost. This allows for tab navigation.
@@ -26,7 +28,6 @@ public class TabHostActivity extends AppCompatActivity {
      * The current User's username.
      */
     String mCurrentUser;
-
 
     /**
      * The oncreate method.

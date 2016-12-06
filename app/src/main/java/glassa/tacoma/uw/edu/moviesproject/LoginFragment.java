@@ -4,7 +4,9 @@ package glassa.tacoma.uw.edu.moviesproject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.net.Uri;
+
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -67,6 +69,7 @@ public class LoginFragment extends Fragment {
         public void addLogin(String url, String mUsername);
         public void addUser(String url);
         public void sharedPrefLogin(String mUsername);
+
     }
     public interface FacebookLoginListener{
         public void facebookLogin();
@@ -119,6 +122,7 @@ public class LoginFragment extends Fragment {
 
     //LoginButton loginButton;
 
+
     CallbackManager callbackManager;
 
     ProfileTracker profileTracker;
@@ -170,12 +174,15 @@ public class LoginFragment extends Fragment {
             mUsername = entry.getUsername();
             mListener.sharedPrefLogin(mUsername);
         }
+
         b1 = (Button) v.findViewById(R.id.login_button);
         ed1 = (EditText) v.findViewById(R.id.login_edit_text);
         ed2 = (EditText) v.findViewById(R.id.pass_edit_text);
 
         b2 = (Button) v.findViewById(R.id.register_button_initial);
+
         b3 = (Button) v.findViewById(R.id.share_button);
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,7 +246,9 @@ public class LoginFragment extends Fragment {
         super.onAttach(context);
         if(context instanceof LoginFragment.LoginAddListener) {
             mListener = (LoginFragment.LoginAddListener) context;
+
             //fListener = (LoginFragment.FacebookLoginListener) context;
+
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement LoginAddListener and FacebookLoginListener");

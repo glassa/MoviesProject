@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.net.URLEncoder;
 
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
@@ -28,13 +28,14 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
  */
 public class Tab5Settings extends Fragment {
 
+//    Button b1;
+//    SharedPreferencesHelper mSharedPreferencesHelper;
 
     Button b1;
     Button b2;
     Button b3;
     Button b4;
     SharedPreferencesHelper mSharedPreferencesHelper;
-
 
     /**
      * Instantiates a new Tab 5 settings.
@@ -81,7 +82,7 @@ public class Tab5Settings extends Fragment {
                 fragmentTransaction.commit();
             }});
 
+
     return v;
     }
-
 }

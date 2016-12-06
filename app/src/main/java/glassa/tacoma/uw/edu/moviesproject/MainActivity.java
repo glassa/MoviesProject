@@ -38,6 +38,7 @@ import glassa.tacoma.uw.edu.moviesproject.profile.ProfileActivity;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 
+
 /**
  * Main activity class of the app.
  * When the app launches, this is where the intent filter points
@@ -76,15 +77,18 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
 
+
         //callbackManager = CallbackManager.Factory.create();
         //AppEventsLogger.activateApp(this);
         mydatabase = openOrCreateDatabase("username", MODE_PRIVATE,null);
         mydatabase.execSQL("CREATE TABLE IF NOT EXISTS Username(Username VARCHAR, Current BOOLEAN);");
+
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(this);
         mSharedPreferencesHelper = new SharedPreferencesHelper(
                 sharedPreferences);
         setContentView(R.layout.activity_main);
+//        mLoginFrag = new LoginFragment();
         if (findViewById(R.id.fragment_container) != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new LoginFragment())
@@ -94,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * Sets username.
+
      *
      * @param mUsername the member variable "Username"
      */
@@ -101,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements
     public void setmUsername(String mUsername) {
         this.mUsername = mUsername;
     }
+
 
     /**
      * Fragment interface that launches the registration Asynctask.
@@ -131,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements
         task.execute(new String[]{url.toString()});
         getSupportFragmentManager().popBackStack();
     }
-
     /**
      * Fragment interface for when the user is already logged in.
      * It logs that the user whas already logged in, and starts an intent
@@ -156,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements
     }
     */
     /**
+
      * AsyncTask to log the user in. On successful authentication, take the user to TabHostActivity.
      */
     private class LoginUserTask extends AsyncTask<String, Void, String> {
@@ -203,12 +209,17 @@ public class MainActivity extends AppCompatActivity implements
         /**
          * It checks to see if there was a problem with the URL(Network) which is when an
          * exception is caught. It tries to call the parse Method and checks to see if it was successful.
+<<<<<<< HEAD
+         * If it was, it takes the user to the TabHostActivity via an intent.
+         * If not, it displays the exception.
+=======
          * If it was, it takes the user to the TabHostActivity via an intent, stores the username
          * in a SQlite database if it does not already exist, and saves the user as logged in with
          * sharedpreferences.
          * If the user provided incorrect login info, they are marked as not logged in
          * via sharedpreferences, and a toast is displayed letting them know.
          * If something else causes an exception, they are informed, and a log is left.
+>>>>>>> master
          *
          * @param result Passed by doInBackground. Used to determine if the user login was successful.
          */
@@ -245,6 +256,7 @@ public class MainActivity extends AppCompatActivity implements
                         String formatedString = String.format("INSERT INTO Username VALUES('%s', %b);", mUsername, true);
                         mydatabase.execSQL(formatedString);
                     }
+
                     SharedPreferenceEntry entry1 = new SharedPreferenceEntry(true, mUsername);
                     Log.i(TAG, entry1.getUsername());
                     if(entry1.isLoggedIn() == true){
@@ -268,7 +280,9 @@ public class MainActivity extends AppCompatActivity implements
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +
                         e.getMessage(), Toast.LENGTH_LONG).show();
+
                 Log.wtf(TAG, e.getMessage());
+
             }
         }
     }
@@ -332,6 +346,7 @@ public class MainActivity extends AppCompatActivity implements
                     Toast.makeText(getApplicationContext(), "User successfully added!"
                             , Toast.LENGTH_LONG)
                             .show();
+
                     resultSet = mydatabase.rawQuery("Select * from Username",null);
                     resultSet.moveToFirst();
                     boolean flag = false;

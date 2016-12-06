@@ -21,6 +21,7 @@
     <string name="title_activity_movie_item">MovieItemActivity</string>
     <string name="facebook_app_id">171593419971974</string>
 
+
     <string name="username">Enter new username</string>
     <string name="password">Enter new password</string>
     <string name="cancel">Cancel</string>
