@@ -28,11 +28,13 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
  */
 public class Tab5Settings extends Fragment {
 
+
     Button b1;
     Button b2;
     Button b3;
     Button b4;
     SharedPreferencesHelper mSharedPreferencesHelper;
+
 
     /**
      * Instantiates a new Tab 5 settings.
@@ -47,6 +49,7 @@ public class Tab5Settings extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tab5_settings, container, false);
+
         b1 = (Button) v.findViewById(R.id.logout_button);
         b2 = (Button) v.findViewById(R.id.change_user_button);
 
@@ -77,6 +80,7 @@ public class Tab5Settings extends Fragment {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }});
+
     return v;
     }
 
