@@ -18,15 +18,17 @@
 
 
         <EditText
-            android:layout_width="262dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/search_user_bar"
-            android:hint="Search a user..." />
+            android:hint="Find a user..." />
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
             android:id="@+id/search_user_button"
-            android:text="Search" />
+            android:text="Search"/>
     </LinearLayout>
 
     <ListView

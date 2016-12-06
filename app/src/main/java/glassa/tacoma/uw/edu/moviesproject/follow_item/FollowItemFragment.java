@@ -73,7 +73,7 @@ public class FollowItemFragment extends Fragment {
      * @param v the View
      * @return the URL String.
      */
-    private String buildUserURL(View v) {
+    private String buildFollowListURL(View v) {
 
         StringBuilder sb = new StringBuilder(FOLLOW_ITEM_URL);
 
@@ -144,7 +144,7 @@ public class FollowItemFragment extends Fragment {
             result = FollowItem.parseCourseJSON(result, followItemList);
             // Something wrong with the JSON returned.
             if (result != null) {
-                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
+                Toast.makeText(getActivity().getApplicationContext(), "json return string is null", Toast.LENGTH_LONG)
                         .show();
                 return;
             }
@@ -193,7 +193,7 @@ public class FollowItemFragment extends Fragment {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
             GetFollowListTask task = new GetFollowListTask();
 
-            task.execute(buildUserURL(getView()));
+            task.execute(buildFollowListURL(getView()));
         }
         return view;
     }
