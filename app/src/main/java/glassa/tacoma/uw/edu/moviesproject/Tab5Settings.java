@@ -72,7 +72,7 @@ public class Tab5Settings extends Fragment {
                 Fragment fragment = new MessageFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.replace(R.id.setting_fragment, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }});
