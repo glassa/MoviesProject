@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:text="[Username]'s Profile!"
         android:textSize="30sp"
-        android:paddingBottom="30px"/>
+        android:paddingBottom="30px"
+        android:ellipsize="none"/>
 
 
     <TextView

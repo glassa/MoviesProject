@@ -53,7 +53,8 @@
             android:id="@+id/logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Logout" />
+            android:text="Log out"
+            android:ellipsize="none"/>
 
         <!--<Button-->
             <!--android:text="Logout"-->
