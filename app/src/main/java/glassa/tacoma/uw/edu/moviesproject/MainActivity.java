@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements
      * It's used when calling intents to other activity's as a PutExtra call
      * in order to remember which user's info to display.
      */
-    protected static String mUsername;
+    public static String mUsername;
     /**
      * A callback manager used in conjuction with the facebook log on.
      * Not currently used
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements
         //callbackManager = CallbackManager.Factory.create();
         //AppEventsLogger.activateApp(this);
         mydatabase = openOrCreateDatabase("username", MODE_PRIVATE,null);
-        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS Username(Username VARCHAR);");
+        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS Username(Username VARCHAR, Current BOOLEAN);");
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(this);
         mSharedPreferencesHelper = new SharedPreferencesHelper(
@@ -217,13 +217,18 @@ public class MainActivity extends AppCompatActivity implements
                     resultSet.moveToFirst();
                     boolean flag = false;
                     for (int i = 0; i < resultSet.getCount(); i++){
-                        String liteUsername = resultSet.getString(1);
+                        String liteUsername = resultSet.getString(i);
                         if (liteUsername.equalsIgnoreCase(mUsername)) {
                             flag = true;
+                            String formatedString = String.format("UPDATE Username SET Username='%s', Current=true", mUsername);
+                            mydatabase.execSQL(formatedString);
+                        } else {
+                            String formatedString = String.format("UPDATE Username SET Username='%s', Current=false", mUsername);
+                            mydatabase.execSQL(formatedString);
                         }
                     }
                     if (flag = false){
-                        String formatedString = String.format("INSERT INTO Username VALUES('%s');", mUsername);
+                        String formatedString = String.format("INSERT INTO Username VALUES('%s', %b);", mUsername, true);
                         mydatabase.execSQL(formatedString);
                     }
                     SharedPreferenceEntry entry1 = new SharedPreferenceEntry(true, mUsername);
@@ -317,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements
                     resultSet.moveToFirst();
                     boolean flag = false;
                     for (int i = 0; i < resultSet.getCount(); i++){
-                        String liteUsername = resultSet.getString(1);
+                        String liteUsername = resultSet.getString(i);
                         if (liteUsername.equalsIgnoreCase(mUsername)) {
                             flag = true;
                         }

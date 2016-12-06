@@ -2,6 +2,8 @@ package glassa.tacoma.uw.edu.moviesproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -106,6 +108,15 @@ public class TabHostActivity extends AppCompatActivity {
         startActivity(i);
 
     }
-
+    public void launch(View v){
+        DialogFragment fragment = null;
+        if (v.getId() == R.id.change_user_button) {
+            fragment = new ChangeUserInfoDialog();
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment.show(fragmentManager, "launch");
+        }
+    }
 
 }

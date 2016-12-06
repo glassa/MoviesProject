@@ -3,6 +3,8 @@ package glassa.tacoma.uw.edu.moviesproject;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -27,6 +29,7 @@ import java.net.URLEncoder;
 
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -38,6 +41,9 @@ public class ChangeUserInfoDialog extends DialogFragment {
     String mUsername;
     String url = "http://cssgate.insttech.washington.edu/~_450team2/userChange.php?";
     String TAG = "ChangeUserInfoDialog";
+    SQLiteDatabase mydatabase;
+    Cursor resultSet;
+    String mUsername1;
 
     public ChangeUserInfoDialog() {
         // Required empty public constructor
@@ -52,6 +58,10 @@ public class ChangeUserInfoDialog extends DialogFragment {
         final View v = inflater.inflate(R.layout.fragment_change_user_info_dialog, null);
         ed1 = (EditText) v.findViewById(R.id.userbox);
         ed2 = (EditText) v.findViewById(R.id.passbox);
+        //mydatabase = SQLiteDatabase.openOrCreateDatabase("username", null, null);
+        //resultSet = mydatabase.rawQuery("Select * from Username WHERE Current=true",null);
+        //resultSet.moveToLast();
+        //mUsername1 = resultSet.toString();
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(inflater.inflate(R.layout.fragment_change_user_info_dialog, null))
@@ -59,12 +69,15 @@ public class ChangeUserInfoDialog extends DialogFragment {
                 .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        String mUsername = ed1.getText().toString();
+                        mUsername = ed1.getText().toString();
                         String mPass = ed2.getText().toString();
                         String url = buildUserChangeURL(v);
                         ChangeUserTask task = new ChangeUserTask();
                         task.execute(new String[]{url.toString()});
-
+                        String formatedString = String.format("UPDATE username SET Username='%s', Current=false", mUsername);
+                        String formatedString2 = String.format("UPDATE username SET Username='%s', Current=true", mUsername1);
+                        //mydatabase.execSQL(formatedString);
+                        //mydatabase.execSQL(formatedString2);
 
                     }
                 })
@@ -93,7 +106,9 @@ public class ChangeUserInfoDialog extends DialogFragment {
             sb.append("&Passcode=");
             sb.append(URLEncoder.encode(userPW, "UTF-8"));
 
-
+            String userCurrent = MainActivity.mUsername;
+            sb.append("&original");
+            sb.append(URLEncoder.encode(userCurrent, "UTF-8"));
             Log.i("UserChange", sb.toString());
 
         } catch (Exception e) {
