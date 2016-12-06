@@ -28,11 +28,9 @@ public class Tab2RateMovies extends Fragment {
                              Bundle savedInstanceState) {
 
 //        mCurrentUser = ((TabHostActivity) getActivity()).getmCurrentUser();
-
+        getActivity().setTitle("Rate Movie");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tab2_rate_movies, container, false);
     }
-
-
 
 }

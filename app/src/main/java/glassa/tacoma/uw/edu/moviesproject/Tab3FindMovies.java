@@ -28,6 +28,7 @@ public class Tab3FindMovies extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle("Find Movies");
         Intent intent = new Intent(getActivity(), SearchMovieActivity.class);
         mCurrentUser = ((TabHostActivity) getActivity()).getmCurrentUser();
         intent.putExtra("CURRENT_USER", mCurrentUser);

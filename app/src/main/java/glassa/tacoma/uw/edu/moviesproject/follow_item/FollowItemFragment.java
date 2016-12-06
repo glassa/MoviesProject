@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -73,7 +74,7 @@ public class FollowItemFragment extends Fragment {
      * @param v the View
      * @return the URL String.
      */
-    private String buildUserURL(View v) {
+    private String buildFollowListURL(View v) {
 
         StringBuilder sb = new StringBuilder(FOLLOW_ITEM_URL);
 
@@ -144,7 +145,7 @@ public class FollowItemFragment extends Fragment {
             result = FollowItem.parseCourseJSON(result, followItemList);
             // Something wrong with the JSON returned.
             if (result != null) {
-                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
+                Toast.makeText(getActivity().getApplicationContext(), "json return string is null", Toast.LENGTH_LONG)
                         .show();
                 return;
             }
@@ -157,12 +158,25 @@ public class FollowItemFragment extends Fragment {
 
     }
 
+    /**
+     * This runs on create.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    /**
+     * This method gets the info of current user and which button was clicked from the
+     * "putExtra" from the FollowItemActivity and assigns the information to the fields within
+     * this class.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -193,7 +207,7 @@ public class FollowItemFragment extends Fragment {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
             GetFollowListTask task = new GetFollowListTask();
 
-            task.execute(buildUserURL(getView()));
+            task.execute(buildFollowListURL(getView()));
         }
         return view;
     }

@@ -29,6 +29,7 @@ public class Tab4FindUsers extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle("Find Users");
         Intent intent = new Intent(getActivity(), SearchUserActivity.class);
 
         mCurrentUser = ((TabHostActivity)getActivity()).getmCurrentUser();

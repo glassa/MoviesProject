@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +22,6 @@ import java.net.URLEncoder;
 
 import glassa.tacoma.uw.edu.moviesproject.R;
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
-import glassa.tacoma.uw.edu.moviesproject.follow_item.MatchesItem;
 import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 
 /**
@@ -34,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
      * The base of the URL command to follow a user.
      */
     private static final String FOLLOW_ITEM_URL = "http://cssgate.insttech.washington.edu/~_450team2/followUser?";
+    private static final String MATCHES_URL= "http://cssgate.insttech.washington.edu/~_450team2/list.php?cmd=matches";
     /**
      * The current user's username.
      */
@@ -44,9 +45,34 @@ public class ProfileActivity extends AppCompatActivity {
     String mTargetUser; //this should be set upon creation of this class
 
     /**
+     * The textview holding the profile headline
+     */
+    TextView tv;
+
+    /**
+     * The Textview holding the percent match
+     */
+    TextView tv2;
+
+    private static final String TAG = "ProfileActivity.java";
+
+    int percentMatch;
+
+    public int getPercentMatch() {
+        return percentMatch;
+    }
+
+    public void setPercentMatch(double percentMatch) {
+        this.percentMatch = (int) (percentMatch * 100);
+        tv2 = (TextView) findViewById(R.id.match_tv);
+        tv2.setText("You and " + mTargetUser + " have " + this.percentMatch + "% matching movie ratings");
+    }
+
+    /**
      * This is called at the start of the activity. It sets the current and target
      * users to what they were in the previous activity and sets the textview on the
      * layout xml.
+     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +82,12 @@ public class ProfileActivity extends AppCompatActivity {
         mTargetUser = getIntent().getStringExtra("TARGET_USER");
 
         Log.i("ProfileActivity", "target user: " + mTargetUser);
-
         setContentView(R.layout.activity_profile);
 
-        TextView tv = (TextView) findViewById(R.id.target_user_id);
+        tv = (TextView) findViewById(R.id.target_user_id);
+
         tv.setText("You are viewing " + mTargetUser + "'s profile!");
+        checkMatches();
     }
 
     /**
@@ -148,7 +175,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void checkMatches() {
         CheckMatchesTask task = new CheckMatchesTask();
-        task.execute();
+        task.execute(buildMatchesURL(this.findViewById(android.R.id.content)));
+
     }
     /**
      * Starts the AsyncTask to follow the user. Its triggored by the button "Follow"
@@ -157,7 +185,7 @@ public class ProfileActivity extends AppCompatActivity {
      */
     public void followUser(View view) {
         FollowUserTask task = new FollowUserTask();
-        task.execute(buildUserURL(view));
+        task.execute(buildFollowURL(view));
     }
 
     /**
@@ -166,8 +194,6 @@ public class ProfileActivity extends AppCompatActivity {
      * @param view the view
      */
     public void viewFollowingUsers(View view) {
-        Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
-                .show();
         Log.i("home", "following users clicked");
         Log.i("TabHostActivity", "Current User: " + mTargetUser);
 
@@ -183,8 +209,6 @@ public class ProfileActivity extends AppCompatActivity {
      * @param view the view
      */
     public void viewUsersImFollowing(View view) {
-        Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
-                .show();
         Log.i("home", "view users i'm following");
 
 
@@ -202,8 +226,6 @@ public class ProfileActivity extends AppCompatActivity {
      * @param view the view
      */
     public void viewRatedMovies(View view) {
-        Toast.makeText(view.getContext(), "viewing movies you've rated", Toast.LENGTH_SHORT)
-                .show();
         Log.i("home", "rate movies clicked");
         Intent i = new Intent(this, MovieItemActivity.class);
         i.putExtra("TARGET_USER", mTargetUser);
@@ -216,7 +238,7 @@ public class ProfileActivity extends AppCompatActivity {
      * @param v the current View
      * @return the URL String
      */
-    private String buildUserURL(View v) {
+    private String buildFollowURL(View v) {
 
         StringBuilder sb = new StringBuilder(FOLLOW_ITEM_URL);
 
@@ -227,6 +249,31 @@ public class ProfileActivity extends AppCompatActivity {
             sb.append("&UserB=");
             sb.append(URLEncoder.encode(mTargetUser, "UTF-8"));
             Log.i("ProfileActivity", "URL=" + sb.toString());
+        }
+        catch(Exception e) {
+            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Builds the URL to execute the PHP / SQL command to get the number of
+     * matches and number of differences in ratings between user A and user B.
+     * @param v
+     * @return
+     */
+    private String buildMatchesURL(View v) {
+
+        StringBuilder sb = new StringBuilder(MATCHES_URL);
+
+        try {
+            sb.append("&UserA=");
+            sb.append(URLEncoder.encode(mCurrentUser, "UTF-8"));
+
+            sb.append("&UserB=");
+            sb.append(URLEncoder.encode(mTargetUser, "UTF-8"));
+            Log.i(TAG, "URL=" + sb.toString());
         }
         catch(Exception e) {
             Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
@@ -295,29 +342,25 @@ public class ProfileActivity extends AppCompatActivity {
                 return;
             }
 
-            MatchesItem matchItem = new MatchesItem(0, 0);
-            int pair[] = new int[2];
-            matchItem.parseMatchJSON(result, pair);
-
+            Log.i(TAG, "Result: " + result);
             try {
-                JSONObject jsonObject = new JSONObject(result);
-                String status = (String) jsonObject.get("result");
-                if (status.equals("success")) {
+                JSONArray arr = new JSONArray(result);
 
-                    Toast.makeText(getApplicationContext(), "matches"
-                            , Toast.LENGTH_SHORT)
-                            .show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "something went wrong"
-                            , Toast.LENGTH_SHORT)
-                            .show();
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject obj = arr.getJSONObject(i);
+
+                    double matches = 0, differences= 0, total = 0;
+                    matches = obj.getInt("Matches");
+                    differences = obj.getInt("Differences");
+                    total = (matches + differences);
+                    setPercentMatch((matches / total));
+                    Log.i(TAG, "Matches: " + matches + "  Diff: " + differences + "Total: " + total);
+                    Log.i(TAG, "Percentage Match: " + percentMatch);
                 }
             } catch (JSONException e) {
-                Toast.makeText(getApplicationContext(), "Something wrong with the data" +
-                        e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Error parsing matches " +
+                        e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-
         }
     }
 }
