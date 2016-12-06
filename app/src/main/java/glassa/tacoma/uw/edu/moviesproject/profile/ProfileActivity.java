@@ -81,12 +81,12 @@ public class ProfileActivity extends AppCompatActivity {
         mCurrentUser = getIntent().getStringExtra("CURRENT_USER");
         mTargetUser = getIntent().getStringExtra("TARGET_USER");
 
-        Log.i("ProfileActivity", "target user: " + mTargetUser);
+        Log.i(TAG, "target user: " + mTargetUser);
         setContentView(R.layout.activity_profile);
 
         tv = (TextView) findViewById(R.id.target_user_id);
-
-        tv.setText("You are viewing " + mTargetUser + "'s profile!");
+        Log.i(TAG, "ffjf" + mTargetUser + "fjfjf");
+        tv.setText("Viewing " + mTargetUser + "'s profile!");
         checkMatches();
     }
 
