@@ -34,6 +34,7 @@ public class SearchUserActivity extends AppCompatActivity {
     private final String URL="http://cssgate.insttech.washington.edu/~_450team2/userSearcher.php";
     private String myPass = "";
 
+
     /**
      * onCreat create the search bar frame and list of result
      * @param savedInstanceState

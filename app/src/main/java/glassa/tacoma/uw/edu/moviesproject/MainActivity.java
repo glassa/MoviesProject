@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
 
     /**
      * Sets username.
-     *
      * @param mUsername the m username
      */
     public void setmUsername(String mUsername) {

@@ -71,7 +71,6 @@ public class RegisterFragment extends Fragment {
     public RegisterFragment() {
         // Required empty public constructor
     }
-
     /**
      * The B 1.
      */

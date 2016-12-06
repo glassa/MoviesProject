@@ -30,7 +30,6 @@ public class Tab3FindMovies extends Fragment {
         Intent intent = new Intent(getActivity(), SearchMovieActivity.class);
         startActivity(intent);
 
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tab3_find_movies, container, false);
     }

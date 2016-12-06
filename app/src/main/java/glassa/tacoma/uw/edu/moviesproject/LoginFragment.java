@@ -233,6 +233,7 @@ public class LoginFragment extends Fragment {
                     counter--;
                     tx1.setText(Integer.toString(counter));
 
+
                     if (counter == 0) {
                         b1.setEnabled(false);
                         */

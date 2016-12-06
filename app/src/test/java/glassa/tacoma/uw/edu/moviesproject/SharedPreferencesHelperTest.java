@@ -78,6 +78,7 @@ public class SharedPreferencesHelperTest {
                 is(false));
     }
 
+
     private SharedPreferencesHelper createMockSharedPreference() {
         when(mMockSharedPreferences.getBoolean(eq(SharedPreferencesHelper.KEY_LOGGED_IN), anyBoolean()))
                 .thenReturn(mSharedPreferenceEntry.isLoggedIn());

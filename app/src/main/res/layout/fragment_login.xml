@@ -15,6 +15,7 @@
         android:paddingBottom="100px" />
 
 
+
     <EditText
         android:id="@+id/login_edit_text"
         android:layout_width="match_parent"

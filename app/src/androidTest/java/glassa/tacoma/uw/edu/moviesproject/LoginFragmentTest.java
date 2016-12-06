@@ -68,6 +68,7 @@ public class LoginFragmentTest {
                 + (random.nextInt(100) + 1) + (random.nextInt(4) + 1)
                 + "@uw.edu";
     }
+
     @Test
     public void testARegister() {
 

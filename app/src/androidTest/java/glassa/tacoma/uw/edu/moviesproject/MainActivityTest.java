@@ -33,7 +33,6 @@ public class MainActivityTest {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
             MainActivity.class);
 
-
     @Test
     public void testFillowersButton() {
         onView(withId(R.id.followers_button))

@@ -54,6 +54,7 @@ public class Tab5Settings extends Fragment {
 //                startActivity(intent);
 //            }
 //        });
+
     return v;
     }
 }

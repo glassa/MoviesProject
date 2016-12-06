@@ -31,7 +31,6 @@ public class SharedPreferenceEntryTest {
     public void testIsLoggedIn() {
         boolean res = myTest.isLoggedIn();
         assertTrue(res);
-
     }
 
     @Test

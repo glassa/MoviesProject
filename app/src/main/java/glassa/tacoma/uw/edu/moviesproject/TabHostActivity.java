@@ -109,7 +109,6 @@ public class TabHostActivity extends AppCompatActivity {
         startActivity(i);
 
     }
-
 //    public void logout(View view) {
 //        Intent i = new Intent(this, LoginFragment.class);
 //        startActivity(i);

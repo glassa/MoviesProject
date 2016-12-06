@@ -37,6 +37,8 @@ public class SearchMovieActivity extends AppCompatActivity {
     private final String URL="http://cssgate.insttech.washington.edu/~_450team2/movieSearcher.php";
     private String myPass = "";
 
+
+
     /**
      * onCreat create the search bar frame and list of result
      * @param savedInstanceState
