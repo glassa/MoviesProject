@@ -36,7 +36,11 @@ public class SearchMovieActivity extends AppCompatActivity {
     private String myS = "";
     private final String URL="http://cssgate.insttech.washington.edu/~_450team2/movieSearcher.php";
     private String myPass = "";
-
+    String mCurrentUser;
+    /**
+     * The M current movie id.
+     */
+    int mCurrentMovieID;
 
 
     /**
@@ -48,6 +52,8 @@ public class SearchMovieActivity extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_search_movie);
 //        run(URL);
+
+        mCurrentUser = getIntent().getStringExtra("CURRENT_USER");
 
         final EditText myInput= (EditText)findViewById(R.id.search_movie_bar);
         Button mySearch = (Button)findViewById(R.id.search_movie_button);
@@ -77,19 +83,26 @@ public class SearchMovieActivity extends AppCompatActivity {
         task.execute(new String[]{theURL.toString()});
 
         final ArrayList<String> arrayList = new ArrayList<>();
+        final ArrayList<Integer> idList = new ArrayList<>();
 
         try {
             JSONArray jArray = new JSONArray(URLDecoder.decode(task.get(), "UTF-8" ));
             for (int j = 0; j < jArray.length(); j++) {
                 JSONObject json_data = jArray.getJSONObject(j);
                 StringBuilder sb = new StringBuilder();
+                StringBuilder sb2 = new StringBuilder();
+
 
                 String username = String.format("%-15s", json_data.getString("Name"));
+                int id = json_data.getInt("MovieID");
 
                 sb.append(username);
 
+                sb2.append(id);
+
 
                 arrayList.add(sb.toString());
+                idList.add(id);
             }
         }
         catch (Exception e) {
@@ -105,7 +118,10 @@ public class SearchMovieActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(SearchMovieActivity.this,MovieActivity.class);
                 myIntent.putExtra("MOVIE_TITLE", arrayList.get(position));
                 //write something here to transfer current user to ProfileActivity
-//                myIntent.putExtra("TARGET_USER", arrayList.get(position));
+                myIntent.putExtra("CURRENT_USER", mCurrentUser);
+                mCurrentMovieID = idList.get(position);
+                myIntent.putExtra("MOVIE_ID", mCurrentMovieID);
+
                 startActivity(myIntent);
             }
         });

@@ -25,7 +25,6 @@ public class MovieItemActivity extends AppCompatActivity implements MovieItemFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_item);
-
         mCurrentUser = getIntent().getStringExtra("CURRENT_USER");
         mTargetUser = getIntent().getStringExtra("TARGET_USER");
 
@@ -38,13 +37,6 @@ public class MovieItemActivity extends AppCompatActivity implements MovieItemFra
                     .add(R.id.movie_item_frag_container, movieItemFragment)
                     .commit();
         }
-//        if (savedInstanceState == null || getSupportFragmentManager().findFragmentById(R.id.list) == null) {
-//            MovieItemFragment movieItemFragment = new MovieItemFragment();
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.movie_item_frag_container, movieItemFragment)
-//                    .commit();
-//        }
-
     }
 
     @Override

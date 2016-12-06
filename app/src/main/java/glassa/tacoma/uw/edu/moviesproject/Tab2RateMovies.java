@@ -13,6 +13,7 @@ import android.view.ViewGroup;
  */
 public class Tab2RateMovies extends Fragment {
 
+    private String mCurrentUser;
 
     /**
      * Instantiates a new Tab 2 rate movies.
@@ -25,6 +26,9 @@ public class Tab2RateMovies extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+//        mCurrentUser = ((TabHostActivity) getActivity()).getmCurrentUser();
+        getActivity().setTitle("Rate Movie");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tab2_rate_movies, container, false);
     }
