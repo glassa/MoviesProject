@@ -132,5 +132,8 @@ public class TabHostActivity extends AppCompatActivity {
                .commit();
     }
 
-
+    public void OnPause(){
+        super.onPause();
+        this.finish();
+    }
 }

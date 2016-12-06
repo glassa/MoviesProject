@@ -16,8 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".TabHostActivity" />
-        <activity android:name=".SearchMovieActivity" />
-        <activity android:name=".SearchUserActivity" />
+        <activity android:name=".search.SearchMovieActivity" />
+        <activity android:name=".search.SearchUserActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
