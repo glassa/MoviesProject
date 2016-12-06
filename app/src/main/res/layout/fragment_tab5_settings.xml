@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/setting_fragment"
     tools:context="glassa.tacoma.uw.edu.moviesproject.Tab5Settings">
 
     <TextView
@@ -10,11 +11,11 @@
         android:layout_height="wrap_content"
         android:text="@string/tab5_string" />
 
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        />
+    <!--<Button-->
+        <!--android:id="@+id/logout_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Logout"-->
+        <!--/>-->
 
 </LinearLayout>

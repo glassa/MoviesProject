@@ -23,8 +23,8 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
  */
 public class Tab5Settings extends Fragment {
 
-    Button b1;
-    SharedPreferencesHelper mSharedPreferencesHelper;
+//    Button b1;
+//    SharedPreferencesHelper mSharedPreferencesHelper;
 
     /**
      * Instantiates a new Tab 5 settings.
@@ -39,21 +39,21 @@ public class Tab5Settings extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tab5_settings, container, false);
-        b1 = (Button) v.findViewById(R.id.logout_button);
-        SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
-        mSharedPreferencesHelper = new SharedPreferencesHelper(
-                sharedPreferences);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                SharedPreferenceEntry entry1 = new SharedPreferenceEntry(false,"");
-                mSharedPreferencesHelper.savePersonalInfo(entry1);
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        b1 = (Button) v.findViewById(R.id.logout_button);
+//        SharedPreferences sharedPreferences = PreferenceManager
+//                .getDefaultSharedPreferences(getActivity());
+//        mSharedPreferencesHelper = new SharedPreferencesHelper(
+//                sharedPreferences);
+//        b1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                SharedPreferenceEntry entry1 = new SharedPreferenceEntry(false,"");
+//                mSharedPreferencesHelper.savePersonalInfo(entry1);
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     return v;
     }
 }

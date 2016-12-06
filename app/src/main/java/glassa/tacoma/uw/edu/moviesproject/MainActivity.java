@@ -1,5 +1,6 @@
 package glassa.tacoma.uw.edu.moviesproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -7,12 +8,18 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +28,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 
+import bolts.Task;
+import glassa.tacoma.uw.edu.moviesproject.profile.ProfileActivity;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 
@@ -45,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     CallbackManager callbackManager;
     SharedPreferencesHelper mSharedPreferencesHelper;
     private final String TAG = "MainActivity";
+    private Button myLogout;
     /**
      * OnCreate method to instantiate the fragment container,
      * and then take the user to the login fragment
@@ -54,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+
         callbackManager = CallbackManager.Factory.create();
         AppEventsLogger.activateApp(this);
 
@@ -287,4 +300,5 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
             }
         }
     }
+
 }
