@@ -16,16 +16,20 @@
         android:layout_height="wrap_content"
         android:text="Logout"
         />
+
     <Button
         android:id="@+id/change_user_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change User Name"
+        android:text="Change User Details"
         />
+
+
+
     <Button
-        android:id="@+id/change_pass_button"
+        android:id="@+id/share_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Password"
-        />
+        android:text="Share this app"/>
+
 </LinearLayout>

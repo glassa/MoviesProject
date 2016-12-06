@@ -30,6 +30,7 @@ public class Tab5Settings extends Fragment {
     Button b1;
     Button b2;
     Button b3;
+    Button b4;
     SharedPreferencesHelper mSharedPreferencesHelper;
 
     /**
@@ -47,7 +48,8 @@ public class Tab5Settings extends Fragment {
         View v = inflater.inflate(R.layout.fragment_tab5_settings, container, false);
         b1 = (Button) v.findViewById(R.id.logout_button);
         b2 = (Button) v.findViewById(R.id.change_user_button);
-        b3 = (Button) v.findViewById(R.id.change_pass_button);
+
+        b4 = (Button) v.findViewById(R.id.share_button1);
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         mSharedPreferencesHelper = new SharedPreferencesHelper(
@@ -65,6 +67,18 @@ public class Tab5Settings extends Fragment {
         b2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 Fragment fragment = new ChangeUserInfoDialog();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        b4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new MessageFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, fragment);
