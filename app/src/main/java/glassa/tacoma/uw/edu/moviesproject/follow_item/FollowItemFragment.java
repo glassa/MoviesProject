@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -145,8 +144,6 @@ public class FollowItemFragment extends Fragment {
             result = FollowItem.parseCourseJSON(result, followItemList);
             // Something wrong with the JSON returned.
             if (result != null) {
-                Toast.makeText(getActivity().getApplicationContext(), "json return string is null", Toast.LENGTH_LONG)
-                        .show();
                 return;
             }
 
