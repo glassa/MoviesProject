@@ -4,6 +4,7 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/login_fragment"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LoginFragment"
     android:gravity="center">
 
@@ -12,6 +13,7 @@
         android:id="@+id/login_title_text_view"
         android:textSize="35dp"
         android:paddingBottom="100px" />
+
 
 
     <EditText
@@ -33,13 +35,8 @@
         android:hint="Password"
         android:gravity="center"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
 
-        <TextView
+    <!--    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Attempts Left:"
@@ -53,15 +50,7 @@
             android:id="@+id/attempts_text_view_2"
             android:textSize="25dp" />
 
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+-->
 
         <Button
             android:layout_width="wrap_content"
@@ -69,15 +58,35 @@
             android:text="login"
             android:id="@+id/login_button"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Register"
-            android:id="@+id/register_button_initial"
- />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/register_button_initial" />
 
 
-    </LinearLayout>
-
+    <!--<com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/button"
+        android:layout_toLeftOf="@+id/textView3"
+        android:layout_toStartOf="@+id/textView3" />
+-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        />
+    <Button
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share this app"/>
 
 </LinearLayout>

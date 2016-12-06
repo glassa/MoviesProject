@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,10 +35,6 @@ public class FollowItemFragment extends Fragment {
      */
     private static final String FOLLOW_ITEM_URL = "http://cssgate.insttech.washington.edu/~_450team2/list.php?cmd=followlist";
 
-    /**
-     * Number of Columns.
-     */
-    private int mColumnCount = 1;
     /**
      * Current user.
      */
@@ -75,8 +70,8 @@ public class FollowItemFragment extends Fragment {
      * [User B], but since this is a list of followers, we only want to see the list of those
      * following us, so we make it a list of only [User A].  And if we are looking at who we are
      * following, we only want to see a list of [User B].
-     * @param v
-     * @return
+     * @param v the View
+     * @return the URL String.
      */
     private String buildUserURL(View v) {
 
@@ -118,7 +113,7 @@ public class FollowItemFragment extends Fragment {
                     InputStream content = urlConnection.getInputStream();
 
                     BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
+                    String s;
                     while ((s = buffer.readLine()) != null) {
                         response += s;
                     }
@@ -145,7 +140,7 @@ public class FollowItemFragment extends Fragment {
                 return;
             }
 
-            List<FollowItem> followItemList = new ArrayList<FollowItem>();
+            List<FollowItem> followItemList = new ArrayList<>();
             result = FollowItem.parseCourseJSON(result, followItemList);
             // Something wrong with the JSON returned.
             if (result != null) {
@@ -162,25 +157,12 @@ public class FollowItemFragment extends Fragment {
 
     }
 
-    /**
-     * This runs on create.
-     * @param savedInstanceState
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
-    /**
-     * This method gets the info of current user and which button was clicked from the
-     * "putExtra" from the FollowItemActivity and assigns the information to the fields within
-     * this class.
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -197,7 +179,7 @@ public class FollowItemFragment extends Fragment {
             mFollowersButton = fiActivity.getmFollowersButton();
 
             if (mFollowingButton) {
-                getActivity().setTitle("Following " + mCurrentUser);
+                getActivity().setTitle(mCurrentUser + " is Following");
 
             } else {
                 getActivity().setTitle(mCurrentUser + "'s Followers");
@@ -208,14 +190,10 @@ public class FollowItemFragment extends Fragment {
 
             mRecyclerView = (RecyclerView) view;
 
-            if (mColumnCount <= 1) {
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
             GetFollowListTask task = new GetFollowListTask();
 
-            task.execute(new String[]{buildUserURL(getView())});
+            task.execute(buildUserURL(getView()));
         }
         return view;
     }

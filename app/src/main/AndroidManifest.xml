@@ -34,7 +34,7 @@
         <activity
             android:name=".movie.MovieItemActivity"
             android:label="@string/title_activity_movie_item"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

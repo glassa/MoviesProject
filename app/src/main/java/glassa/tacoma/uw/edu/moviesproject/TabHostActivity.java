@@ -2,6 +2,8 @@ package glassa.tacoma.uw.edu.moviesproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,22 +13,17 @@ import android.widget.Toast;
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
 import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 
+
 /**
  * This is the activity that holds the TabHost. This allows for tab navigation.
  */
 public class TabHostActivity extends AppCompatActivity {
 
-    private FragmentTabHost TabHost;
     /**
      * The current User's username.
      */
     String mCurrentUser;
 
-    /**
-     * The oncreate method.
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +32,7 @@ public class TabHostActivity extends AppCompatActivity {
 
         mCurrentUser = getIntent().getStringExtra("USERNAME");
 
-        TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        FragmentTabHost TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         TabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
         TabHost.addTab(TabHost.newTabSpec("tab1").setIndicator("Home"),
@@ -48,6 +45,10 @@ public class TabHostActivity extends AppCompatActivity {
                 Tab4FindUsers.class, null);
         TabHost.addTab(TabHost.newTabSpec("tab5").setIndicator("Settings"),
                 Tab5Settings.class, null);
+    }
+
+    public String getmCurrentUser() {
+        return mCurrentUser;
     }
 
     /**
@@ -104,6 +105,27 @@ public class TabHostActivity extends AppCompatActivity {
         i.putExtra("TARGET_USER", mCurrentUser);
         startActivity(i);
 
+    }
+
+    public void launch(View v){
+        DialogFragment fragment = null;
+        if (v.getId() == R.id.change_user_button) {
+            fragment = new ChangeUserInfoDialog();
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment.show(fragmentManager, "launch");
+        }
+    }
+
+    public void logout(View view) {
+        Intent i = new Intent(this, LoginFragment.class);
+        startActivity(i);
+
+
+        getSupportFragmentManager().beginTransaction()
+               .add(R.id.hometabhost, new LoginFragment())
+               .commit();
     }
 
 
