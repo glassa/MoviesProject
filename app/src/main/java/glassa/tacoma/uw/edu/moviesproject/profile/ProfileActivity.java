@@ -72,6 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
      * This is called at the start of the activity. It sets the current and target
      * users to what they were in the previous activity and sets the textview on the
      * layout xml.
+     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
