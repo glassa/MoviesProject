@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import glassa.tacoma.uw.edu.moviesproject.search.SearchUserActivity;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +17,9 @@ import android.view.ViewGroup;
 public class Tab4FindUsers extends Fragment {
 
 
+    /**
+     * Instantiates a new Tab 4 find users.
+     */
     public Tab4FindUsers() {
         // Required empty public constructor
     }
@@ -24,6 +29,7 @@ public class Tab4FindUsers extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Intent intent = new Intent(getActivity(), SearchUserActivity.class);
+
         startActivity(intent);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tab4_find_users, container, false);

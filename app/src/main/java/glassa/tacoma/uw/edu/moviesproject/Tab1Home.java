@@ -1,22 +1,21 @@
 package glassa.tacoma.uw.edu.moviesproject;
 
 
-import android.os.AsyncTask;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import glassa.tacoma.uw.edu.moviesproject.movie.Movie;
-
-
+import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
+import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 
 
 /**
@@ -25,7 +24,12 @@ import glassa.tacoma.uw.edu.moviesproject.movie.Movie;
 public class Tab1Home extends Fragment {
     private ListView listFeed;
     private List<String> feedList;
+    Button b1;
+    SharedPreferencesHelper mSharedPreferencesHelper;
 
+    /**
+     * Instantiates a new Tab 1 home.
+     */
     public Tab1Home() {
         // Required empty public constructor
     }
@@ -33,30 +37,22 @@ public class Tab1Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        listFeed = (ListView) getView().findViewById(R.id.homeFeed);
-//        feedList = new ArrayList<String>();
+        View v = inflater.inflate(R.layout.fragment_tab1_home, container, false);
+        b1 = (Button) v.findViewById(R.id.logout_button);
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        mSharedPreferencesHelper = new SharedPreferencesHelper(
+                sharedPreferences);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
-        return inflater.inflate(R.layout.fragment_tab1_home, container, false);
-    }
-
-    private class DownloadCoursesTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result.startsWith("Unable to")) {
-                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
-                        .show();
-                return;
+                SharedPreferenceEntry entry1 = new SharedPreferenceEntry(false,"");
+                mSharedPreferencesHelper.savePersonalInfo(entry1);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
-
-
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            return null;
-        }
+        });
+        return v;
     }
-
 }

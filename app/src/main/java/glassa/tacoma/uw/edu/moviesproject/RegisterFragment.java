@@ -17,22 +17,76 @@ import java.net.URLEncoder;
 
 
 /**
- * A simple {@link Fragment} subclass.
+<<<<<<< HEAD
+ * -----------------------------------------------------------------------
+ * A fragment class to hold the registration UI.                          |
+ * -----------------------------------------------------------------------
+ * Contains 3 EditText views, one for the user name,                      |
+ * and two for the password. If the two password views                    |
+ * match, interface is called to launch the Asynctask                     |
+ * in mainActivity to add the data.                                       |
+ * ------------------------------------------------------------------------
+ * Contains one button. On click, calls a stringbuilder                   |
+ * to build the appended url, and call the AsyncTask                      |
+ * ------------------------------------------------------------------------
+ * Conatains a stringbuilder that builds the url by taking                |
+ * the data out of the EditViews and appending it onto the url.           |
+ * ------------------------------------------------------------------------
+=======
+ * A fragment class to hold the registration UI.
+ * Contains 3 EditText views, one for the user name,
+ * and two for the password. If the two password views
+ * match, interface is called to launch the Asynctask
+ * in mainActivity to add the data.
+ * <p>
+ * Contains one button. On click, calls a stringbuilder
+ * to build the appended url, and call the AsyncTask
+ * <p>
+ * Conatains a stringbuilder that builds the url by taking
+ * the data out of the EditViews and appending it onto the url.
+>>>>>>> refs/remotes/origin/Tony
  */
 public class RegisterFragment extends Fragment {
+
+    /**
+     * The interface User add listener.
+     */
     public interface UserAddListener {
+        /**
+         * Add user.
+         *
+         * @param url the url
+         */
         public void addUser(String url);
     }
 
-    private final static String USER_ADD_URL = "http://cssgate.insttech.washington.edu/~glassa/Android/registerUser.php?";
+    /**
+     * The url to connect to the database, without the appended command options.
+     */
+    private final static String USER_ADD_URL = "http://cssgate.insttech.washington.edu/~_450team2/addUser.php?";
+
+    /**
+     * The empty public constructer
+     */
     public RegisterFragment() {
         // Required empty public constructor
     }
-
-    Button b1, b2;
-    EditText ed1, ed2, ed3;
+    /**
+     * The B 1.
+     */
+    Button b1;
+    /**
+     * The Ed 1.
+     */
+    EditText ed1, /**
+     * The Ed 2.
+     */
+    ed2, /**
+     * The Ed 3.
+     */
+    ed3;
     private RegisterFragment.UserAddListener mListener;
-    //TextView tx1;
+
 
 
 
@@ -42,11 +96,10 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_register, container, false);
 
-        b1 = (Button) v.findViewById(R.id.buttonReg);
-        //b2 = (Button) v.findViewById(R.id.buttonRegCancel);
-        ed1 = (EditText) v.findViewById(R.id.editRegisterText);
-        ed2 = (EditText) v.findViewById(R.id.editRegisterText2);
-        ed3 = (EditText) v.findViewById(R.id.editRegisterText3) ;
+        b1 = (Button) v.findViewById(R.id.register_button_final);
+        ed1 = (EditText) v.findViewById(R.id.register_user_edit_text);
+        ed2 = (EditText) v.findViewById(R.id.register_password1_edit_text);
+        ed3 = (EditText) v.findViewById(R.id.register_password2_edit_text) ;
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,24 +133,22 @@ public class RegisterFragment extends Fragment {
                     + " must implement CourseAddListener");
         }
     }
+
     private String buildUserURL(View v) {
 
         StringBuilder sb = new StringBuilder(USER_ADD_URL);
 
         try {
 
-            String userId = "1111111111";
-            sb.append("id=");
-            sb.append(userId);
-
-
             String userName = ed1.getText().toString();
-            sb.append("&name=");
+            sb.append("&Username=");
             sb.append(URLEncoder.encode(userName, "UTF-8"));
 
+            MainActivity m = (MainActivity) getActivity();
+            m.setmUsername(userName);
 
             String userPW = ed2.getText().toString();
-            sb.append("&pw=");
+            sb.append("&Passcode=");
             sb.append(URLEncoder.encode(userPW, "UTF-8"));
 
 

@@ -15,4 +15,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_register">RegisterActivity</string>
 
+    <string name="fb_login_protocol_scheme">fb171593419971974</string>
+    <string name="title_activity_follow">FollowActivity</string>
+    <string name="title_activity_follow_item">FollowItemActivity</string>
+    <string name="title_activity_movie_item">MovieItemActivity</string>
+    <string name="facebook_app_id">171593419971974</string>
 </resources>
