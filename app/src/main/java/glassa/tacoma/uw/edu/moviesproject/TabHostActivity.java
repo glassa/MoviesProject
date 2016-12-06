@@ -2,6 +2,8 @@ package glassa.tacoma.uw.edu.moviesproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,8 +13,10 @@ import android.widget.Toast;
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
 import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 
+
 import static android.R.attr.fragment;
 import static android.R.attr.tag;
+
 
 /**
  * This is the activity that holds the TabHost. This allows for tab navigation.
@@ -24,7 +28,6 @@ public class TabHostActivity extends AppCompatActivity {
      * The current User's username.
      */
     String mCurrentUser;
-
 
     /**
      * The oncreate method.
@@ -109,14 +112,27 @@ public class TabHostActivity extends AppCompatActivity {
         startActivity(i);
 
     }
-//    public void logout(View view) {
-//        Intent i = new Intent(this, LoginFragment.class);
-//        startActivity(i);
+
+    public void launch(View v){
+        DialogFragment fragment = null;
+        if (v.getId() == R.id.change_user_button) {
+            fragment = new ChangeUserInfoDialog();
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment.show(fragmentManager, "launch");
+        }
+    }
+
+    public void logout(View view) {
+        Intent i = new Intent(this, LoginFragment.class);
+        startActivity(i);
 
 
-//        getSupportFragmentManager().beginTransaction()
-//                .add(R.id.hometabhost, new LoginFragment())
-//                .commit();
-//    }
+        getSupportFragmentManager().beginTransaction()
+               .add(R.id.hometabhost, new LoginFragment())
+               .commit();
+    }
+
 
 }

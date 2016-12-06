@@ -35,7 +35,8 @@
         android:hint="Password"
         android:gravity="center"/>
 
-        <TextView
+
+    <!--    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Attempts Left:"
@@ -48,6 +49,8 @@
             android:text="5"
             android:id="@+id/attempts_text_view_2"
             android:textSize="25dp" />
+
+-->
 
         <Button
             android:layout_width="wrap_content"
@@ -62,7 +65,7 @@
         android:id="@+id/register_button_initial" />
 
 
-    <com.facebook.login.widget.LoginButton
+    <!--<com.facebook.login.widget.LoginButton
         android:id="@+id/facebook_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,7 +74,7 @@
         android:layout_below="@+id/button"
         android:layout_toLeftOf="@+id/textView3"
         android:layout_toStartOf="@+id/textView3" />
-
+-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,5 +83,10 @@
         android:layout_alignParentTop="true"
         android:textSize="18sp"
         />
+    <Button
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share this app"/>
 
 </LinearLayout>

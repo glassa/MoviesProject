@@ -3,6 +3,8 @@ package glassa.tacoma.uw.edu.moviesproject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -36,6 +38,7 @@ import glassa.tacoma.uw.edu.moviesproject.profile.ProfileActivity;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 
+
 /**
  * Main activity class of the app.
  * When the app launches, this is where the intent filter points
@@ -43,20 +46,27 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
  * LoginFragment and RegisterFragment used to access the database
  * The type Main activity.
  */
-public class MainActivity extends AppCompatActivity implements RegisterFragment.UserAddListener, LoginFragment.LoginAddListener, LoginFragment.FacebookLoginListener{
+public class MainActivity extends AppCompatActivity implements
+        RegisterFragment.UserAddListener, LoginFragment.LoginAddListener,
+        /* LoginFragment.FacebookLoginListener,*/ MessageFragment.messageListener{
 
     /**
-     * The M login frag.
+     * The member variable for Username.
+     * It's used when calling intents to other activity's as a PutExtra call
+     * in order to remember which user's info to display.
      */
-    LoginFragment mLoginFrag;
+    public static String mUsername;
     /**
-     * The M username.
+     * A callback manager used in conjuction with the facebook log on.
+     * Not currently used
      */
-    protected static String mUsername;
-    CallbackManager callbackManager;
+    //CallbackManager callbackManager;
     SharedPreferencesHelper mSharedPreferencesHelper;
     private final String TAG = "MainActivity";
-    private Button myLogout;
+
+    SQLiteDatabase mydatabase;
+    Cursor resultSet;
+
     /**
      * OnCreate method to instantiate the fragment container,
      * and then take the user to the login fragment
@@ -67,8 +77,11 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-        callbackManager = CallbackManager.Factory.create();
-        AppEventsLogger.activateApp(this);
+
+        //callbackManager = CallbackManager.Factory.create();
+        //AppEventsLogger.activateApp(this);
+        mydatabase = openOrCreateDatabase("username", MODE_PRIVATE,null);
+        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS Username(Username VARCHAR, Current BOOLEAN);");
 
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(this);
@@ -85,11 +98,15 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
 
     /**
      * Sets username.
-     * @param mUsername the m username
+
+     *
+     * @param mUsername the member variable "Username"
      */
+
     public void setmUsername(String mUsername) {
         this.mUsername = mUsername;
     }
+
 
     /**
      * Fragment interface that launches the registration Asynctask.
@@ -104,6 +121,13 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     }
 
     /**
+     * Fragment interface required by the messaging fragment.
+     * Does nothing. Unsure if it can be removed without breaking things.
+     */
+    public void message(){
+
+    }
+    /**
      * Fragment interface that launches the login Asynctask.
      * @param url the url to connect to the database, already pre-appended with the php? commands.
      */
@@ -113,21 +137,31 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         task.execute(new String[]{url.toString()});
         getSupportFragmentManager().popBackStack();
     }
+    /**
+     * Fragment interface for when the user is already logged in.
+     * It logs that the user whas already logged in, and starts an intent
+     * to launch the TabHostActivity.
+     * @param mUsername
+     */
     public void sharedPrefLogin(String mUsername){
         Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
         Log.i("MainActivity", "username: " + mUsername);
         intent.putExtra("USERNAME", mUsername);
         startActivity(intent);
     }
-
+    /**
+     * The interface for the facebook login. Currently not in use.
+     */
+    /*
     public void facebookLogin() {
         Log.i(TAG, "facebookLogin");
 
         Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
         startActivity(intent);
     }
-
+    */
     /**
+
      * AsyncTask to log the user in. On successful authentication, take the user to TabHostActivity.
      */
     private class LoginUserTask extends AsyncTask<String, Void, String> {
@@ -175,8 +209,17 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         /**
          * It checks to see if there was a problem with the URL(Network) which is when an
          * exception is caught. It tries to call the parse Method and checks to see if it was successful.
+<<<<<<< HEAD
          * If it was, it takes the user to the TabHostActivity via an intent.
          * If not, it displays the exception.
+=======
+         * If it was, it takes the user to the TabHostActivity via an intent, stores the username
+         * in a SQlite database if it does not already exist, and saves the user as logged in with
+         * sharedpreferences.
+         * If the user provided incorrect login info, they are marked as not logged in
+         * via sharedpreferences, and a toast is displayed letting them know.
+         * If something else causes an exception, they are informed, and a log is left.
+>>>>>>> master
          *
          * @param result Passed by doInBackground. Used to determine if the user login was successful.
          */
@@ -195,6 +238,25 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
                     Intent intent = new Intent(getApplicationContext(), TabHostActivity.class);
                     Log.i("MainActivity", "username: " + mUsername);
                     intent.putExtra("USERNAME", mUsername);
+                    resultSet = mydatabase.rawQuery("Select * from Username",null);
+                    resultSet.moveToFirst();
+                    boolean flag = false;
+                    for (int i = 0; i < resultSet.getCount(); i++){
+                        String liteUsername = resultSet.getString(i);
+                        if (liteUsername.equalsIgnoreCase(mUsername)) {
+                            flag = true;
+                            String formatedString = String.format("UPDATE Username SET Username='%s', Current=true", mUsername);
+                            mydatabase.execSQL(formatedString);
+                        } else {
+                            String formatedString = String.format("UPDATE Username SET Username='%s', Current=false", mUsername);
+                            mydatabase.execSQL(formatedString);
+                        }
+                    }
+                    if (flag = false){
+                        String formatedString = String.format("INSERT INTO Username VALUES('%s', %b);", mUsername, true);
+                        mydatabase.execSQL(formatedString);
+                    }
+
                     SharedPreferenceEntry entry1 = new SharedPreferenceEntry(true, mUsername);
                     Log.i(TAG, entry1.getUsername());
                     if(entry1.isLoggedIn() == true){
@@ -218,6 +280,9 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +
                         e.getMessage(), Toast.LENGTH_LONG).show();
+
+                Log.wtf(TAG, e.getMessage());
+
             }
         }
     }
@@ -265,7 +330,9 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         /**
          * It checks to see if there was a problem with the URL(Network) which is when an
          * exception is caught. It tries to call the parse Method and checks to see if it was successful.
-         * If not, it displays the exception.
+         * If it was, they are saved as logged in via Sharedpreferences, the username is stored in
+         * a SQlite database, and the user is taken to the TabHostActivity.
+         * If not, it displays and logs the exception.
          *
          * @param result
          */
@@ -279,10 +346,22 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
                     Toast.makeText(getApplicationContext(), "User successfully added!"
                             , Toast.LENGTH_LONG)
                             .show();
+
+                    resultSet = mydatabase.rawQuery("Select * from Username",null);
+                    resultSet.moveToFirst();
+                    boolean flag = false;
+                    for (int i = 0; i < resultSet.getCount(); i++){
+                        String liteUsername = resultSet.getString(i);
+                        if (liteUsername.equalsIgnoreCase(mUsername)) {
+                            flag = true;
+                        }
+                    }
+                    if (flag = false){
+                        String formatedString = String.format("INSERT INTO Username VALUES('%s');", mUsername);
+                        mydatabase.execSQL(formatedString);
+                    }
                     SharedPreferenceEntry entry2 = new SharedPreferenceEntry(
                             true, mUsername);
-
-
                     mSharedPreferencesHelper.savePersonalInfo(entry2);
 
                 } else {
@@ -296,6 +375,7 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data" +
                         e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.wtf(TAG, e.getMessage());
             }
         }
     }

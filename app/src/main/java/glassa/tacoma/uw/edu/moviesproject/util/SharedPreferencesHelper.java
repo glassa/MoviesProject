@@ -47,12 +47,13 @@ public class SharedPreferencesHelper {
         return editor.commit();
     }
 
+/*
     public boolean clearPersonalInfo(SharedPreferenceEntry sharedPreferenceEntry){
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.clear().apply();
         return true;
     }
-
+*/
     /**
      * Retrieves the {@link SharedPreferenceEntry} containing the user's personal information from
      * {@link SharedPreferences}.
