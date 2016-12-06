@@ -58,8 +58,8 @@ public class TabHostActivity extends AppCompatActivity {
 
         TabHost.addTab(TabHost.newTabSpec("tab1").setIndicator("", getResources().getDrawable(R.drawable.ic_home_black_48dp)),
                 Tab1Home.class, null);
-        TabHost.addTab(TabHost.newTabSpec("tab2").setIndicator("", getResources().getDrawable(R.drawable.ic_star_half_black_48dp)),
-                Tab2RateMovies.class, null);
+//        TabHost.addTab(TabHost.newTabSpec("tab2").setIndicator("", getResources().getDrawable(R.drawable.ic_star_half_black_48dp)),
+//                Tab2RateMovies.class, null);
         TabHost.addTab(TabHost.newTabSpec("tab3").setIndicator("", getResources().getDrawable(R.drawable.ic_movies)),
                 Tab3FindMovies.class, null);
         TabHost.addTab(TabHost.newTabSpec("tab4").setIndicator("", getResources().getDrawable(R.drawable.ic_person_black_48dp)),
