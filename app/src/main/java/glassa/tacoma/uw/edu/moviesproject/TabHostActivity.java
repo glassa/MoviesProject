@@ -10,16 +10,11 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
 import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
-
-
-import static android.R.attr.fragment;
-import static android.R.attr.tag;
 
 
 /**
@@ -47,6 +42,18 @@ public class TabHostActivity extends AppCompatActivity {
         mCurrentUser = getIntent().getStringExtra("USERNAME");
 
         TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        TabHost.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+
+            @Override
+            public void onViewDetachedFromWindow(View v) {}
+
+            @Override
+            public void onViewAttachedToWindow(View v) {
+                TabHost.getViewTreeObserver().removeOnTouchModeChangeListener(TabHost);
+            }
+        });
+
+
         TabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
         TabHost.addTab(TabHost.newTabSpec("tab1").setIndicator("", getResources().getDrawable(R.drawable.ic_home_black_48dp)),
@@ -59,6 +66,7 @@ public class TabHostActivity extends AppCompatActivity {
                 Tab4FindUsers.class, null);
         TabHost.addTab(TabHost.newTabSpec("tab5").setIndicator("", getResources().getDrawable(R.drawable.ic_settings_black_48dp)),
                 Tab5Settings.class, null);
+
     }
 
     public String getmCurrentUser() {

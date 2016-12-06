@@ -202,8 +202,6 @@ public class MovieItemFragment extends Fragment {
 
             // Something wrong with the JSON returned.
             if (result != null) {
-                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
-                        .show();
                 return;
             }
 
