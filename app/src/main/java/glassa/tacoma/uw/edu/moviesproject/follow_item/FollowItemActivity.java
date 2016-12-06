@@ -31,8 +31,6 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
      * This method gets the info of current user and which button was clicked from the
      * "putExtra" from the TabHostActivity and assigns the information to the fields within
      * this class.
-     *
-     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,7 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
         Log.i("FollowItemActivity", "Following = " + mFollowingButton.toString());
         Log.i("FollowItemActivity", "Followers = " + mFollowersButton.toString());
 
-        if (savedInstanceState == null || getSupportFragmentManager().findFragmentById(R.id.list) == null) {
+        if ((savedInstanceState == null) || (getSupportFragmentManager().findFragmentById(R.id.list) == null)) {
             FollowItemFragment FollowItemFragment = new FollowItemFragment();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.follow_item_frag_container, FollowItemFragment)
@@ -58,7 +56,6 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
     /**
      * This method handles what happens when one of the items on the Following or Followers
      * list is clicked.  When it is clicked, the ProfileActivity of the clicked user is opened.
-     * @param item
      */
     @Override
     public void onListFragmentInteraction(FollowItem item) {
@@ -103,15 +100,5 @@ public class FollowItemActivity extends AppCompatActivity implements FollowItemF
      */
     public Boolean getmFollowersButton() {
         return mFollowersButton;
-    }
-
-
-    /**
-     * Method to set the title of the list fragment. Not used atm.
-     *
-     * @param title the title
-     */
-    public void setActionBarTitle(String title) {
-        getActionBar().setTitle(title);
     }
 }

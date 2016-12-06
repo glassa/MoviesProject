@@ -45,16 +45,20 @@ public class TabHostActivity extends AppCompatActivity {
         TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         TabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        TabHost.addTab(TabHost.newTabSpec("tab1").setIndicator("Home"),
+        TabHost.addTab(TabHost.newTabSpec("tab1").setIndicator("", getResources().getDrawable(R.drawable.ic_home_black_48dp)),
                 Tab1Home.class, null);
-        TabHost.addTab(TabHost.newTabSpec("tab2").setIndicator("Rate Movies"),
+        TabHost.addTab(TabHost.newTabSpec("tab2").setIndicator("", getResources().getDrawable(R.drawable.ic_star_half_black_48dp)),
                 Tab2RateMovies.class, null);
-        TabHost.addTab(TabHost.newTabSpec("tab3").setIndicator("Find Movies"),
+        TabHost.addTab(TabHost.newTabSpec("tab3").setIndicator("", getResources().getDrawable(R.drawable.ic_movies)),
                 Tab3FindMovies.class, null);
-        TabHost.addTab(TabHost.newTabSpec("tab4").setIndicator("Find Users"),
+        TabHost.addTab(TabHost.newTabSpec("tab4").setIndicator("", getResources().getDrawable(R.drawable.ic_person_black_48dp)),
                 Tab4FindUsers.class, null);
-        TabHost.addTab(TabHost.newTabSpec("tab5").setIndicator("Settings"),
+        TabHost.addTab(TabHost.newTabSpec("tab5").setIndicator("", getResources().getDrawable(R.drawable.ic_settings_black_48dp)),
                 Tab5Settings.class, null);
+    }
+
+    public String getmCurrentUser() {
+        return mCurrentUser;
     }
 
     /**
@@ -63,8 +67,6 @@ public class TabHostActivity extends AppCompatActivity {
      * @param view the view
      */
     public void viewFollowingUsers(View view) {
-        Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
-                .show();
         Log.i("home", "following users clicked");
 
         Log.i("TabHostActivity", "Current User: " + mCurrentUser);
@@ -81,8 +83,6 @@ public class TabHostActivity extends AppCompatActivity {
      * @param view the view
      */
     public void viewUsersImFollowing(View view) {
-        Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
-                .show();
         Log.i("home", "view users i'm following");
 
 
@@ -102,8 +102,6 @@ public class TabHostActivity extends AppCompatActivity {
      * @param view the view
      */
     public void viewRatedMovies(View view) {
-        Toast.makeText(view.getContext(), "viewing movies you've rated", Toast.LENGTH_SHORT)
-                .show();
         Log.i("home", "rate movies clicked");
 
         Intent i = new Intent(this, MovieItemActivity.class);
