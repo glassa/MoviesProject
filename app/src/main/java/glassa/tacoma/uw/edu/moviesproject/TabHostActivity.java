@@ -19,17 +19,11 @@ import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
  */
 public class TabHostActivity extends AppCompatActivity {
 
-    private FragmentTabHost TabHost;
     /**
      * The current User's username.
      */
     String mCurrentUser;
 
-    /**
-     * The oncreate method.
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +32,7 @@ public class TabHostActivity extends AppCompatActivity {
 
         mCurrentUser = getIntent().getStringExtra("USERNAME");
 
-        TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        FragmentTabHost TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         TabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
         TabHost.addTab(TabHost.newTabSpec("tab1").setIndicator("Home"),
