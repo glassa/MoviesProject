@@ -35,10 +35,6 @@ public class MovieActivity extends AppCompatActivity {
     /**
      * The list of rated movies belongs to the user with this username string.
      */
-    String mTargetUser;
-    /**
-     * The list of rated movies belongs to the user with this username string.
-     */
     String mCurrentUser;
     /**
      * The M current movie.
@@ -59,7 +55,7 @@ public class MovieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //get current user.
-        mTargetUser = getIntent().getStringExtra("TARGET_USER");
+//        mTargetUser = getIntent().getStringExtra("TARGET_USER");
 
         mCurrentUser = getIntent().getStringExtra("CURRENT_USER");
 
@@ -141,7 +137,7 @@ public class MovieActivity extends AppCompatActivity {
                             .show();
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "Failed: " + mTargetUser + " has already rated " + mCurrentMovie
+                    Toast.makeText(getApplicationContext(), "Failed: " + mCurrentUser + " has already rated " + mCurrentMovie
                             , Toast.LENGTH_SHORT)
                             .show();
                 }

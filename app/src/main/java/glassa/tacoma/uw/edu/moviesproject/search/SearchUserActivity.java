@@ -33,7 +33,7 @@ public class SearchUserActivity extends AppCompatActivity {
     private String myS = "";
     private final String URL="http://cssgate.insttech.washington.edu/~_450team2/userSearcher.php";
     private String myPass = "";
-
+    String mCurrentUser;
 
     /**
      * onCreat create the search bar frame and list of result
@@ -44,6 +44,8 @@ public class SearchUserActivity extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_search_user);;
 //        run(URL);
+
+        mCurrentUser = getIntent().getStringExtra("CURRENT_USER");
 
         final EditText myInput= (EditText)findViewById(R.id.search_user_bar);
         Button mySearch = (Button)findViewById(R.id.search_user_button);
@@ -100,8 +102,7 @@ public class SearchUserActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(SearchUserActivity.this,ProfileActivity.class);
                 myIntent.putExtra("TARGET_USER", arrayList.get(position));
-                //write something here to transfer current user to ProfileActivity
-//                myIntent.putExtra("TARGET_USER", arrayList.get(position));
+                myIntent.putExtra("CURRENT_USER", mCurrentUser);
                 startActivity(myIntent);
             }
         });

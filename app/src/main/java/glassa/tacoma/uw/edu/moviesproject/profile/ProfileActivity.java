@@ -21,6 +21,7 @@ import java.net.URLEncoder;
 
 import glassa.tacoma.uw.edu.moviesproject.R;
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
+import glassa.tacoma.uw.edu.moviesproject.follow_item.MatchesItem;
 import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 
 /**
@@ -57,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         Log.i("ProfileActivity", "target user: " + mTargetUser);
 
         setContentView(R.layout.activity_profile);
+
         TextView tv = (TextView) findViewById(R.id.target_user_id);
         tv.setText("You are viewing " + mTargetUser + "'s profile!");
     }
@@ -123,6 +125,10 @@ public class ProfileActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 String status = (String) jsonObject.get("result");
                 if (status.equals("success")) {
+
+                    //check matches and differences -> insert to database
+                    checkMatches();
+
                     Toast.makeText(getApplicationContext(), "You are now following " + mTargetUser
                             , Toast.LENGTH_SHORT)
                             .show();
@@ -140,6 +146,10 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    public void checkMatches() {
+        CheckMatchesTask task = new CheckMatchesTask();
+        task.execute();
+    }
     /**
      * Starts the AsyncTask to follow the user. Its triggored by the button "Follow"
      *
@@ -223,5 +233,91 @@ public class ProfileActivity extends AppCompatActivity {
                     .show();
         }
         return sb.toString();
+    }
+
+
+
+    /**
+     * The AsyncTask to follow a user.  This method connects to the database and inserts
+     * into the database that the Current user follows the Target user.
+     */
+    private class CheckMatchesTask extends AsyncTask<String, Void, String> {
+
+        /**
+         * Connects the the database and opens an input stream to listen for the server's response.
+         * If any exception is thrown, the response is changed to show the exception.
+         * @param urls The pre-appended url to connect to the database.
+         * @return Returns a response from the server in the form of a JSON object.
+         *          The three possible responses are {result: "success"} and {result: "failure"}
+         *          and " 'Unable to find user, Reason: ' + Exception.getMessage()"
+         */
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            HttpURLConnection urlConnection = null;
+            for (String url : urls) {
+                try {
+                    URL urlObject = new URL(url);
+                    urlConnection = (HttpURLConnection) urlObject.openConnection();
+
+                    InputStream content = urlConnection.getInputStream();
+
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s;
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+
+                } catch (Exception e) {
+                    response = "Unable to find user, Reason: "
+                            + e.getMessage();
+                } finally {
+                    if (urlConnection != null)
+                        urlConnection.disconnect();
+                }
+            }
+            return response;
+        }
+
+        /**
+         * It checks to see if there was a problem with the URL(Network) which is when an
+         * exception is caught. It tries to call the parse Method and checks to see if it was successful.
+         * If it was, it takes the user to the TabHostActivity via an intent.
+         * If not, it displays the exception.
+         *
+         * @param result Passed by doInBackground. Used to determine if the user login was successful.
+         */
+        @Override
+        protected void onPostExecute(String result) {
+            if (result.startsWith("Unable to")) {
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+            MatchesItem matchItem = new MatchesItem(0, 0);
+            int pair[] = new int[2];
+            matchItem.parseMatchJSON(result, pair);
+
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                String status = (String) jsonObject.get("result");
+                if (status.equals("success")) {
+
+                    Toast.makeText(getApplicationContext(), "matches"
+                            , Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "something went wrong"
+                            , Toast.LENGTH_SHORT)
+                            .show();
+                }
+            } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "Something wrong with the data" +
+                        e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+
+        }
     }
 }
