@@ -136,11 +136,11 @@ class MovieItem implements Serializable {
      */
     String getMovieRatingString() {
         if (mMovieRatingNum == 1) {
-            return "Disliked";
+            return "Liked";
         } else if (mMovieRatingNum == 2) {
             return "Haven't Seen";
         } else if (mMovieRatingNum == 3) {
-            return "Liked";
+            return "Disliked";
         } else {
             return "";
         }

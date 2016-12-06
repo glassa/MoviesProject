@@ -1,7 +1,9 @@
 package glassa.tacoma.uw.edu.moviesproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
 import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
+import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
+import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 
 
 import static android.R.attr.fragment;
@@ -28,7 +32,7 @@ public class TabHostActivity extends AppCompatActivity {
      * The current User's username.
      */
     String mCurrentUser;
-
+    SharedPreferencesHelper mSharedPreferencesHelper;
     /**
      * The oncreate method.
      *
@@ -123,6 +127,12 @@ public class TabHostActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        mSharedPreferencesHelper = new SharedPreferencesHelper(
+                sharedPreferences);
+        SharedPreferenceEntry entry1 = new SharedPreferenceEntry(false,"");
+        mSharedPreferencesHelper.savePersonalInfo(entry1);
         Intent i = new Intent(this, LoginFragment.class);
         startActivity(i);
 
@@ -132,5 +142,8 @@ public class TabHostActivity extends AppCompatActivity {
                .commit();
     }
 
-
+    public void OnPause(){
+        super.onPause();
+        this.finish();
+    }
 }

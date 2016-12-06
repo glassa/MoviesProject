@@ -93,7 +93,7 @@ public class SearchMovieActivity extends AppCompatActivity {
                 StringBuilder sb2 = new StringBuilder();
 
 
-                String username = String.format("%-15s", json_data.getString("Name"));
+                String username = json_data.getString("Name");
                 int id = json_data.getInt("MovieID");
 
                 sb.append(username);

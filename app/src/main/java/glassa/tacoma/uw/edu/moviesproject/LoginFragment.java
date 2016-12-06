@@ -152,6 +152,9 @@ public class LoginFragment extends Fragment {
         };
 
     }
+    public void onBackPressed(){
+        this.getActivity().onBackPressed();
+    }
     /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -283,4 +286,6 @@ public class LoginFragment extends Fragment {
         }
         return sb.toString();
     }
+
+
 }

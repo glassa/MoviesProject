@@ -82,7 +82,7 @@ public class SearchUserActivity extends AppCompatActivity {
                 JSONObject json_data = jArray.getJSONObject(j);
                 StringBuilder sb = new StringBuilder();
 
-                String username = String.format("%-15s", json_data.getString("Username"));
+                String username = json_data.getString("Username");
 
                 sb.append(username);
 

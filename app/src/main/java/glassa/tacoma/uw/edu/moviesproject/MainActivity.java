@@ -95,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements
                     .commit();
         }
     }
+    @Override
+    public void onBackPressed(){
 
+    }
     /**
      * Sets username.
 
