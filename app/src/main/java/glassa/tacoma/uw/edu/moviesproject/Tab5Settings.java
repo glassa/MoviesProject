@@ -85,4 +85,9 @@ public class Tab5Settings extends Fragment {
 
     return v;
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        getActivity().finish();
+    }
 }
