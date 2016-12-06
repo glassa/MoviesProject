@@ -14,10 +14,6 @@ import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
 import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
 
 
-import static android.R.attr.fragment;
-import static android.R.attr.tag;
-
-
 /**
  * This is the activity that holds the TabHost. This allows for tab navigation.
  */
@@ -55,6 +51,10 @@ public class TabHostActivity extends AppCompatActivity {
                 Tab4FindUsers.class, null);
         TabHost.addTab(TabHost.newTabSpec("tab5").setIndicator("Settings"),
                 Tab5Settings.class, null);
+    }
+
+    public String getmCurrentUser() {
+        return mCurrentUser;
     }
 
     /**

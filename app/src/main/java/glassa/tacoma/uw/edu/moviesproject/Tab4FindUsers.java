@@ -16,6 +16,7 @@ import glassa.tacoma.uw.edu.moviesproject.search.SearchUserActivity;
  */
 public class Tab4FindUsers extends Fragment {
 
+    String mCurrentUser;
 
     /**
      * Instantiates a new Tab 4 find users.
@@ -29,6 +30,9 @@ public class Tab4FindUsers extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Intent intent = new Intent(getActivity(), SearchUserActivity.class);
+
+        mCurrentUser = ((TabHostActivity)getActivity()).getmCurrentUser();
+        intent.putExtra("CURRENT_USER", mCurrentUser);
 
         startActivity(intent);
         // Inflate the layout for this fragment

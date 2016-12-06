@@ -16,6 +16,7 @@ import glassa.tacoma.uw.edu.moviesproject.search.SearchMovieActivity;
  */
 public class Tab3FindMovies extends Fragment {
 
+    String mCurrentUser;
 
     /**
      * Instantiates a new Tab 3 find movies.
@@ -28,6 +29,8 @@ public class Tab3FindMovies extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Intent intent = new Intent(getActivity(), SearchMovieActivity.class);
+        mCurrentUser = ((TabHostActivity) getActivity()).getmCurrentUser();
+        intent.putExtra("CURRENT_USER", mCurrentUser);
         startActivity(intent);
 
         // Inflate the layout for this fragment
