@@ -3,8 +3,6 @@ package glassa.tacoma.uw.edu.moviesproject;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -13,7 +11,6 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,9 +24,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
-
-import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -37,13 +31,10 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * A simple {@link Fragment} subclass.
  */
 public class ChangeUserInfoDialog extends DialogFragment {
-    EditText ed1, ed2;
-    String mUsername;
+    EditText ed2;
+    String mPassword;
     String url = "http://cssgate.insttech.washington.edu/~_450team2/userChange.php?";
     String TAG = "ChangeUserInfoDialog";
-    SQLiteDatabase mydatabase;
-    Cursor resultSet;
-    String mUsername1;
 
     public ChangeUserInfoDialog() {
         // Required empty public constructor
@@ -56,37 +47,25 @@ public class ChangeUserInfoDialog extends DialogFragment {
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View v = inflater.inflate(R.layout.fragment_change_user_info_dialog, null);
-        ed1 = (EditText) v.findViewById(R.id.userbox);
         ed2 = (EditText) v.findViewById(R.id.passbox);
-        //mydatabase = SQLiteDatabase.openOrCreateDatabase("username", null, null);
-        //resultSet = mydatabase.rawQuery("Select * from Username WHERE Current=true",null);
-        //resultSet.moveToLast();
-        //mUsername1 = resultSet.toString();
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.fragment_change_user_info_dialog, null))
-                // Add action buttons
-                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+        builder.setTitle("Change Password");
+        builder.setView(v);
+        builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        mUsername = ed1.getText().toString();
-                        String mPass = ed2.getText().toString();
+                        mPassword = ed2.getText().toString();
+                        Log.i(TAG, "new password: " + mPassword);
                         String url = buildUserChangeURL(v);
                         ChangeUserTask task = new ChangeUserTask();
                         task.execute(new String[]{url.toString()});
-                        String formatedString = String.format("UPDATE username SET Username='%s', Current=false", mUsername);
-                        String formatedString2 = String.format("UPDATE username SET Username='%s', Current=true", mUsername1);
-                        //mydatabase.execSQL(formatedString);
-                        //mydatabase.execSQL(formatedString2);
-
                     }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dismiss();
                     }
                 });
-        return builder.create();
+        return builder.show();
     }
 
     private String buildUserChangeURL(View v) {
@@ -95,26 +74,25 @@ public class ChangeUserInfoDialog extends DialogFragment {
 
         try {
 
-            String userName = ed1.getText().toString();
-            sb.append("&Username=");
-            sb.append(URLEncoder.encode(userName, "UTF-8"));
+            TabHostActivity m = (TabHostActivity) getActivity();
+            String userCurrent = m.getmCurrentUser();
 
-            MainActivity m = (MainActivity) getActivity();
-            m.setmUsername(userName);
+            sb.append("&Username=");
+            sb.append(URLEncoder.encode(userCurrent, "UTF-8"));
+
 
             String userPW = ed2.getText().toString();
             sb.append("&Passcode=");
             sb.append(URLEncoder.encode(userPW, "UTF-8"));
 
-            String userCurrent = MainActivity.mUsername;
-            sb.append("&original");
-            sb.append(URLEncoder.encode(userCurrent, "UTF-8"));
-            Log.i("UserChange", sb.toString());
 
         } catch (Exception e) {
-            Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
-                    .show();
+//            Toast.makeText(v.getContext(), "Error building url: " + e.getMessage(), Toast.LENGTH_LONG)
+//                    .show();
+            Log.i(TAG, "Error: " + e.toString());
         }
+
+        Log.i(TAG, "URL: " + sb.toString());
         return sb.toString();
     }
 
@@ -168,10 +146,12 @@ public class ChangeUserInfoDialog extends DialogFragment {
         protected void onPostExecute(String result) {
             // Something wrong with the network or the URL.
             try {
+                Log.i(TAG, "Result: " + result);
                 JSONObject jsonObject = new JSONObject(result);
                 String status = (String) jsonObject.get("result");
                 if (status.equals("success")) {
-                    Toast.makeText(getApplicationContext(), "User successfully changed!"
+
+                    Toast.makeText(getApplicationContext(), "Password successfully changed!"
                             , Toast.LENGTH_LONG)
                             .show();
 
