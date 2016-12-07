@@ -144,7 +144,7 @@ public class Tab3FindMovies extends Fragment {
                 }
             }
             catch (Exception e) {
-                Toast.makeText(getActivity(), "Something wrong with the url " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Sorry, we don't have that movie yet.", Toast.LENGTH_SHORT).show();
             }
 
             ListView list=(ListView) getView().findViewById(R.id.find_user_lv);
