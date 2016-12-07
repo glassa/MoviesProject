@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,6 +28,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import glassa.tacoma.uw.edu.moviesproject.movie.MovieActivity;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 
@@ -41,6 +43,7 @@ public class Tab1Home extends Fragment {
 
     private static final String TAG = "Tab1Home.java";
     Button b1;
+    private int mCurrentMovieID;
 
     SharedPreferencesHelper mSharedPreferencesHelper;
 
@@ -81,6 +84,7 @@ public class Tab1Home extends Fragment {
         task.execute(new String[]{theURL.toString()});
 
         final ArrayList<String> feedList = new ArrayList<>();
+        final ArrayList<Integer> movieIdList = new ArrayList<>();
 
         try {
             JSONArray jArray = new JSONArray(URLDecoder.decode(task.get(), "UTF-8" ));
@@ -89,13 +93,17 @@ public class Tab1Home extends Fragment {
 
                 JSONObject json_data = jArray.getJSONObject(j);
                 StringBuilder sb = new StringBuilder();
+                StringBuilder sb2 = new StringBuilder();
+
 
                 String username = json_data.getString("Username");
                 String movieName = json_data.getString("Name");
+                int movieId = json_data.getInt("MovieID");
 
                 sb.append(username + " just rated " + movieName + ".");
                 Log.i(TAG, "Current JSON String: " + sb.toString());
                 feedList.add(sb.toString());
+                movieIdList.add(movieId);
             }
         }
         catch (Exception e) {
@@ -108,6 +116,18 @@ public class Tab1Home extends Fragment {
                 new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, feedList);
         Log.i(TAG, "3");
         feedListView.setAdapter(arrayAdapter);
+        feedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent myIntent = new Intent(getActivity(), MovieActivity.class);
+                myIntent.putExtra("MOVIE_TITLE", feedList.get(position));
+                myIntent.putExtra("CURRENT_USER", ((TabHostActivity)getActivity()).getmCurrentUser());
+                mCurrentMovieID = movieIdList.get(position);
+                myIntent.putExtra("MOVIE_ID", mCurrentMovieID);
+
+                startActivity(myIntent);
+            }
+        });
     }
 
     private class GetFeedTask extends AsyncTask<String, Void, String> {
