@@ -23,12 +23,17 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 public class TabHostActivity extends AppCompatActivity {
 
     private FragmentTabHost TabHost;
+    private static final String TAG = "TabHostActivity.java";
     /**
      * The current User's username.
      */
     String mCurrentUser;
     SharedPreferencesHelper mSharedPreferencesHelper;
+
+
+
     /**
+
      * The oncreate method.
      *
      * @param savedInstanceState
@@ -40,6 +45,7 @@ public class TabHostActivity extends AppCompatActivity {
 
 
         mCurrentUser = getIntent().getStringExtra("USERNAME");
+        Log.i(TAG, "Current User: " + mCurrentUser);
 
         TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         TabHost.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
@@ -73,6 +79,9 @@ public class TabHostActivity extends AppCompatActivity {
         return mCurrentUser;
     }
 
+    public void setmCurrentUser(String mCurrentUser) {
+        this.mCurrentUser = mCurrentUser;
+    }
     /**
      * View following users.
      *
