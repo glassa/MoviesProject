@@ -6,11 +6,6 @@
     tools:context="glassa.tacoma.uw.edu.moviesproject.ChangeUserInfoDialog">
 
     <EditText
-        android:id="@+id/userbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/username"/>
-    <EditText
         android:id="@+id/passbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
