@@ -44,6 +44,7 @@ public class Tab1Home extends Fragment {
     private static final String TAG = "Tab1Home.java";
     Button b1;
     private int mCurrentMovieID;
+    private String mCurrentMovieName;
 
     SharedPreferencesHelper mSharedPreferencesHelper;
 
@@ -85,6 +86,7 @@ public class Tab1Home extends Fragment {
 
         final ArrayList<String> feedList = new ArrayList<>();
         final ArrayList<Integer> movieIdList = new ArrayList<>();
+        final ArrayList<String> movieNameList = new ArrayList<>();
 
         try {
             JSONArray jArray = new JSONArray(URLDecoder.decode(task.get(), "UTF-8" ));
@@ -93,7 +95,6 @@ public class Tab1Home extends Fragment {
 
                 JSONObject json_data = jArray.getJSONObject(j);
                 StringBuilder sb = new StringBuilder();
-                StringBuilder sb2 = new StringBuilder();
 
 
                 String username = json_data.getString("Username");
@@ -104,6 +105,7 @@ public class Tab1Home extends Fragment {
                 Log.i(TAG, "Current JSON String: " + sb.toString());
                 feedList.add(sb.toString());
                 movieIdList.add(movieId);
+                movieNameList.add(movieName);
             }
         }
         catch (Exception e) {
@@ -120,7 +122,8 @@ public class Tab1Home extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(getActivity(), MovieActivity.class);
-                myIntent.putExtra("MOVIE_TITLE", feedList.get(position));
+                mCurrentMovieName = movieNameList.get(position);
+                myIntent.putExtra("MOVIE_TITLE", mCurrentMovieName);
                 myIntent.putExtra("CURRENT_USER", ((TabHostActivity)getActivity()).getmCurrentUser());
                 mCurrentMovieID = movieIdList.get(position);
                 myIntent.putExtra("MOVIE_ID", mCurrentMovieID);
