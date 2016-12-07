@@ -88,6 +88,7 @@ public class RegisterFragment extends Fragment {
      */
     ed3;
     private RegisterFragment.UserAddListener mListener;
+    String mUsername;
 
 
 
@@ -112,8 +113,10 @@ public class RegisterFragment extends Fragment {
                     mListener.addUser(url);
 
                     Toast.makeText(c, "Registering...", Toast.LENGTH_SHORT).show();
-                    Intent Tonyintent = new Intent(c, TabHostActivity.class);
-                    startActivity(Tonyintent);
+                    Intent intent = new Intent(c, TabHostActivity.class);
+                    mUsername = ed1.getText().toString();
+                    intent.putExtra("USERNAME", mUsername);
+                    startActivity(intent);
 
                 } else {
                     Toast.makeText(c, "Passwords do not match", Toast.LENGTH_SHORT).show();
