@@ -198,7 +198,7 @@ public class MovieItemFragment extends Fragment {
             }
 
             List<MovieItem> movieItemList = new ArrayList<>();
-            result = MovieItem.parseCourseJSON(result, movieItemList);
+            result = MovieItem.parseMovieItemJSON(result, movieItemList);
 
             // Something wrong with the JSON returned.
             if (result != null) {

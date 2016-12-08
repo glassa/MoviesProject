@@ -147,8 +147,7 @@ public class RegisterFragment extends Fragment {
         if(context instanceof UserAddListener) {
             mListener = (UserAddListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement CourseAddListener");
+            throw new RuntimeException(context.toString());
         }
     }
 

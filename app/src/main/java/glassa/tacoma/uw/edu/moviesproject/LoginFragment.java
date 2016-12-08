@@ -2,11 +2,7 @@ package glassa.tacoma.uw.edu.moviesproject;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-
-import android.net.Uri;
-
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -18,17 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 import java.net.URLEncoder;
 
@@ -84,8 +75,7 @@ public class LoginFragment extends Fragment {
      * The url we use when registering a new user.
      * Currently inactive since we made registration it's own fragment
      */
-    //private final static String USER_ADD_URL =
-    // "http://cssgate.insttech.washington.edu/~_450team2/addUser.php?";
+
     /**
      * The listener we use when sending a log in request
      */
@@ -93,7 +83,7 @@ public class LoginFragment extends Fragment {
     /**
      * The listener we used when logging in via facebook. Currently inactive.
      */
-    //private LoginFragment.FacebookLoginListener fListener;
+
     /**
      * A string to allow for easier logging.
       */
@@ -152,16 +142,11 @@ public class LoginFragment extends Fragment {
         };
 
     }
+    
     public void onBackPressed(){
         this.getActivity().onBackPressed();
     }
-    /*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-*/
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
