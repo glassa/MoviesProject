@@ -108,7 +108,8 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Context c = getActivity();
-                if (ed2.getText().toString().equals(ed3.getText().toString())) {
+                if (ed2.getText().toString().equals(ed3.getText().toString()) &&
+                        ed1.length() > 2 && ed2.length() > 2) {
                     String url = buildUserURL(v);
                     mListener.addUser(url);
 
@@ -119,7 +120,7 @@ public class RegisterFragment extends Fragment {
                     startActivity(intent);
 
                 } else {
-                    Toast.makeText(c, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(c, "Enter valid data", Toast.LENGTH_SHORT).show();
 
 
                 }
