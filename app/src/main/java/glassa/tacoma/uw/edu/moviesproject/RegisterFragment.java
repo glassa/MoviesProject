@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,9 +74,9 @@ public class RegisterFragment extends Fragment {
         // Required empty public constructor
     }
     /**
-     * The B 1.
+     * The Buttons. b1 is register, b2 is cancel.
      */
-    Button b1;
+    Button b1, b2;
     /**
      * The Ed 1.
      */
@@ -86,6 +88,7 @@ public class RegisterFragment extends Fragment {
      */
     ed3;
     private RegisterFragment.UserAddListener mListener;
+    String mUsername;
 
 
 
@@ -97,6 +100,7 @@ public class RegisterFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_register, container, false);
 
         b1 = (Button) v.findViewById(R.id.register_button_final);
+        b2 = (Button) v.findViewById(R.id.register_button_cancel);
         ed1 = (EditText) v.findViewById(R.id.register_user_edit_text);
         ed2 = (EditText) v.findViewById(R.id.register_password1_edit_text);
         ed3 = (EditText) v.findViewById(R.id.register_password2_edit_text) ;
@@ -109,8 +113,10 @@ public class RegisterFragment extends Fragment {
                     mListener.addUser(url);
 
                     Toast.makeText(c, "Registering...", Toast.LENGTH_SHORT).show();
-                    Intent Tonyintent = new Intent(c, TabHostActivity.class);
-                    startActivity(Tonyintent);
+                    Intent intent = new Intent(c, TabHostActivity.class);
+                    mUsername = ed1.getText().toString();
+                    intent.putExtra("USERNAME", mUsername);
+                    startActivity(intent);
 
                 } else {
                     Toast.makeText(c, "Passwords do not match", Toast.LENGTH_SHORT).show();
@@ -120,9 +126,20 @@ public class RegisterFragment extends Fragment {
 
             }
         });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new LoginFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }});
 
         return v;
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

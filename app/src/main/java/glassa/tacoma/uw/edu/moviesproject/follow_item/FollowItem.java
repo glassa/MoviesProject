@@ -11,12 +11,12 @@ import java.util.List;
  * This class holds the follow object.  It holds one instance of who is
  * following who.
  */
-public class FollowItem implements Serializable{
+class FollowItem implements Serializable{
 
     /**
      * The constant USER_A.
      */
-    public static final String USER_A = "UserA", /**
+    private static final String USER_A = "UserA", /**
      * The User b.
      */
     USER_B = "UserB";
@@ -24,7 +24,7 @@ public class FollowItem implements Serializable{
     /**
      * The string usernames of both of the target users.
      */
-    String mUserA, /**
+    private String mUserA, /**
      * The M user b.
      */
     mUserB;
@@ -36,7 +36,7 @@ public class FollowItem implements Serializable{
      * @param mUserA current user's username.
      * @param mUserB target user's username.
      */
-    public FollowItem(String mUserA, String mUserB) {
+    private FollowItem(String mUserA, String mUserB) {
         this.mUserA = mUserA;
         this.mUserB = mUserB;
     }
@@ -46,17 +46,8 @@ public class FollowItem implements Serializable{
      *
      * @return user a
      */
-    public String getmUserA() {
+    String getmUserA() {
         return mUserA;
-    }
-
-    /**
-     * Setter for current username.
-     *
-     * @param mUserA the m user a
-     */
-    public void setmUserA(String mUserA) {
-        this.mUserA = mUserA;
     }
 
     /**
@@ -64,18 +55,10 @@ public class FollowItem implements Serializable{
      *
      * @return user b
      */
-    public String getmUserB() {
+    String getmUserB() {
         return mUserB;
     }
 
-    /**
-     * Setter for target username.
-     *
-     * @param mUserB the m user b
-     */
-    public void setmUserB(String mUserB) {
-        this.mUserB = mUserB;
-    }
 
     /**
      * Parses the json string, returns an error message if unsuccessful.
@@ -85,7 +68,7 @@ public class FollowItem implements Serializable{
      * @param fItemList      the f item list
      * @return reason or null if successful.
      */
-    public static String parseCourseJSON(String followListJSON, List<FollowItem> fItemList) {
+    static String parseCourseJSON(String followListJSON, List<FollowItem> fItemList) {
         String reason = null;
         if (followListJSON != null) {
             try {

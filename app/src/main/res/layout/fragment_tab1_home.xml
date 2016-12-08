@@ -5,76 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="glassa.tacoma.uw.edu.moviesproject.Tab1Home">
-    <FrameLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Public Feed:"
+        android:layout_weight="1"
+        android:textStyle="bold"/>
+
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="930px">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User Feed:"/>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="20dp"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
-            android:paddingBottom="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Alex rated The Matrix"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Alex rated The Truman Show"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Alex rated A Bug's Life"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Alex rated The Avengers"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tony rated The Matrix"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tony rated The Truman Show"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tony rated A Bug's Life"
-                    />
-
-                    />
-            </LinearLayout>
-        </ScrollView>
-
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/user_feed_list_view"
+        android:layout_weight="20"/>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/followers_button"
@@ -103,7 +53,8 @@
             android:id="@+id/logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Logout" />
+            android:text="Log out"
+            android:ellipsize="none"/>
 
         <!--<Button-->
             <!--android:text="Logout"-->

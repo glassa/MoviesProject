@@ -4,6 +4,9 @@ package glassa.tacoma.uw.edu.moviesproject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import android.net.Uri;
+
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -66,40 +69,59 @@ public class LoginFragment extends Fragment {
         public void addLogin(String url, String mUsername);
         public void addUser(String url);
         public void sharedPrefLogin(String mUsername);
+
     }
     public interface FacebookLoginListener{
         public void facebookLogin();
     }
-    private final static String USER_LOGIN_URL = "http://cssgate.insttech.washington.edu/~_450team2/login.php?";
-    private final static String USER_ADD_URL = "http://cssgate.insttech.washington.edu/~_450team2/addUser.php?";
+
+    /**
+     * The url we use to connect to the SQL database.
+     */
+    private final static String USER_LOGIN_URL =
+            "http://cssgate.insttech.washington.edu/~_450team2/login.php?";
+    /**
+     * The url we use when registering a new user.
+     * Currently inactive since we made registration it's own fragment
+     */
+    //private final static String USER_ADD_URL =
+    // "http://cssgate.insttech.washington.edu/~_450team2/addUser.php?";
+    /**
+     * The listener we use when sending a log in request
+     */
     private LoginFragment.LoginAddListener mListener;
-    private LoginFragment.FacebookLoginListener fListener;
+    /**
+     * The listener we used when logging in via facebook. Currently inactive.
+     */
+    //private LoginFragment.FacebookLoginListener fListener;
+    /**
+     * A string to allow for easier logging.
+      */
     private final static String TAG = "LoginFragment";
     /**
-     * The B 1.
+     * The login button
      */
-    Button b1, /**
-     * The B 2.
-     */
-    b2;
+    Button b1,
     /**
-     * The Ed 1.
+     * The register button.
      */
-    EditText ed1, /**
-     * The Ed 2.
+    b2,
+    /**
+     * The share this app button.
+      */
+    b3;
+    /**
+     * The username textbox
+     */
+    EditText ed1,
+    /**
+     * The password text box
      */
     ed2;
-    /**
-     * The Tx 1.
-     */
-    TextView tx1, info;
 
-    /**
-     * The Counter.
-     */
-    int counter = 3;
 
-    LoginButton loginButton;
+    //LoginButton loginButton;
+
 
     CallbackManager callbackManager;
 
@@ -130,12 +152,16 @@ public class LoginFragment extends Fragment {
         };
 
     }
+    public void onBackPressed(){
+        this.getActivity().onBackPressed();
+    }
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -151,70 +177,15 @@ public class LoginFragment extends Fragment {
             mUsername = entry.getUsername();
             mListener.sharedPrefLogin(mUsername);
         }
-        loginButton = (LoginButton) v.findViewById(R.id.facebook_login_button);
-        loginButton.setReadPermissions("email");
-        loginButton.setFragment(this);
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                /*Context c = getActivity();
-                StringBuilder sb = new StringBuilder(USER_ADD_URL);
-                StringBuilder sb2 = new StringBuilder("");
-                try {
 
-                    String userFName = Profile.getCurrentProfile().getFirstName();
-                    String userLName = Profile.getCurrentProfile().getLastName();
-                    sb2.append(userFName + " ");
-                    sb2.append(userLName);
-                    String userName = sb2.toString();
-                    sb.append("&Username=");
-                    sb.append(URLEncoder.encode(userName, "UTF-8"));
-
-                    MainActivity m = (MainActivity) getActivity();
-                    m.setmUsername(userName);
-
-                    String userPW = Profile.getCurrentProfile().getId();
-                    sb.append("&Passcode=");
-                    sb.append(URLEncoder.encode(userPW, "UTF-8"));
-
-
-
-                    Log.i("UserAdd", sb.toString());
-
-                }
-                catch(Exception e) {
-                    Toast.makeText(v.getContext(), "Something wrong with the url" + e.getMessage(), Toast.LENGTH_LONG)
-                            .show();
-                }
-                String url = sb.toString();
-                mListener.addUser(url);
-*/
-
-                Log.i(TAG, "registerCallback");
-
-                fListener.facebookLogin();
-            }
-
-            @Override
-            public void onCancel() {
-                Context c = getActivity();
-                Toast.makeText(c, "Login attempt Cancelled", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                Context c = getActivity();
-                Toast.makeText(c, exception.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
         b1 = (Button) v.findViewById(R.id.login_button);
         ed1 = (EditText) v.findViewById(R.id.login_edit_text);
         ed2 = (EditText) v.findViewById(R.id.pass_edit_text);
 
         b2 = (Button) v.findViewById(R.id.register_button_initial);
-        tx1 = (TextView) v.findViewById(R.id.attempts_text_view_2);
-        tx1.setVisibility(View.GONE);
-        info = (TextView) v.findViewById(R.id.info);
+
+        b3 = (Button) v.findViewById(R.id.share_button);
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,18 +196,6 @@ public class LoginFragment extends Fragment {
                 } else {
                     Toast.makeText(c, "Error building url", Toast.LENGTH_LONG).show();
                 }
-                    /*
-                    Toast.makeText(c, "Wrong Credentials", Toast.LENGTH_SHORT).show();
-
-                    tx1.setVisibility(View.VISIBLE);
-                    tx1.setBackgroundColor(Color.RED);
-                    counter--;
-                    tx1.setText(Integer.toString(counter));
-
-
-                    if (counter == 0) {
-                        b1.setEnabled(false);
-                        */
 
                 }
 
@@ -253,7 +212,35 @@ public class LoginFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+        b3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new MessageFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                /*
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setData(Uri.parse("mailto:"));
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, "TO");
+                emailIntent.putExtra(Intent.EXTRA_CC, "CC");
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
 
+                try {
+                    startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+                    Log.i("Finished sending email", "");
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getContext(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                }
+            }*/
+
+
+        }});
         return v;
     }
 
@@ -262,7 +249,9 @@ public class LoginFragment extends Fragment {
         super.onAttach(context);
         if(context instanceof LoginFragment.LoginAddListener) {
             mListener = (LoginFragment.LoginAddListener) context;
-            fListener = (LoginFragment.FacebookLoginListener) context;
+
+            //fListener = (LoginFragment.FacebookLoginListener) context;
+
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement LoginAddListener and FacebookLoginListener");
@@ -297,4 +286,6 @@ public class LoginFragment extends Fragment {
         }
         return sb.toString();
     }
+
+
 }

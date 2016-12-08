@@ -1,18 +1,21 @@
 package glassa.tacoma.uw.edu.moviesproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import glassa.tacoma.uw.edu.moviesproject.follow_item.FollowItemActivity;
 import glassa.tacoma.uw.edu.moviesproject.movie.MovieItemActivity;
+import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
+import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 
-import static android.R.attr.fragment;
-import static android.R.attr.tag;
 
 /**
  * This is the activity that holds the TabHost. This allows for tab navigation.
@@ -20,13 +23,17 @@ import static android.R.attr.tag;
 public class TabHostActivity extends AppCompatActivity {
 
     private FragmentTabHost TabHost;
+    private static final String TAG = "TabHostActivity.java";
     /**
      * The current User's username.
      */
     String mCurrentUser;
+    SharedPreferencesHelper mSharedPreferencesHelper;
+
 
 
     /**
+
      * The oncreate method.
      *
      * @param savedInstanceState
@@ -38,30 +45,54 @@ public class TabHostActivity extends AppCompatActivity {
 
 
         mCurrentUser = getIntent().getStringExtra("USERNAME");
+        Log.i(TAG, "Current User: " + mCurrentUser);
 
         TabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        TabHost.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+
+            @Override
+            public void onViewDetachedFromWindow(View v) {}
+
+            @Override
+            public void onViewAttachedToWindow(View v) {
+                TabHost.getViewTreeObserver().removeOnTouchModeChangeListener(TabHost);
+            }
+        });
+
+
         TabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        TabHost.addTab(TabHost.newTabSpec("tab1").setIndicator("Home"),
+        TabHost.addTab(TabHost.newTabSpec("tab1").setIndicator("", getResources().getDrawable(R.drawable.ic_home_black_48dp)),
                 Tab1Home.class, null);
-        TabHost.addTab(TabHost.newTabSpec("tab2").setIndicator("Rate Movies"),
-                Tab2RateMovies.class, null);
-        TabHost.addTab(TabHost.newTabSpec("tab3").setIndicator("Find Movies"),
+//        TabHost.addTab(TabHost.newTabSpec("tab2").setIndicator("", getResources().getDrawable(R.drawable.ic_star_half_black_48dp)),
+//                Tab2RateMovies.class, null);
+        TabHost.addTab(TabHost.newTabSpec("tab3").setIndicator("", getResources().getDrawable(R.drawable.ic_movies)),
                 Tab3FindMovies.class, null);
-        TabHost.addTab(TabHost.newTabSpec("tab4").setIndicator("Find Users"),
+        TabHost.addTab(TabHost.newTabSpec("tab4").setIndicator("", getResources().getDrawable(R.drawable.ic_person_black_48dp)),
                 Tab4FindUsers.class, null);
-        TabHost.addTab(TabHost.newTabSpec("tab5").setIndicator("Settings"),
+        TabHost.addTab(TabHost.newTabSpec("tab5").setIndicator("", getResources().getDrawable(R.drawable.ic_settings_black_48dp)),
                 Tab5Settings.class, null);
+
+    }
+
+    /* my Current user */
+    public String getmCurrentUser() {
+        return mCurrentUser;
     }
 
     /**
-     * View following users.
-     *
+     * msthod to set current user
+     * @param mCurrentUser the current user passed in
+     */
+    public void setmCurrentUser(String mCurrentUser) {
+        this.mCurrentUser = mCurrentUser;
+    }
+
+    /**
+     * View following users
      * @param view the view
      */
     public void viewFollowingUsers(View view) {
-        Toast.makeText(view.getContext(), "viewing users following you", Toast.LENGTH_SHORT)
-                .show();
         Log.i("home", "following users clicked");
 
         Log.i("TabHostActivity", "Current User: " + mCurrentUser);
@@ -78,8 +109,6 @@ public class TabHostActivity extends AppCompatActivity {
      * @param view the view
      */
     public void viewUsersImFollowing(View view) {
-        Toast.makeText(view.getContext(), "viewing users you are following", Toast.LENGTH_SHORT)
-                .show();
         Log.i("home", "view users i'm following");
 
 
@@ -99,8 +128,6 @@ public class TabHostActivity extends AppCompatActivity {
      * @param view the view
      */
     public void viewRatedMovies(View view) {
-        Toast.makeText(view.getContext(), "viewing movies you've rated", Toast.LENGTH_SHORT)
-                .show();
         Log.i("home", "rate movies clicked");
 
         Intent i = new Intent(this, MovieItemActivity.class);
@@ -109,14 +136,47 @@ public class TabHostActivity extends AppCompatActivity {
         startActivity(i);
 
     }
-//    public void logout(View view) {
-//        Intent i = new Intent(this, LoginFragment.class);
-//        startActivity(i);
+
+    /**
+     * launch method for view
+     * @param v
+     */
+    public void launch(View v){
+        DialogFragment fragment = null;
+        if (v.getId() == R.id.change_user_button) {
+            fragment = new ChangeUserInfoDialog();
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragment.show(fragmentManager, "launch");
+        }
+    }
+
+    /**
+     * method for logout button on homepage
+     * @param view
+     */
+    public void logout(View view) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        mSharedPreferencesHelper = new SharedPreferencesHelper(
+                sharedPreferences);
+        SharedPreferenceEntry entry1 = new SharedPreferenceEntry(false,"");
+        mSharedPreferencesHelper.savePersonalInfo(entry1);
+        Intent i = new Intent(this, LoginFragment.class);
+        startActivity(i);
 
 
-//        getSupportFragmentManager().beginTransaction()
-//                .add(R.id.hometabhost, new LoginFragment())
-//                .commit();
-//    }
+        getSupportFragmentManager().beginTransaction()
+               .add(R.id.hometabhost, new LoginFragment())
+               .commit();
+    }
 
+    /**
+     * method for pasue view
+     */
+    public void OnPause(){
+        super.onPause();
+        this.finish();
+    }
 }
