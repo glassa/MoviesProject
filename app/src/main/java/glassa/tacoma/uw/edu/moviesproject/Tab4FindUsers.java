@@ -31,12 +31,16 @@ import glassa.tacoma.uw.edu.moviesproject.profile.ProfileActivity;
 
 /**
  * A simple {@link Fragment} subclass.
+ * This class is for findUser fragment
  */
 public class Tab4FindUsers extends Fragment {
-
+    /* my Current user */
     String mCurrentUser;
+    /* string to save user input */
     private String myS = "";
+    /* URL link of query file*/
     private final String URL="http://cssgate.insttech.washington.edu/~_450team2/userSearcher.php";
+    /* the URL final use for find a spec user */
     private String myPass = "";
 
     /**
@@ -47,6 +51,13 @@ public class Tab4FindUsers extends Fragment {
     }
 
 
+    /**
+     * onCreateVie method for layout
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,11 +84,17 @@ public class Tab4FindUsers extends Fragment {
         return v;
     }
 
+    /**
+     * @param theURL the link passed in
+     */
     public void run(String theURL) {
         getFilteredUsersTask getFilteredUsersTask = new getFilteredUsersTask();
         getFilteredUsersTask.execute(new String[]{theURL.toString()});
     }
 
+    /**
+     * inner AsyncTask class for find user feature connect database
+     */
     private class getFilteredUsersTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -103,6 +120,11 @@ public class Tab4FindUsers extends Fragment {
             }
             return response;
         }
+
+        /**
+         * onPostExecute method
+         * @param JSONresult
+         */
         @Override
         protected void onPostExecute(String JSONresult) {
             final ArrayList<String> arrayList = new ArrayList<>();

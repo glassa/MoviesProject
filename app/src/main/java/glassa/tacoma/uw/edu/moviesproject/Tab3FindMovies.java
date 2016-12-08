@@ -31,16 +31,18 @@ import glassa.tacoma.uw.edu.moviesproject.movie.MovieActivity;
 
 /**
  * A simple {@link Fragment} subclass.
+ * This class is for findMovies fragment
  */
 public class Tab3FindMovies extends Fragment {
-
+    /* URL link of query file*/
     private final String URL="http://cssgate.insttech.washington.edu/~_450team2/movieSearcher.php";
+    /* the URL final use for find a spec movie */
     private String myPass = "";
+    /* my Current user */
     String mCurrentUser;
+    /* TAG for this class */
     private static final String TAG = "Tab3FindMovies.java";
-    /**
-     * The M current movie id.
-     */
+    /* The M current movie id.*/
     int mCurrentMovieID;
 
     /**
@@ -50,6 +52,13 @@ public class Tab3FindMovies extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * onCreateVie method for layout
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,12 +86,19 @@ public class Tab3FindMovies extends Fragment {
         return v;
     }
 
+    /**
+     * @param theURL the link passed in
+     * @param v the view passed in
+     */
     public void run(String theURL, View v) {
         Log.i(TAG, "URL: " + theURL);
         getFilteredMovieTask getFilteredMovieTask = new getFilteredMovieTask();
         getFilteredMovieTask.execute(new String[]{theURL.toString()});
     }
 
+    /**
+     * inner AsyncTask class for find movie feature connect database
+     */
     private class getFilteredMovieTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -110,6 +126,11 @@ public class Tab3FindMovies extends Fragment {
             return response;
         }
 
+
+        /**
+         * onPostExecute method
+         * @param JSONresult
+         */
         @Override
         protected void onPostExecute(String JSONresult) {
 
@@ -137,8 +158,6 @@ public class Tab3FindMovies extends Fragment {
                     sb.append(username);
 
                     sb2.append(id);
-
-
                     arrayList.add(sb.toString());
                     idList.add(id);
                 }

@@ -75,16 +75,21 @@ public class TabHostActivity extends AppCompatActivity {
 
     }
 
+    /* my Current user */
     public String getmCurrentUser() {
         return mCurrentUser;
     }
 
+    /**
+     * msthod to set current user
+     * @param mCurrentUser the current user passed in
+     */
     public void setmCurrentUser(String mCurrentUser) {
         this.mCurrentUser = mCurrentUser;
     }
+
     /**
-     * View following users.
-     *
+     * View following users
      * @param view the view
      */
     public void viewFollowingUsers(View view) {
@@ -132,6 +137,10 @@ public class TabHostActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * launch method for view
+     * @param v
+     */
     public void launch(View v){
         DialogFragment fragment = null;
         if (v.getId() == R.id.change_user_button) {
@@ -143,6 +152,10 @@ public class TabHostActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * method for logout button on homepage
+     * @param view
+     */
     public void logout(View view) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(this);
@@ -159,6 +172,9 @@ public class TabHostActivity extends AppCompatActivity {
                .commit();
     }
 
+    /**
+     * method for pasue view
+     */
     public void OnPause(){
         super.onPause();
         this.finish();
