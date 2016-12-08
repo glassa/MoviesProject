@@ -154,7 +154,7 @@ class MovieItem implements Serializable {
      * @param mItemList     the m item list
      * @return reason or null if successful.
      */
-    static String parseCourseJSON(String movieListJSON, List<MovieItem> mItemList) {
+    static String parseMovieItemJSON(String movieListJSON, List<MovieItem> mItemList) {
         String reason = null;
         if (movieListJSON != null) {
             try {
