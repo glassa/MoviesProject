@@ -34,7 +34,8 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * The fragment of the first tab of the TabHost on MainActivity. This handles the
+ * public feed function.
  */
 public class Tab1Home extends Fragment {
     private ListView listFeed;

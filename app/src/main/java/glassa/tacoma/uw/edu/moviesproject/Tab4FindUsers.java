@@ -30,7 +30,8 @@ import glassa.tacoma.uw.edu.moviesproject.profile.ProfileActivity;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * The fragment of the third tab of the TabHost on MainActivity. this handles
+ * the search users function.
  */
 public class Tab4FindUsers extends Fragment {
 

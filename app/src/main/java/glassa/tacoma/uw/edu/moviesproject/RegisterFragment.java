@@ -137,6 +137,12 @@ public class RegisterFragment extends Fragment {
         }
     }
 
+    /**
+     * Builds the URL that executes the SQL query via php.
+     *
+     * @param v
+     * @return
+     */
     private String buildUserURL(View v) {
 
         StringBuilder sb = new StringBuilder(USER_ADD_URL);

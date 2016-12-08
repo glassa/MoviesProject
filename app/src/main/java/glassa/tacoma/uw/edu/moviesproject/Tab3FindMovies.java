@@ -30,7 +30,8 @@ import glassa.tacoma.uw.edu.moviesproject.movie.MovieActivity;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * The fragment of the second tab of the TabHost on MainActivity. This handles the
+ * search movies function.
  */
 public class Tab3FindMovies extends Fragment {
 

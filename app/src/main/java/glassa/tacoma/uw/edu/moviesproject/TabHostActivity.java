@@ -30,14 +30,6 @@ public class TabHostActivity extends AppCompatActivity {
     String mCurrentUser;
     SharedPreferencesHelper mSharedPreferencesHelper;
 
-
-
-    /**
-
-     * The oncreate method.
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,13 +67,15 @@ public class TabHostActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Getter for current User.
+     * @return
+     */
     public String getmCurrentUser() {
         return mCurrentUser;
     }
 
-    public void setmCurrentUser(String mCurrentUser) {
-        this.mCurrentUser = mCurrentUser;
-    }
+
     /**
      * View following users.
      *
@@ -132,6 +126,12 @@ public class TabHostActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This launches when change password button is clicked on the Settings
+     * tab.
+     *
+     * @param v
+     */
     public void launch(View v){
         DialogFragment fragment = null;
         if (v.getId() == R.id.change_user_button) {
@@ -143,6 +143,11 @@ public class TabHostActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to log out of the app.
+     *
+     * @param view
+     */
     public void logout(View view) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(this);
@@ -159,8 +164,4 @@ public class TabHostActivity extends AppCompatActivity {
                .commit();
     }
 
-    public void OnPause(){
-        super.onPause();
-        this.finish();
-    }
 }

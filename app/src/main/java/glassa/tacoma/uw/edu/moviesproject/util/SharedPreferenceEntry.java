@@ -26,10 +26,18 @@ public class SharedPreferenceEntry {
 //        Log.i("SPEntry", username);
     }
 
+    /**
+     * Method to determine whether user is logged in.
+     * @return
+     */
     public boolean isLoggedIn() {
         return mIsLoggedIn;
     }
 
+    /**
+     * Getter to get username.
+     * @return
+     */
     public String getUsername() {
         return mUsername;
     }
