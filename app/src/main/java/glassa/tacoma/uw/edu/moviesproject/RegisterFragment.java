@@ -19,7 +19,6 @@ import java.net.URLEncoder;
 
 
 /**
-<<<<<<< HEAD
  * -----------------------------------------------------------------------
  * A fragment class to hold the registration UI.                          |
  * -----------------------------------------------------------------------
@@ -34,19 +33,6 @@ import java.net.URLEncoder;
  * Conatains a stringbuilder that builds the url by taking                |
  * the data out of the EditViews and appending it onto the url.           |
  * ------------------------------------------------------------------------
-=======
- * A fragment class to hold the registration UI.
- * Contains 3 EditText views, one for the user name,
- * and two for the password. If the two password views
- * match, interface is called to launch the Asynctask
- * in mainActivity to add the data.
- * <p>
- * Contains one button. On click, calls a stringbuilder
- * to build the appended url, and call the AsyncTask
- * <p>
- * Conatains a stringbuilder that builds the url by taking
- * the data out of the EditViews and appending it onto the url.
->>>>>>> refs/remotes/origin/Tony
  */
 public class RegisterFragment extends Fragment {
 
@@ -67,12 +53,7 @@ public class RegisterFragment extends Fragment {
      */
     private final static String USER_ADD_URL = "http://cssgate.insttech.washington.edu/~_450team2/addUser.php?";
 
-    /**
-     * The empty public constructer
-     */
-    public RegisterFragment() {
-        // Required empty public constructor
-    }
+
     /**
      * The Buttons. b1 is register, b2 is cancel.
      */
@@ -90,7 +71,12 @@ public class RegisterFragment extends Fragment {
     private RegisterFragment.UserAddListener mListener;
     String mUsername;
 
-
+    /**
+     * The empty public constructer
+     */
+    public RegisterFragment() {
+        // Required empty public constructor
+    }
 
 
     @Override

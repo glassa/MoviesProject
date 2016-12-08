@@ -58,12 +58,8 @@ public class LoginFragment extends Fragment {
          * @param url the url
          */
         public void addLogin(String url, String mUsername);
-        public void addUser(String url);
         public void sharedPrefLogin(String mUsername);
 
-    }
-    public interface FacebookLoginListener{
-        public void facebookLogin();
     }
 
     /**
@@ -109,42 +105,12 @@ public class LoginFragment extends Fragment {
      */
     ed2;
 
-
-    //LoginButton loginButton;
-
-
-    CallbackManager callbackManager;
-
-    ProfileTracker profileTracker;
     protected static String mUsername;
     /**
      * Instantiates a new Login fragment.
      */
     public LoginFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Context x = getActivity();
-        FacebookSdk.sdkInitialize(x);
-        callbackManager = CallbackManager.Factory.create();
-
-        profileTracker = new ProfileTracker() {
-            @Override
-            public void onCurrentProfileChanged(
-                    Profile oldProfile,
-                    Profile currentProfile
-            ) {
-                // App code
-            }
-        };
-
-    }
-
-    public void onBackPressed(){
-        this.getActivity().onBackPressed();
     }
 
     @Override

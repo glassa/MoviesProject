@@ -212,17 +212,12 @@ public class MainActivity extends AppCompatActivity implements
         /**
          * It checks to see if there was a problem with the URL(Network) which is when an
          * exception is caught. It tries to call the parse Method and checks to see if it was successful.
-<<<<<<< HEAD
-         * If it was, it takes the user to the TabHostActivity via an intent.
-         * If not, it displays the exception.
-=======
          * If it was, it takes the user to the TabHostActivity via an intent, stores the username
          * in a SQlite database if it does not already exist, and saves the user as logged in with
          * sharedpreferences.
          * If the user provided incorrect login info, they are marked as not logged in
          * via sharedpreferences, and a toast is displayed letting them know.
          * If something else causes an exception, they are informed, and a log is left.
->>>>>>> master
          *
          * @param result Passed by doInBackground. Used to determine if the user login was successful.
          */
