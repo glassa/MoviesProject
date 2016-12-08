@@ -141,7 +141,7 @@ public class FollowItemFragment extends Fragment {
             }
 
             List<FollowItem> followItemList = new ArrayList<>();
-            result = FollowItem.parseCourseJSON(result, followItemList);
+            result = FollowItem.parseFollowItemJSON(result, followItemList);
             // Something wrong with the JSON returned.
             if (result != null) {
                 return;

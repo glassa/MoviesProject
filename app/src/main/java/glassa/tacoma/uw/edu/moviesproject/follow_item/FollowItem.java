@@ -68,7 +68,7 @@ class FollowItem implements Serializable{
      * @param fItemList      the f item list
      * @return reason or null if successful.
      */
-    static String parseCourseJSON(String followListJSON, List<FollowItem> fItemList) {
+    static String parseFollowItemJSON(String followListJSON, List<FollowItem> fItemList) {
         String reason = null;
         if (followListJSON != null) {
             try {
