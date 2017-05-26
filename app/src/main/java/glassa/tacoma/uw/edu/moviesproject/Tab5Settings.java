@@ -18,7 +18,8 @@ import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferencesHelper;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * The fragment of the fourth tab of the TabHost on MainActivity. This handles the
+ * settings actions of the app.
  */
 public class Tab5Settings extends Fragment {
 

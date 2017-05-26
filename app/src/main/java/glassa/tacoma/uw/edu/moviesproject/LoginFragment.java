@@ -16,11 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-
 import java.net.URLEncoder;
 
 import glassa.tacoma.uw.edu.moviesproject.util.SharedPreferenceEntry;
@@ -58,12 +53,8 @@ public class LoginFragment extends Fragment {
          * @param url the url
          */
         public void addLogin(String url, String mUsername);
-        public void addUser(String url);
         public void sharedPrefLogin(String mUsername);
 
-    }
-    public interface FacebookLoginListener{
-        public void facebookLogin();
     }
 
     /**
@@ -109,42 +100,12 @@ public class LoginFragment extends Fragment {
      */
     ed2;
 
-
-    //LoginButton loginButton;
-
-
-    CallbackManager callbackManager;
-
-    ProfileTracker profileTracker;
     protected static String mUsername;
     /**
      * Instantiates a new Login fragment.
      */
     public LoginFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Context x = getActivity();
-        FacebookSdk.sdkInitialize(x);
-        callbackManager = CallbackManager.Factory.create();
-
-        profileTracker = new ProfileTracker() {
-            @Override
-            public void onCurrentProfileChanged(
-                    Profile oldProfile,
-                    Profile currentProfile
-            ) {
-                // App code
-            }
-        };
-
-    }
-
-    public void onBackPressed(){
-        this.getActivity().onBackPressed();
     }
 
     @Override
@@ -243,6 +204,12 @@ public class LoginFragment extends Fragment {
         }
     }
 
+    /**
+     * Builds the URL that executes the SQL query via php
+     *
+     * @param v
+     * @return
+     */
     private String buildUserURL(View v) {
 
         StringBuilder sb = new StringBuilder(USER_LOGIN_URL);

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,7 +27,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * This class is the dialog fragment that is called to change password.
  */
 public class ChangeUserInfoDialog extends DialogFragment {
     EditText ed2;
@@ -68,6 +67,11 @@ public class ChangeUserInfoDialog extends DialogFragment {
         return builder.show();
     }
 
+    /**
+     * Builds the URL that executes the SQL query via php
+     * @param v
+     * @return
+     */
     private String buildUserChangeURL(View v) {
 
         StringBuilder sb = new StringBuilder(url);
@@ -96,6 +100,9 @@ public class ChangeUserInfoDialog extends DialogFragment {
         return sb.toString();
     }
 
+    /**
+     * The AsyncTask that changes the password in the database.
+     */
     private class ChangeUserTask extends AsyncTask<String, Void, String> {
 
 

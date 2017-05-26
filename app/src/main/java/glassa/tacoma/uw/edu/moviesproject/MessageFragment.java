@@ -51,6 +51,10 @@ public class MessageFragment extends Fragment {
             mListener = (messageListener) context;
         }
     }
+
+    /**
+     * Called to send a message via text.
+     */
     protected void sendMessage() {
         Log.i("Send message", "");
         String number =ed1.getText().toString();
